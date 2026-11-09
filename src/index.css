@@ -1,0 +1,66 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    font-family: 'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  /* Headlines in Jacquard 24 (pixelated medieval blackletter) */
+  h1, h2, .font-jacquard, .font-headline {
+    font-family: 'Jacquard 24', serif, monospace;
+    letter-spacing: 0.03em;
+    font-weight: 400;
+  }
+
+  /* Ornamental Medieval Iconography via Yarndings 20 */
+  .font-yarndings {
+    font-family: 'Yarndings 20', serif, monospace;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    user-select: none;
+    text-rendering: optimizeLegibility;
+  }
+
+  html, body {
+    background-color: #080c14;
+    color: #f4f1ea;
+    margin: 0;
+    padding: 0;
+    min-height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  /* Low-contrast heraldic diamond checkerboard pattern (minimalist medieval lozenges) */
+  .bg-medieval-diamonds {
+    background-color: #080c14;
+    background-image: 
+      radial-gradient(ellipse at 50% 0%, rgba(26, 42, 68, 0.4) 0%, transparent 70%),
+      radial-gradient(ellipse at 50% 100%, rgba(44, 28, 22, 0.25) 0%, transparent 60%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cpolygon points='22,0 44,22 22,44 0,22' fill='%23ffffff' fill-opacity='0.016' stroke='%23cbb279' stroke-opacity='0.035' stroke-width='0.5'/%3E%3Cpolygon points='22,8 36,22 22,36 8,22' fill='none' stroke='%23ffffff' stroke-opacity='0.008' stroke-width='0.5'/%3E%3C/svg%3E");
+  }
+
+  /* Red ochre version for Last Turn round */
+  .bg-medieval-lastturn {
+    background-color: #170505;
+    background-image: 
+      radial-gradient(ellipse at 50% 0%, rgba(125, 34, 28, 0.45) 0%, transparent 70%),
+      radial-gradient(ellipse at 50% 100%, rgba(66, 43, 33, 0.35) 0%, transparent 60%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='44' height='44' viewBox='0 0 44 44'%3E%3Cpolygon points='22,0 44,22 22,44 0,22' fill='%23c94337' fill-opacity='0.02' stroke='%23cbb279' stroke-opacity='0.045' stroke-width='0.5'/%3E%3C/svg%3E");
+  }
+}
+

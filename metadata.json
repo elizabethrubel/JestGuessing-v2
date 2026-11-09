@@ -1,0 +1,8 @@
+{
+  "name": "Remix Jest Guessing V1.3",
+  "description": "A single-device tabletop party guessing game where players deduce their secret identity.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
