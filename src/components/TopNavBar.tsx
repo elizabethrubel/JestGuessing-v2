@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ThemePack } from '../types';
+import { ShepherdStar } from './ShepherdStar';
 
 interface TopNavBarProps {
   onGoHome?: () => void;
@@ -47,11 +48,13 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
           )}
         </div>
 
-        {/* Center: Symmetrical 4-Loop Heraldic Clover Knot */}
+        {/* Center: Shared 7-Pointed Shepherd Star Motif */}
         <div className="flex items-center justify-center px-3 shrink-0">
           {isLastTurnRound ? (
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#e03a28] animate-pulse">
-              FINAL TURN
+            <span className="inline-flex items-center gap-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-[#e03a28] animate-pulse">
+              <ShepherdStar size={14} className="text-[#e03a28]" />
+              <span>FINAL TURN</span>
+              <ShepherdStar size={14} variant="tilted" className="text-[#e03a28]" />
             </span>
           ) : centerContent ? (
             centerContent
@@ -60,30 +63,15 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
               type="button"
               onClick={theme ? () => setShowThemeModal(true) : onGoHome}
               title={theme ? 'View round commonality' : 'Jest Guessing'}
-              className={`p-1.5 text-[#f4efe4] transition-transform duration-300 ${
+              className={`p-1.5 text-[#b9bfff] transition-transform duration-300 flex items-center gap-1 ${
                 theme || onGoHome
-                  ? 'hover:text-[#b9bfff] hover:scale-105 cursor-pointer'
+                  ? 'hover:text-[#f4efe4] hover:scale-110 cursor-pointer'
                   : 'cursor-default'
               }`}
             >
-              <svg
-                className="w-6 h-6 sm:w-7 sm:h-7"
-                viewBox="0 0 32 32"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M16 16c-4.5-4.5-9.5-4.5-9.5 0s5 4.5 9.5 0z" />
-                <path d="M16 16c4.5-4.5 9.5-4.5 9.5 0s-5 4.5-9.5 0z" />
-                <path d="M16 16c-4.5-4.5-4.5-9.5 0-9.5s4.5 5 0 9.5z" />
-                <path d="M16 16c-4.5 4.5-4.5 9.5 0 9.5s4.5-5 0-9.5z" />
-                <circle cx="16" cy="4" r="1" fill="currentColor" stroke="none" />
-                <circle cx="16" cy="28" r="1" fill="currentColor" stroke="none" />
-                <circle cx="4" cy="16" r="1" fill="currentColor" stroke="none" />
-                <circle cx="28" cy="16" r="1" fill="currentColor" stroke="none" />
-              </svg>
+              <ShepherdStar size={12} variant="tilted" className="text-[#b9bfff]/65 hidden sm:inline-block" />
+              <ShepherdStar size={24} className="text-[#b9bfff]" />
+              <ShepherdStar size={12} variant="asymmetric" className="text-[#b9bfff]/65 hidden sm:inline-block" />
             </button>
           )}
         </div>
@@ -131,12 +119,13 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
           }}
         >
           <div
-            className="w-full max-w-md bg-[#09120e] border border-[#f4efe4]/50 p-7 sm:p-9 space-y-6 text-center shadow-2xl relative"
+            className="w-full max-w-md bg-[#09120e] border border-[#f4efe4]/50 p-7 sm:p-9 space-y-5 text-center shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-center justify-between border-b border-[#f4efe4]/20 pb-3">
-              <span className="text-xs font-medium uppercase tracking-[0.2em] text-[#b9bfff]">
-                ACTIVE DECREE
+              <span className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.2em] text-[#b9bfff]">
+                <ShepherdStar size={14} className="text-[#b9bfff]" />
+                <span>ACTIVE DECREE</span>
               </span>
               <button
                 type="button"
@@ -148,7 +137,12 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
               </button>
             </div>
 
-            <div className="py-4 px-2 space-y-3">
+            <div className="py-2 px-2 space-y-3 flex flex-col items-center">
+              <img
+                src="/assets/illus-owl-scholar.png"
+                alt="Medieval woodblock owl scholar with spectacles holding a royal decree scroll surrounded by 7-pointed stars"
+                className="w-28 sm:w-32 h-auto object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]"
+              />
               <h2 className="text-4xl sm:text-5xl font-jacquard text-[#f4efe4] leading-snug">
                 {theme.name}
               </h2>

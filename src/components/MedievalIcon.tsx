@@ -144,12 +144,11 @@ export const MedievalIcon: React.FC<MedievalIconProps> = ({
 
       case 'star':
       case 'diamond':
-        // 8-pointed illuminated medieval star
+        // 7-pointed woodblock star motif from the German Shepherd Jester illustration
         return (
-          <path
+          <polygon
             fill="currentColor"
-            fillRule="evenodd"
-            d="M12 2l2.3 5.3 5.7.9-4.2 4 1.1 5.8L12 15.2 7.1 18l1.1-5.8-4.2-4 5.7-.9L12 2z"
+            points="12,0.8 13.6,8.8 20.9,4.8 15.5,11.2 23,14.6 14.6,14.5 17.2,22.3 12,16 6.8,22.3 9.4,14.5 1,14.6 8.5,11.2 3.1,4.8 10.4,8.8"
           />
         );
 

@@ -202,10 +202,11 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
 
       {/* Main Content: Single column on mobile with players anchored to bottom, wide 2-column spread on desktop */}
       <div className="py-1 sm:py-6 flex-1 flex flex-col min-h-0 lg:grid lg:grid-cols-12 lg:gap-12 lg:items-center w-full">
-        {/* Left Column on Desktop: Title & Editorial Epigraph */}
+        {/* Left Column on Desktop: Title, Editorial Epigraph & German Shepherd Scribe */}
         <div className="hidden lg:block lg:col-span-5 text-left space-y-4 shrink-0">
-          <span className="text-xs font-medium uppercase tracking-[0.22em] text-[#b9bfff] block">
-            ACT I // THE ROSTER
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.22em] text-[#b9bfff]">
+            <MedievalIcon name="star" size={14} className="text-[#b9bfff]" />
+            <span>ACT I // THE ROSTER</span>
           </span>
           <h1 className="text-7xl lg:text-8xl font-jacquard text-[#f4efe4] leading-[0.92]">
             Players
@@ -227,12 +228,12 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
             </div>
           )}
 
-          {/* Subtle Goose & Jester Emblem on Desktop */}
-          <div className="pt-4">
+          {/* German Shepherd Jester Scribe Illustration on Desktop */}
+          <div className="pt-2">
             <img
-              src="/assets/jester-goose.png"
-              alt=""
-              className="w-44 h-auto opacity-85 drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]"
+              src="/assets/illus-shepherd-scribe.png"
+              alt="Medieval folk woodblock of a German Shepherd jester scribe holding a scroll and quill surrounded by 7-pointed stars"
+              className="w-52 h-auto opacity-95 drop-shadow-[0_12px_24px_rgba(0,0,0,0.55)]"
             />
           </div>
         </div>
@@ -245,9 +246,15 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
           >
             {/* Mobile Header: Hidden while entering names, and scrolls up naturally as players are added */}
             {!hideMobileHeader && (
-              <div className="lg:hidden text-center space-y-1.5 mb-4 pt-2 shrink-0">
-                <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-[#b9bfff] block">
-                  ACT I // THE ROSTER
+              <div className="lg:hidden text-center space-y-1.5 mb-3 pt-1 shrink-0 flex flex-col items-center">
+                <img
+                  src="/assets/illus-shepherd-scribe.png"
+                  alt="German Shepherd jester scribe holding a scroll and quill"
+                  className="w-24 xs:w-28 h-auto object-contain drop-shadow-[0_8px_16px_rgba(0,0,0,0.5)] mb-0.5"
+                />
+                <span className="inline-flex items-center gap-1.5 text-[11px] font-medium uppercase tracking-[0.22em] text-[#b9bfff]">
+                  <MedievalIcon name="star" size={12} className="text-[#b9bfff]" />
+                  <span>ACT I // THE ROSTER</span>
                 </span>
                 <h1 className="text-5xl xs:text-6xl font-jacquard text-[#f4efe4] leading-[0.92]">
                   Players

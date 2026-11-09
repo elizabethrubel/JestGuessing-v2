@@ -56,15 +56,23 @@ export const PrivacyInterstitialScreen: React.FC<PrivacyInterstitialScreenProps>
         isLastTurnRound={isLastTurnRound}
       />
 
-      {/* Main Focus */}
-      <div className="my-auto py-4 sm:py-8 flex flex-col items-center justify-center w-full max-w-3xl mx-auto space-y-5 sm:space-y-8 relative z-20">
-        {/* 1-Bit Pixel Turn Ring */}
-        <div className="pixel-ring-periwinkle text-xs sm:text-sm font-bold text-[#b9bfff] scale-110">
-          {turnNumber}
+      {/* Main Focus: Shushing Masked Fox + Updated Privacy Copy */}
+      <div className="my-auto py-2 sm:py-4 flex flex-col items-center justify-center w-full max-w-3xl mx-auto space-y-2.5 sm:space-y-4 relative z-20 min-h-0">
+        {/* Shushing Masked Fox Woodblock Illustration */}
+        <div className="relative flex items-center justify-center">
+          <img
+            src="/assets/illus-masked-fox.png"
+            alt="Medieval folk woodblock of a masked fox in a harlequin tunic shushing between two candlesticks and 7-pointed periwinkle stars"
+            className="w-36 xs:w-44 sm:w-52 lg:w-60 h-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.55)] pointer-events-none"
+          />
+          {/* 1-Bit Pixel Turn Ring badge tucked at bottom-right of illustration */}
+          <div className="pixel-ring-periwinkle absolute -bottom-1 right-2 text-xs sm:text-sm font-bold text-[#b9bfff] bg-[#09120e]/85">
+            {turnNumber}
+          </div>
         </div>
 
         {/* Player Name & Concise Instruction */}
-        <div className="space-y-4 flex flex-col items-center justify-center w-full">
+        <div className="space-y-2 sm:space-y-3 flex flex-col items-center justify-center w-full pt-1">
           <p className="text-xs sm:text-sm font-medium uppercase tracking-[0.25em] text-[#b9bfff]">
             UP NEXT TO GUESS
           </p>
@@ -72,14 +80,14 @@ export const PrivacyInterstitialScreen: React.FC<PrivacyInterstitialScreenProps>
           <h1
             className={`${
               activePlayer.name.length > 12
-                ? 'text-6xl sm:text-8xl lg:text-9xl'
-                : 'text-7xl sm:text-9xl lg:text-[9.5rem]'
-            } font-jacquard text-[#f4efe4] leading-[0.95] text-center break-words max-w-full px-3`}
+                ? 'text-5xl xs:text-6xl sm:text-7xl lg:text-8xl'
+                : 'text-6xl xs:text-7xl sm:text-8xl lg:text-[8.5rem]'
+            } font-jacquard text-[#f4efe4] leading-[0.92] text-center break-words max-w-full px-3`}
           >
             {activePlayer.name}
           </h1>
 
-          <p className="font-serif-editorial italic text-xl sm:text-2xl lg:text-3xl text-[#f4efe4]/80 max-w-md mx-auto pt-2 leading-relaxed">
+          <p className="font-serif-editorial italic text-lg sm:text-2xl text-[#f4efe4]/80 max-w-md mx-auto pt-0.5 leading-snug sm:leading-relaxed">
             Pass the phone to another player—anyone except {activePlayer.name} may look.
           </p>
         </div>

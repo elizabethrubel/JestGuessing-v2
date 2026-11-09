@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { Player, CandidateCommonality } from '../types';
 import { TopNavBar } from './TopNavBar';
 import { Loader2 } from 'lucide-react';
+import { ShepherdStar } from './ShepherdStar';
 
 interface CommonalitySelectionScreenProps {
   players: Player[];
@@ -42,15 +43,24 @@ export const CommonalitySelectionScreen: React.FC<CommonalitySelectionScreenProp
       <TopNavBar onGoHome={onGoHome} onOpenRules={onOpenRules} />
 
       {/* Main Content: Editorial Decree Selection with Zero Scrolling */}
-      <div className="my-auto py-2 sm:py-6 flex-1 flex flex-col justify-center space-y-3.5 sm:space-y-7 w-full min-h-0">
-        {/* Header */}
-        <div className="text-center sm:text-left space-y-1 sm:space-y-2 border-b border-[#f4efe4]/20 pb-2.5 sm:pb-4 shrink-0">
-          <span className="text-[11px] sm:text-xs font-medium uppercase tracking-[0.22em] text-[#b9bfff] block">
-            ACT II // SECRET BOND FOR {players.length} PLAYERS
-          </span>
-          <h1 className="text-4xl xs:text-5xl sm:text-6xl lg:text-7xl font-jacquard text-[#f4efe4] leading-[0.95]">
-            Choose Commonality
-          </h1>
+      <div className="my-auto py-2 sm:py-6 flex-1 flex flex-col justify-center space-y-3.5 sm:space-y-6 w-full min-h-0">
+        {/* Header with Owl Scholar Emblem & Shepherd Star Motif */}
+        <div className="flex flex-col sm:flex-row items-center justify-between border-b border-[#f4efe4]/20 pb-2.5 sm:pb-4 shrink-0 gap-3">
+          <div className="text-center sm:text-left space-y-1 sm:space-y-2">
+            <span className="inline-flex items-center gap-1.5 text-[11px] sm:text-xs font-medium uppercase tracking-[0.22em] text-[#b9bfff]">
+              <ShepherdStar size={14} className="text-[#b9bfff]" />
+              <span>ACT II // SECRET BOND FOR {players.length} PLAYERS</span>
+            </span>
+            <h1 className="text-4xl xs:text-5xl sm:text-6xl lg:text-7xl font-jacquard text-[#f4efe4] leading-[0.95]">
+              Choose Commonality
+            </h1>
+          </div>
+
+          <img
+            src="/assets/illus-owl-scholar.png"
+            alt="Medieval folk woodblock of a bespectacled owl scholar perched on an inkwell holding a decree scroll with tumbling dice and 7-pointed stars"
+            className="hidden sm:block w-24 lg:w-28 h-auto object-contain drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)] shrink-0"
+          />
         </div>
 
         {/* 3 Candidate Decrees: Compact vertical stack on mobile, 3 equal horizontal columns on desktop */}
@@ -69,7 +79,7 @@ export const CommonalitySelectionScreen: React.FC<CommonalitySelectionScreenProp
                     : 'bg-[#09120e]/70 border-[#f4efe4]/25 hover:border-[#f4efe4]/60'
                 }`}
               >
-                {/* Top/Left: 1-Bit Pixelated Ring Number ( 1 / 2 / 3 ) */}
+                {/* Top/Left: 1-Bit Pixelated Ring Number ( 1 / 2 / 3 ) + Shepherd Star when selected */}
                 <div className="flex items-center justify-between w-auto lg:w-full shrink-0">
                   <div
                     className={
@@ -80,6 +90,15 @@ export const CommonalitySelectionScreen: React.FC<CommonalitySelectionScreenProp
                   >
                     {idx + 1}
                   </div>
+                  <ShepherdStar
+                    size={20}
+                    variant={idx === 1 ? 'tilted' : idx === 2 ? 'asymmetric' : 'default'}
+                    className={`hidden lg:inline-block transition-all ${
+                      isSelected
+                        ? 'text-[#b9bfff] opacity-100 scale-105'
+                        : 'text-[#f4efe4]/25 opacity-60 group-hover:text-[#b9bfff]/60'
+                    }`}
+                  />
                 </div>
 
                 {/* Trait Text in Classical Editorial Serif */}
@@ -92,6 +111,14 @@ export const CommonalitySelectionScreen: React.FC<CommonalitySelectionScreenProp
                     “{cand.formattedName}.”
                   </p>
                 </div>
+
+                {/* Mobile selected Shepherd Star indicator */}
+                {isSelected && (
+                  <ShepherdStar
+                    size={18}
+                    className="lg:hidden text-[#b9bfff] shrink-0"
+                  />
+                )}
               </button>
             );
           })}

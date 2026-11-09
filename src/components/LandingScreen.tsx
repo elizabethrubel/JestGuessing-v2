@@ -1,5 +1,6 @@
 import React from 'react';
 import { TopNavBar } from './TopNavBar';
+import { ShepherdStar } from './ShepherdStar';
 
 interface LandingScreenProps {
   onStartSetup: () => void;
@@ -29,11 +30,11 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
             Jest
           </h1>
 
-          {/* Central Woodcut Engraving: Periwinkle-Lilac & Vermilion Crowned Goose + Lute Jester */}
-          <div className="relative w-[270px] xs:w-[305px] sm:w-[350px] lg:w-[390px] -mt-5 sm:-mt-7 -mb-4 sm:-mb-5 z-20 flex items-center justify-center">
+          {/* Central Woodblock Folk Print: Crowned Goose + Lute-Playing Raccoon Jester with 7-Pointed Stars */}
+          <div className="relative w-[265px] xs:w-[300px] sm:w-[345px] lg:w-[385px] -mt-5 sm:-mt-7 -mb-4 sm:-mb-5 z-20 flex items-center justify-center">
             <img
               src="/assets/jester-goose.png"
-              alt="Renaissance woodcut of a Court Jester playing a lute beside a crowned goose in a ruffled collar"
+              alt="Medieval folk woodblock print of a crowned goose honking beside a silly raccoon jester playing a lute surrounded by 7-pointed periwinkle stars"
               className="w-full h-auto object-contain drop-shadow-[0_14px_28px_rgba(0,0,0,0.55)] pointer-events-none"
             />
 
@@ -45,7 +46,7 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
               1
             </div>
 
-            {/* 1-Bit Pixelated Ring ( 2 ) Floating Bottom-Right of the Jester */}
+            {/* 1-Bit Pixelated Ring ( 2 ) Floating Bottom-Right of the Raccoon Jester */}
             <div
               className="pixel-ring absolute right-1 sm:right-3 bottom-[8%] text-xs sm:text-sm font-semibold text-[#f4efe4]"
               aria-hidden="true"
@@ -63,10 +64,14 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
           </span>
         </div>
 
-        {/* Classical Editorial Serif Epigraph */}
-        <p className="font-serif-editorial italic text-xl sm:text-2xl lg:text-3xl text-[#f4efe4]/85 max-w-xs sm:max-w-md mx-auto leading-snug sm:leading-relaxed pt-1">
-          Who is the best in jest?
-        </p>
+        {/* Classical Editorial Serif Epigraph flanked by Shepherd Stars */}
+        <div className="flex items-center justify-center gap-2.5 pt-1">
+          <ShepherdStar size={16} variant="tilted" className="text-[#b9bfff]/75" />
+          <p className="font-serif-editorial italic text-xl sm:text-2xl lg:text-3xl text-[#f4efe4]/85 max-w-xs sm:max-w-md mx-auto leading-snug sm:leading-relaxed">
+            Who is the best in jest?
+          </p>
+          <ShepherdStar size={16} variant="asymmetric" className="text-[#b9bfff]/75" />
+        </div>
       </div>
 
       {/* Bottom Action Zone: Transparent background */}

@@ -3,6 +3,7 @@ import { Player, ThemePack } from '../types';
 import { Loader2 } from 'lucide-react';
 import { playSuccessTone, playPassTone, triggerHaptic } from '../utils/audio';
 import { TopNavBar } from './TopNavBar';
+import { ShepherdStar, ShepherdStarConstellation } from './ShepherdStar';
 
 interface ActiveTurnScreenProps {
   player: Player;
@@ -59,8 +60,11 @@ export const ActiveTurnScreen: React.FC<ActiveTurnScreenProps> = ({
   return (
     <div
       id="active-turn-screen"
-      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-2.5 sm:py-6 px-4 sm:px-10 text-center select-none h-[100dvh] overflow-hidden"
+      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-2.5 sm:py-6 px-4 sm:px-10 text-center select-none h-[100dvh] overflow-hidden relative"
     >
+      {/* Shared 7-Pointed Shepherd Star Constellation framing the screen edges (no animal illustration so character text stays huge) */}
+      <ShepherdStarConstellation />
+
       <TopNavBar
         onGoHome={onGoHome}
         onOpenRules={onOpenRules}
@@ -68,11 +72,15 @@ export const ActiveTurnScreen: React.FC<ActiveTurnScreenProps> = ({
         isLastTurnRound={isLastTurnRound}
       />
 
-      {/* Main Focus: Huge Across-the-Table Character Name with Shuffle Character close beneath */}
-      <div className="my-auto py-4 sm:py-8 flex flex-col items-center justify-center w-full max-w-5xl mx-auto space-y-3 sm:space-y-4">
-        <span className="text-xs sm:text-sm font-medium tracking-[0.26em] text-[#b9bfff] uppercase">
-          {player.name}’S SECRET IDENTITY
-        </span>
+      {/* Main Focus: Huge Across-the-Table Character Name with Shepherd Star Motif */}
+      <div className="my-auto py-4 sm:py-8 flex flex-col items-center justify-center w-full max-w-5xl mx-auto space-y-3 sm:space-y-4 relative z-10">
+        <div className="inline-flex items-center justify-center gap-2.5">
+          <ShepherdStar size={16} variant="tilted" className="text-[#b9bfff]" />
+          <span className="text-xs sm:text-sm font-medium tracking-[0.26em] text-[#b9bfff] uppercase">
+            {player.name}’S SECRET IDENTITY
+          </span>
+          <ShepherdStar size={16} variant="asymmetric" className="text-[#b9bfff]" />
+        </div>
 
         {/* Character Name in Jacquard 24 — Scaled as large as possible for party viewing */}
         <h1
@@ -103,7 +111,10 @@ export const ActiveTurnScreen: React.FC<ActiveTurnScreenProps> = ({
                 <span>SHUFFLING CHARACTER...</span>
               </>
             ) : (
-              <span>↻ SHUFFLE CHARACTER</span>
+              <>
+                <ShepherdStar size={12} className="text-[#b9bfff]" />
+                <span>↻ SHUFFLE CHARACTER</span>
+              </>
             )}
           </button>
         </div>

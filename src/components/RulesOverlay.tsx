@@ -1,4 +1,5 @@
 import React from 'react';
+import { ShepherdStar } from './ShepherdStar';
 
 interface RulesOverlayProps {
   isOpen: boolean;
@@ -21,8 +22,9 @@ export const RulesOverlay: React.FC<RulesOverlayProps> = ({ isOpen, onClose }) =
         {/* Header */}
         <div className="flex items-center justify-between border-b border-[#f4efe4]/20 pb-4">
           <div>
-            <span className="text-xs uppercase tracking-[0.22em] text-[#b9bfff] block mb-1">
-              THE PARLOR CODEX
+            <span className="inline-flex items-center gap-1.5 text-xs uppercase tracking-[0.22em] text-[#b9bfff] mb-1">
+              <ShepherdStar size={14} className="text-[#b9bfff]" />
+              <span>THE PARLOR CODEX</span>
             </span>
             <h2 className="text-4xl sm:text-5xl font-jacquard text-[#f4efe4] leading-none">
               How to Play

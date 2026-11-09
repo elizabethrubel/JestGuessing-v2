@@ -1,6 +1,7 @@
 import React from 'react';
 import { Player, ThemePack } from '../types';
 import { TopNavBar } from './TopNavBar';
+import { ShepherdStar } from './ShepherdStar';
 
 interface ScoreboardScreenProps {
   players: Player[];
@@ -33,16 +34,22 @@ export const ScoreboardScreen: React.FC<ScoreboardScreenProps> = ({
       <TopNavBar onGoHome={onGoHome} onOpenRules={onOpenRules} />
 
       {/* Main Content: 2-Column Editorial Spread on Desktop, Clean Vertical Ledger on Mobile */}
-      <div className="my-auto py-2 sm:py-6 flex-1 flex flex-col min-h-0 lg:grid lg:grid-cols-12 lg:gap-12 lg:items-center w-full">
-        {/* Left Header */}
-        <div className="lg:col-span-5 text-center lg:text-left space-y-2 sm:space-y-4 mb-4 lg:mb-0 shrink-0">
-          <span className="text-xs font-medium uppercase tracking-[0.22em] text-[#b9bfff] block">
-            THE COURT STANDINGS
+      <div className="my-auto py-1 sm:py-6 flex-1 flex flex-col min-h-0 lg:grid lg:grid-cols-12 lg:gap-12 lg:items-center w-full">
+        {/* Left Header + Champion Cat Riding Snail Woodblock Illustration */}
+        <div className="lg:col-span-5 text-center lg:text-left space-y-1.5 sm:space-y-3 mb-3 lg:mb-0 shrink-0 flex flex-col items-center lg:items-start">
+          <img
+            src="/assets/illus-snail-cat.png"
+            alt="Medieval folk woodblock of a triumphant jester cat riding a giant ornate snail holding a trophy goblet and keys surrounded by 7-pointed periwinkle stars"
+            className="w-28 xs:w-32 sm:w-40 lg:w-56 h-auto object-contain drop-shadow-[0_12px_24px_rgba(0,0,0,0.55)] mb-1 lg:mb-2 pointer-events-none"
+          />
+          <span className="inline-flex items-center gap-1.5 text-xs font-medium uppercase tracking-[0.22em] text-[#b9bfff]">
+            <ShepherdStar size={14} className="text-[#b9bfff]" />
+            <span>THE COURT STANDINGS</span>
           </span>
           <h1 className="text-5xl xs:text-6xl sm:text-7xl lg:text-8xl font-jacquard text-[#f4efe4] leading-[0.92]">
             Scores
           </h1>
-          <p className="font-serif-editorial italic text-lg sm:text-2xl text-[#f4efe4]/80 max-w-sm mx-auto lg:mx-0 leading-relaxed">
+          <p className="font-serif-editorial italic text-base sm:text-2xl text-[#f4efe4]/80 max-w-sm mx-auto lg:mx-0 leading-snug sm:leading-relaxed">
             “{theme.name}.”
           </p>
         </div>
@@ -71,13 +78,17 @@ export const ScoreboardScreen: React.FC<ScoreboardScreenProps> = ({
                     </div>
 
                     <div className="min-w-0">
-                      <div className="flex items-center space-x-2.5">
+                      <div className="flex items-center space-x-2">
                         <span className="font-serif-editorial text-xl sm:text-2xl font-semibold text-[#f4efe4] truncate">
                           {player.name}
                         </span>
+                        {isLeader && (
+                          <ShepherdStar size={16} className="text-[#b9bfff] shrink-0" title="Court Leader" />
+                        )}
                         {player.id === firstSolverId && (
-                          <span className="text-[11px] font-medium uppercase tracking-widest text-[#f4efe4] bg-[#e03a28] px-2 py-0.5 shrink-0">
-                            GUESSED FIRST
+                          <span className="inline-flex items-center gap-1 text-[11px] font-medium uppercase tracking-widest text-[#f4efe4] bg-[#e03a28] px-2 py-0.5 shrink-0">
+                            <ShepherdStar size={11} className="text-[#f4efe4]" />
+                            <span>GUESSED FIRST</span>
                           </span>
                         )}
                       </div>

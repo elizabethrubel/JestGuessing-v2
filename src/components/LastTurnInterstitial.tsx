@@ -1,6 +1,7 @@
 import React from 'react';
 import { Player, ThemePack } from '../types';
 import { TopNavBar } from './TopNavBar';
+import { ShepherdStar } from './ShepherdStar';
 
 interface LastTurnInterstitialProps {
   winnerPlayer: Player;
@@ -32,21 +33,31 @@ export const LastTurnInterstitial: React.FC<LastTurnInterstitialProps> = ({
         isLastTurnRound={true}
       />
 
-      {/* Main Notification with clear "got it right!" wording */}
-      <div className="my-auto py-6 flex flex-col items-center justify-center w-full max-w-3xl mx-auto text-center space-y-5 sm:space-y-6">
-        <div className="pixel-ring-periwinkle text-xs font-bold text-[#b9bfff]">
-          !
+      {/* Main Notification with Herald Frog on Crescent Moon & "got it right!" wording */}
+      <div className="my-auto py-2 sm:py-4 flex flex-col items-center justify-center w-full max-w-3xl mx-auto text-center space-y-2.5 sm:space-y-4 min-h-0">
+        {/* Herald Frog on Crescent Moon Woodblock Illustration */}
+        <div className="relative flex items-center justify-center">
+          <img
+            src="/assets/illus-moon-frog.png"
+            alt="Medieval folk woodblock of a silly frog jester perched on a crescent moon blowing a fanfare trumpet with a crown, goblet, and 7-pointed periwinkle stars"
+            className="w-40 xs:w-48 sm:w-56 lg:w-64 h-auto object-contain drop-shadow-[0_14px_28px_rgba(0,0,0,0.6)] pointer-events-none"
+          />
+          <div className="pixel-ring-periwinkle absolute -bottom-1 right-2 text-xs font-bold text-[#b9bfff] bg-[#16090b]/90">
+            !
+          </div>
         </div>
 
-        <span className="text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase text-[#e03a28]">
-          FINAL TURN TRIGGERED
+        <span className="inline-flex items-center gap-2 text-xs sm:text-sm font-semibold tracking-[0.25em] uppercase text-[#e03a28] pt-1">
+          <ShepherdStar size={14} variant="tilted" className="text-[#b9bfff]" />
+          <span>FINAL TURN TRIGGERED</span>
+          <ShepherdStar size={14} variant="asymmetric" className="text-[#b9bfff]" />
         </span>
 
-        <h1 className="text-6xl sm:text-7xl lg:text-8xl font-jacquard text-[#f4efe4] leading-[0.95] text-center break-words max-w-full px-3">
+        <h1 className="text-5xl xs:text-6xl sm:text-7xl lg:text-8xl font-jacquard text-[#f4efe4] leading-[0.94] text-center break-words max-w-full px-3">
           {winnerPlayer.name} got it right!
         </h1>
 
-        <p className="font-serif-editorial italic text-xl sm:text-2xl lg:text-3xl text-[#f4efe4]/85 leading-relaxed max-w-lg mx-auto pt-2">
+        <p className="font-serif-editorial italic text-lg sm:text-2xl lg:text-3xl text-[#f4efe4]/85 leading-snug sm:leading-relaxed max-w-lg mx-auto pt-0.5">
           Everyone else now receives one final turn to deduce their secret identity and score.
         </p>
       </div>
