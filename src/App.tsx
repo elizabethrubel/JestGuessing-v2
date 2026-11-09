@@ -15,6 +15,18 @@ import { ThemeRevealScreen } from './components/ThemeRevealScreen';
 import { CommonalitySelectionScreen } from './components/CommonalitySelectionScreen';
 import { RulesOverlay } from './components/RulesOverlay';
 import { LatencyTipsOverlay } from './components/LatencyTipsOverlay';
+import { VERIFIED_CATEGORIES } from './data/verifiedCharacterSets';
+
+function getLocalCandidateCommonalities(excludeIds: number[] = []): CandidateCommonality[] {
+  const indexed = VERIFIED_CATEGORIES.map((cat, idx) => ({
+    id: idx + 1000,
+    trait: cat.trait,
+    formattedName: cat.name,
+  }));
+  const available = indexed.filter((c) => !excludeIds.includes(c.id));
+  const pool = available.length >= 3 ? available : indexed;
+  return [...pool].sort(() => Math.random() - 0.5).slice(0, 3);
+}
 
 export default function App() {
   // Upon first landing, there should be NO users automatically applied
@@ -45,7 +57,9 @@ export default function App() {
   const [playedCommonalityIds, setPlayedCommonalityIds] = useState<number[]>([]);
 
   // Two-Stage Candidate Commonalities (0 tokens, 0ms)
-  const [candidateCommonalities, setCandidateCommonalities] = useState<CandidateCommonality[]>([]);
+  const [candidateCommonalities, setCandidateCommonalities] = useState<CandidateCommonality[]>(() =>
+    getLocalCandidateCommonalities()
+  );
   const [selectedCommonality, setSelectedCommonality] = useState<CandidateCommonality | null>(null);
 
   // Deck Cache for EACH candidate commonality sitting in memory ready for 0ms instant launch
@@ -70,19 +84,24 @@ export default function App() {
     }
   }, [players]);
 
-  // Load candidate commonalities from catalog
+  // Load candidate commonalities from catalog (with instant local fallback)
   const fetchCandidateCommonalities = async () => {
     try {
       const res = await fetch(`/api/candidate-commonalities?exclude=${playedCommonalityIds.join(',')}`);
       if (res.ok) {
         const data = await res.json();
-        if (data.candidates && Array.isArray(data.candidates)) {
+        if (data.candidates && Array.isArray(data.candidates) && data.candidates.length > 0) {
           setCandidateCommonalities(data.candidates);
+          setSelectedCommonality(data.candidates[0]);
+          return;
         }
       }
     } catch (err) {
-      console.warn('Failed to fetch candidate commonalities:', err);
+      console.warn('Failed to fetch candidate commonalities, using local verified catalog:', err);
     }
+    const localCands = getLocalCandidateCommonalities(playedCommonalityIds);
+    setCandidateCommonalities(localCands);
+    setSelectedCommonality(localCands[0] || null);
   };
 
   useEffect(() => {
@@ -251,12 +270,51 @@ export default function App() {
         }
       }
 
-      // Local fallback if API fails
+      // Local fallback matching chosen commonality if API fails
+      const matchedCat = commChoice
+        ? VERIFIED_CATEGORIES.find(
+            (c) => c.trait === commChoice.trait || c.name === commChoice.formattedName
+          )
+        : null;
+      if (matchedCat) {
+        handleStartRound(
+          {
+            id: matchedCat.id,
+            name: commChoice?.formattedName || matchedCat.name,
+            description: matchedCat.trait,
+            icon: 'sparkles',
+            characters: matchedCat.characters,
+          },
+          targetPlayers,
+          commChoice
+        );
+        return;
+      }
+
       const { CURATED_THEMES } = await import('./data/themes');
       const fallback = CURATED_THEMES[Math.floor(Math.random() * CURATED_THEMES.length)];
       handleStartRound(fallback, targetPlayers, commChoice);
     } catch (err) {
       console.error('Error starting round with random commonality:', err);
+      const matchedCat = commChoice
+        ? VERIFIED_CATEGORIES.find(
+            (c) => c.trait === commChoice.trait || c.name === commChoice.formattedName
+          )
+        : null;
+      if (matchedCat) {
+        handleStartRound(
+          {
+            id: matchedCat.id,
+            name: commChoice?.formattedName || matchedCat.name,
+            description: matchedCat.trait,
+            icon: 'sparkles',
+            characters: matchedCat.characters,
+          },
+          targetPlayers,
+          commChoice
+        );
+        return;
+      }
       const { CURATED_THEMES } = await import('./data/themes');
       const fallback = CURATED_THEMES[Math.floor(Math.random() * CURATED_THEMES.length)];
       handleStartRound(fallback, targetPlayers, commChoice);
