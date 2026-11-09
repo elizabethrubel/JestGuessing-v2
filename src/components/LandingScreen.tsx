@@ -1,6 +1,5 @@
 import React from 'react';
 import { TopNavBar } from './TopNavBar';
-import { MedievalIcon } from './MedievalIcon';
 
 interface LandingScreenProps {
   onStartSetup: () => void;
@@ -14,57 +13,85 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
   return (
     <div
       id="landing-screen"
-      className="w-full max-w-lg md:max-w-xl lg:max-w-2xl mx-auto flex-1 flex flex-col justify-between py-4 px-4 text-center select-none"
+      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-2 sm:py-4 px-4 sm:px-8 text-center select-none min-h-[100dvh]"
     >
-      {/* Consistent Top Navigation with Help hidden since How to play is below the CTA */}
-      <TopNavBar
-        onOpenRules={onOpenRules}
-        hideHelp={true}
-      />
+      {/* Corner-Pinned Top Navigation: JEST.GUESSING — Heraldic Knot — RULES */}
+      <TopNavBar onOpenRules={onOpenRules} />
 
-      {/* Hero Typography - Clean, Open, Uncluttered */}
-      <div className="my-auto py-8 flex-1 flex flex-col items-center justify-center relative w-full max-w-md mx-auto space-y-6">
-        <div className="space-y-3 text-center">
-          <h1 className="text-8xl sm:text-9xl font-jacquard tracking-wider text-[#f4f1ea] leading-[0.92] drop-shadow-md">
+      {/* Centerpiece: Monumental "Jest" + Overlapping Periwinkle Goose & Jester + "Guessing" */}
+      <div className="my-auto py-2 sm:py-4 flex-1 flex flex-col items-center justify-center relative w-full max-w-2xl mx-auto">
+        <div className="relative w-full flex flex-col items-center justify-center">
+          {/* Top Monumental Word: "Jest" */}
+          <h1
+            aria-label="Jest Guessing"
+            className="text-[6.2rem] xs:text-[7.2rem] sm:text-[9.5rem] lg:text-[11rem] font-jacquard text-[#f4efe4] leading-[0.78] tracking-tight select-none z-10 pointer-events-none"
+          >
             Jest
-            <br />
-            Guessing
           </h1>
-          <p className="text-xs text-[#a8a29e] font-sans max-w-xs mx-auto pt-1">
-            Deduce your secret identity through single-device party play
-          </p>
+
+          {/* Central Woodcut Engraving: Periwinkle-Lilac & Vermilion Crowned Goose + Lute Jester */}
+          <div className="relative w-[260px] xs:w-[290px] sm:w-[360px] lg:w-[410px] -mt-7 sm:-mt-11 -mb-6 sm:-mb-9 z-20 flex items-center justify-center">
+            <img
+              src="/assets/jester-goose.png"
+              alt="Renaissance woodcut of a Court Jester playing a lute beside a crowned goose in a ruffled collar"
+              className="w-full h-auto object-contain drop-shadow-[0_14px_28px_rgba(0,0,0,0.55)] pointer-events-none"
+            />
+
+            {/* 1-Bit Pixelated Ring ( 1 ) Floating Left of the Goose */}
+            <div
+              className="pixel-ring absolute left-1 sm:left-2 top-[43%] -translate-y-1/2 text-xs sm:text-sm font-semibold text-[#f4efe4]"
+              aria-hidden="true"
+            >
+              1
+            </div>
+
+            {/* 1-Bit Pixelated Ring ( 2 ) Floating Bottom-Right of the Jester */}
+            <div
+              className="pixel-ring absolute right-2 sm:right-4 bottom-[8%] text-xs sm:text-sm font-semibold text-[#f4efe4]"
+              aria-hidden="true"
+            >
+              2
+            </div>
+          </div>
+
+          {/* Bottom Monumental Word: "Guessing" */}
+          <span
+            aria-hidden="true"
+            className="block text-[4.1rem] xs:text-[4.75rem] sm:text-[6.4rem] lg:text-[7.6rem] font-jacquard text-[#f4efe4] leading-[0.86] tracking-tight select-none z-10 pointer-events-none"
+          >
+            Guessing
+          </span>
         </div>
+
+        {/* Classical Editorial Serif Epigraph */}
+        <p className="font-serif-editorial italic text-base sm:text-xl lg:text-2xl text-[#f4efe4]/90 max-w-xs sm:max-w-md mx-auto leading-snug mt-3 sm:mt-5">
+          Never shout your secret identity,
+          <br />
+          merely deduce the bond.
+        </p>
       </div>
 
-      {/* Primary Action Button - Regal Medieval Gold Foil Style + How to Play Below without outline (Sticky to bottom on mobile) */}
-      <div className="w-full pb-safe pb-3 pt-2 shrink-0 max-w-md md:max-w-lg mx-auto space-y-3 sticky bottom-0 z-20 bg-[#060910]/90 backdrop-blur-xs">
-        <button
-          id="landing-start-btn"
-          type="button"
-          onClick={onStartSetup}
-          className="w-full py-4.5 bg-gradient-to-b from-[#e5cf96] via-[#d4b76a] to-[#ba9848] hover:from-[#edd8a4] hover:to-[#c6a454] active:scale-[0.99] text-[#120e09] font-bold rounded-2xl text-base transition-all cursor-pointer flex items-center justify-between px-6 shadow-[0_4px_24px_rgba(212,183,106,0.25)] border border-[#fbf0cf] group"
-        >
-          <div className="flex items-center space-x-3 text-left">
-            <div className="w-8 h-8 rounded-lg bg-[#1a120c]/15 flex items-center justify-center text-[#120e09]">
-              <MedievalIcon name="sword" className="text-base text-[#120e09]" />
-            </div>
-            <span className="font-extrabold text-base tracking-wide text-[#120e09]">
-              Commence the Jest
-            </span>
-          </div>
-          <MedievalIcon name="arrow-right" className="text-sm text-[#120e09] group-hover:translate-x-1 transition-transform" />
-        </button>
+      {/* Bottom Action Bar: Sticky to bottom on mobile with generous tap zones, wide architectural alignment on desktop */}
+      <div className="w-full sticky bottom-0 z-30 pb-safe pb-4 pt-3 bg-gradient-to-t from-[#09120e] via-[#09120e]/95 to-transparent">
+        <div className="max-w-md sm:max-w-xl lg:max-w-3xl mx-auto flex items-center justify-between gap-3 sm:gap-6">
+          <button
+            id="landing-start-btn"
+            type="button"
+            onClick={onStartSetup}
+            className="flex-1 sm:flex-initial sm:min-w-[230px] min-h-[48px] py-3.5 px-5 border border-[#f4efe4]/80 bg-[#09120e]/90 hover:bg-[#f4efe4] hover:text-[#09120e] active:scale-[0.99] text-[#f4efe4] text-xs sm:text-[13px] font-medium uppercase tracking-[0.16em] transition-all cursor-pointer text-center"
+          >
+            COMMENCE THE JEST
+          </button>
 
-        {/* How to play placed below Commence the Jest without badge outline */}
-        <button
-          id="landing-see-rules-btn"
-          type="button"
-          onClick={onOpenRules}
-          className="w-full py-2 text-xs font-medium text-[#cbb279] hover:text-[#f4f1ea] transition-colors cursor-pointer flex items-center justify-center space-x-2"
-        >
-          <MedievalIcon name="help" className="text-sm text-[#dfc282]" />
-          <span className="font-sans">How to play</span>
-        </button>
+          <button
+            id="landing-see-rules-btn"
+            type="button"
+            onClick={onOpenRules}
+            className="min-h-[48px] py-3.5 px-5 border border-[#f4efe4]/65 bg-[#09120e]/90 hover:border-[#b9bfff] hover:text-[#b9bfff] active:scale-[0.99] text-[#f4efe4] text-xs sm:text-[13px] font-medium uppercase tracking-[0.16em] transition-all cursor-pointer text-center shrink-0"
+          >
+            HOW TO PLAY
+          </button>
+        </div>
       </div>
     </div>
   );

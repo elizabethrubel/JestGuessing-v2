@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { ThemePack } from '../types';
-import { MedievalIcon } from './MedievalIcon';
 
 interface TopNavBarProps {
   onGoHome?: () => void;
@@ -23,9 +22,9 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
 
   return (
     <>
-      <header className="w-full flex items-center justify-between pt-2 pb-2 px-1 shrink-0 z-30 select-none border-b border-[#cbb279]/15">
-        {/* Left: Home navigation */}
-        <div className="flex items-center justify-start">
+      <header className="w-full max-w-6xl mx-auto flex items-center justify-between pt-3 pb-2 px-1 sm:px-2 shrink-0 z-30 select-none">
+        {/* Left: Corner-Pinned Brand / Home Link */}
+        <div className="flex items-center justify-start min-w-[110px]">
           {onGoHome ? (
             <button
               id="top-nav-home-btn"
@@ -33,30 +32,59 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
               onClick={onGoHome}
               title="Return home"
               aria-label="Return home"
-              className="px-2.5 py-1 text-xs font-medium text-[#cbb279] hover:text-[#f4f1ea] hover:bg-[#142033]/70 active:scale-95 rounded-lg transition-all cursor-pointer flex items-center space-x-1.5 border border-[#cbb279]/20 hover:border-[#cbb279]/50"
+              className="py-2 pr-3 text-xs sm:text-[13px] font-medium uppercase tracking-[0.14em] text-[#f4efe4] hover:text-[#b9bfff] active:opacity-70 transition-colors cursor-pointer text-left"
             >
-              <MedievalIcon name="castle" className="text-sm" />
-              <span className="font-sans">Home</span>
+              JEST.GUESSING
             </button>
           ) : (
-            <div className="w-12 h-6" />
+            <span className="py-2 pr-3 text-xs sm:text-[13px] font-medium uppercase tracking-[0.14em] text-[#f4efe4]">
+              JEST.GUESSING
+            </span>
           )}
         </div>
 
-        {/* Center: Optional notice or state (e.g. Last Turn Round) */}
-        <div className="flex-1 flex items-center justify-center min-w-0 px-2">
-          {centerContent ? (
-            centerContent
-          ) : isLastTurnRound ? (
-            <span className="text-xs sm:text-sm font-semibold uppercase tracking-widest text-[#e87063] animate-pulse truncate font-mono">
-              LAST TURN ROUND
+        {/* Center: Symmetrical 4-Loop Heraldic Clover Knot (or active notice) */}
+        <div className="flex items-center justify-center px-2">
+          {isLastTurnRound ? (
+            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-[#e03a28] animate-pulse">
+              FINAL TURN
             </span>
-          ) : null}
+          ) : centerContent ? (
+            centerContent
+          ) : (
+            <button
+              type="button"
+              onClick={theme ? () => setShowThemeModal(true) : onGoHome}
+              title={theme ? 'View round commonality' : 'Jest Guessing'}
+              className={`p-1.5 text-[#f4efe4] transition-transform duration-300 ${
+                theme || onGoHome ? 'hover:text-[#b9bfff] hover:scale-105 cursor-pointer' : 'cursor-default'
+              }`}
+            >
+              {/* Authentic 4-Loop Heraldic Clover Knot from the Folk design */}
+              <svg
+                className="w-6 h-6 sm:w-7 sm:h-7"
+                viewBox="0 0 32 32"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M16 16c-4.5-4.5-9.5-4.5-9.5 0s5 4.5 9.5 0z" />
+                <path d="M16 16c4.5-4.5 9.5-4.5 9.5 0s-5 4.5-9.5 0z" />
+                <path d="M16 16c-4.5-4.5-4.5-9.5 0-9.5s4.5 5 0 9.5z" />
+                <path d="M16 16c-4.5 4.5-4.5 9.5 0 9.5s4.5-5 0-9.5z" />
+                <circle cx="16" cy="4" r="1" fill="currentColor" stroke="none" />
+                <circle cx="16" cy="28" r="1" fill="currentColor" stroke="none" />
+                <circle cx="4" cy="16" r="1" fill="currentColor" stroke="none" />
+                <circle cx="28" cy="16" r="1" fill="currentColor" stroke="none" />
+              </svg>
+            </button>
+          )}
         </div>
 
-        {/* Right: Progressive disclosure controls for Theme and Rules */}
-        <div className="flex items-center justify-end space-x-1.5">
-          {/* Theme Disclosure Button */}
+        {/* Right: Corner-Pinned Theme & Rules Links */}
+        <div className="flex items-center justify-end space-x-4 min-w-[110px]">
           {theme && (
             <button
               id="top-nav-theme-btn"
@@ -64,68 +92,67 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
               onClick={() => setShowThemeModal(true)}
               title="View round theme"
               aria-label="View round theme"
-              className="px-2.5 py-1 text-xs font-medium text-[#e4dfd3] hover:text-[#ffffff] bg-[#101929]/90 hover:bg-[#16243b] border border-[#cbb279]/30 rounded-md flex items-center space-x-1.5 transition-all cursor-pointer shadow-xs active:scale-95"
+              className="py-2 px-2 text-xs sm:text-[13px] font-medium uppercase tracking-[0.14em] text-[#b9bfff] hover:text-[#f4efe4] transition-colors cursor-pointer"
             >
-              <MedievalIcon name="scroll" className="text-xs text-[#cbb279]" />
-              <span className="font-sans">Theme</span>
+              DECREE
             </button>
           )}
 
-          {/* Rules / Help Button */}
           {!hideHelp && (
             <button
               id="top-nav-rules-btn"
               type="button"
               onClick={onOpenRules}
-              title="How to play help"
-              aria-label="How to play help"
-              className="px-2.5 py-1 text-xs font-medium text-[#a8a29e] hover:text-[#f4f1ea] hover:bg-[#142033]/70 active:scale-95 rounded-lg transition-all cursor-pointer flex items-center space-x-1.5 border border-[#cbb279]/20 hover:border-[#cbb279]/50"
+              title="How to play"
+              aria-label="How to play"
+              className="py-2 pl-2 text-xs sm:text-[13px] font-medium uppercase tracking-[0.14em] text-[#f4efe4] hover:text-[#b9bfff] transition-colors cursor-pointer text-right"
             >
-              <MedievalIcon name="help" className="text-sm text-[#cbb279]" />
-              <span className="font-sans">Help</span>
+              RULES
             </button>
           )}
         </div>
       </header>
 
-      {/* Progressive Disclosure Popover for Theme with Clean Medieval Modal */}
+      {/* Editorial Modal for Round Theme */}
       {showThemeModal && theme && (
         <div
           id="theme-disclosure-modal"
-          className="fixed inset-0 z-50 bg-[#060910]/85 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200"
+          className="fixed inset-0 z-50 bg-[#09120e]/90 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200"
           onClick={() => setShowThemeModal(false)}
         >
           <div
-            className="w-full max-w-sm bg-[#0e1626] border border-[#cbb279]/30 rounded-2xl p-6 space-y-5 text-center shadow-2xl relative"
+            className="w-full max-w-md bg-[#09120e] border border-[#f4efe4]/50 p-7 sm:p-9 space-y-6 text-center shadow-2xl relative"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="flex items-center justify-between border-b border-[#cbb279]/20 pb-3">
-              <div className="flex items-center space-x-1.5 text-xs font-semibold uppercase tracking-widest text-[#cbb279]">
-                <MedievalIcon name="star" className="text-xs text-[#cbb279]" />
-                <span className="font-sans">Round Theme</span>
-              </div>
+            <div className="flex items-center justify-between border-b border-[#f4efe4]/20 pb-3">
+              <span className="text-xs font-medium uppercase tracking-[0.2em] text-[#b9bfff]">
+                ACTIVE DECREE
+              </span>
               <button
                 type="button"
                 onClick={() => setShowThemeModal(false)}
-                className="p-1 text-[#a8a29e] hover:text-[#f4f1ea] rounded-full hover:bg-[#19263e] transition-colors cursor-pointer"
+                className="p-1.5 text-[#f4efe4]/70 hover:text-[#f4efe4] transition-colors cursor-pointer text-xs uppercase tracking-widest"
                 aria-label="Close theme modal"
               >
-                <MedievalIcon name="close" className="text-xs" />
+                ✕
               </button>
             </div>
 
-            <div className="py-3 px-1">
-              <h2 className="text-3xl sm:text-4xl font-jacquard text-[#f4f1ea] tracking-wider leading-snug">
+            <div className="py-4 px-2 space-y-3">
+              <h2 className="text-3xl sm:text-4xl font-jacquard text-[#f4efe4] leading-snug">
                 {theme.name}
               </h2>
+              <p className="font-serif-editorial italic text-base text-[#f4efe4]/75">
+                Every player’s secret identity shares this bond.
+              </p>
             </div>
 
             <button
               type="button"
               onClick={() => setShowThemeModal(false)}
-              className="w-full py-2.5 bg-[#2d1c15] hover:bg-[#3d261d] text-[#e8e2d5] border border-[#8a5a44]/50 font-semibold text-xs rounded-xl transition-all cursor-pointer"
+              className="w-full py-3.5 border border-[#f4efe4]/70 hover:bg-[#f4efe4] hover:text-[#09120e] text-[#f4efe4] font-medium text-xs uppercase tracking-[0.2em] transition-colors cursor-pointer"
             >
-              Close
+              RETURN TO COURT
             </button>
           </div>
         </div>

@@ -281,8 +281,6 @@ export default function App() {
           {
             id: matchedCat.id,
             name: commChoice?.formattedName || matchedCat.name,
-            description: matchedCat.trait,
-            icon: 'sparkles',
             characters: matchedCat.characters,
           },
           targetPlayers,
@@ -306,8 +304,6 @@ export default function App() {
           {
             id: matchedCat.id,
             name: commChoice?.formattedName || matchedCat.name,
-            description: matchedCat.trait,
-            icon: 'sparkles',
             characters: matchedCat.characters,
           },
           targetPlayers,

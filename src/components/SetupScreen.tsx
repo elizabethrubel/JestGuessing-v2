@@ -12,14 +12,9 @@ interface SetupScreenProps {
 }
 
 const AVATAR_COLORS = [
-  'bg-emerald-500 text-white',
-  'bg-sky-500 text-white',
-  'bg-amber-500 text-white',
-  'bg-rose-500 text-white',
-  'bg-indigo-500 text-white',
-  'bg-teal-500 text-white',
-  'bg-purple-500 text-white',
-  'bg-orange-500 text-white',
+  'bg-[#b9bfff] text-[#09120e]',
+  'bg-[#e03a28] text-[#f4efe4]',
+  'bg-[#f4efe4] text-[#09120e]',
 ];
 
 export const SetupScreen: React.FC<SetupScreenProps> = ({
@@ -37,7 +32,6 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
   const draftInputRef = useRef<HTMLInputElement | null>(null);
   const nextEmptyInputRef = useRef<HTMLInputElement | null>(null);
 
-  // Commit the current draft name to players list
   const commitDraft = (text: string) => {
     const trimmed = text.trim();
     if (!trimmed) return null;
@@ -55,7 +49,6 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
     return newPlayer;
   };
 
-  // Handle Return key on existing player inputs
   const handleExistingKeyDown = (e: React.KeyboardEvent<HTMLInputElement>, idx: number) => {
     if (e.key === 'Enter') {
       e.preventDefault();
@@ -67,13 +60,11 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
     }
   };
 
-  // Handle Return key on the active draft input
   const handleDraftKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       if (draftName.trim()) {
         commitDraft(draftName);
-        // Request animation frame to focus the next empty input after render
         requestAnimationFrame(() => {
           draftInputRef.current?.focus();
         });
@@ -81,19 +72,16 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
     }
   };
 
-  // Update existing player name in place
   const handleUpdatePlayerName = (idx: number, newName: string) => {
     const updated = [...players];
     updated[idx] = { ...updated[idx], name: newName };
     onUpdatePlayers(updated);
   };
 
-  // Remove player
   const handleRemovePlayer = (id: string) => {
     onUpdatePlayers(players.filter((p) => p.id !== id));
   };
 
-  // Drag and Drop reordering
   const handleDragStart = (index: number) => {
     setDraggedIndex(index);
   };
@@ -124,7 +112,6 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
     setDragOverIndex(null);
   };
 
-  // Proceed handler ensures any ongoing draft is committed and triggers round start
   const handleProceed = () => {
     let finalPlayers = [...players];
     if (draftName.trim()) {
@@ -147,169 +134,198 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
   return (
     <div
       id="setup-screen"
-      className="w-full flex-1 flex flex-col pt-4 pb-4 px-4 sm:px-6 max-w-lg md:max-w-xl lg:max-w-2xl mx-auto"
+      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-2 sm:py-4 px-4 sm:px-8 min-h-[100dvh]"
     >
-      {/* Consistent Top Navigation */}
-      <TopNavBar
-        onGoHome={onBackToLanding}
-        onOpenRules={onOpenRules}
-      />
+      <TopNavBar onGoHome={onBackToLanding} onOpenRules={onOpenRules} />
 
-      <div className="flex-1 flex flex-col items-center justify-center min-h-[90px] shrink-0">
-        <h1 className="text-6xl sm:text-7xl font-jacquard text-[#f4f1ea] tracking-wider text-center">
-          Players
-        </h1>
-        <p className="text-xs text-[#cbb279]/80 font-sans mt-2 tracking-wide text-center max-w-xs">
-          Inscribe at least two noble souls to partake in the trial of wits
-        </p>
-      </div>
+      {/* Main Content: Single column on mobile, wide 2-column lookbook spread on desktop */}
+      <div className="my-auto py-4 sm:py-8 flex-1 flex flex-col lg:grid lg:grid-cols-12 lg:gap-12 lg:items-center w-full">
+        {/* Left Column: Title & Editorial Epigraph */}
+        <div className="lg:col-span-5 text-center lg:text-left space-y-3 mb-6 lg:mb-0 shrink-0">
+          <span className="text-xs font-medium uppercase tracking-[0.22em] text-[#b9bfff] block">
+            ACT I // THE ROSTER
+          </span>
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-jacquard text-[#f4efe4] leading-[0.88]">
+            Players
+          </h1>
+          <p className="font-serif-editorial italic text-base sm:text-xl text-[#f4efe4]/80 max-w-xs mx-auto lg:mx-0 leading-snug">
+            Inscribe at least two souls to enter the circle of deduction.
+          </p>
 
-      {/* Players List with Drag Dots on Left, Cross on Right, styled as medieval manuscript ledger */}
-      <div className="flex-1 overflow-y-auto flex flex-col min-h-0 no-scrollbar max-w-md md:max-w-lg mx-auto w-full">
-        <div className="mt-auto border-t border-b border-[#cbb279]/25 divide-y divide-[#cbb279]/15 bg-[#0a101b]/40 rounded-lg">
-          {/* Committed Players */}
-          {players.map((player, idx) => (
-            <div
-              key={player.id}
-              draggable
-              onDragStart={() => handleDragStart(idx)}
-              onDragOver={(e) => handleDragOver(e, idx)}
-              onDrop={() => handleDrop(idx)}
-              onDragEnd={handleDragEnd}
-              className={`flex items-center justify-between py-3 px-2 transition-all select-none group ${
-                draggedIndex === idx
-                  ? 'opacity-40 bg-[#142033]/60'
-                  : dragOverIndex === idx
-                  ? 'border-t-2 border-[#cbb279] bg-[#142033]/40'
-                  : 'hover:bg-[#142033]/30'
-              }`}
-            >
-              {/* LEFT: Drag dots handle only */}
+          {/* Subtle Goose & Jester Emblem on Desktop */}
+          <div className="hidden lg:block pt-4">
+            <img
+              src="/assets/jester-goose.png"
+              alt=""
+              className="w-44 h-auto opacity-85 drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]"
+            />
+          </div>
+        </div>
+
+        {/* Right Column: Editorial Player Ledger */}
+        <div className="lg:col-span-7 flex-1 flex flex-col justify-center w-full max-w-lg lg:max-w-none mx-auto">
+          <div className="border-t border-b border-[#f4efe4]/35 divide-y divide-[#f4efe4]/20 bg-[#09120e]/60">
+            {players.map((player, idx) => (
               <div
-                className="p-1.5 text-[#8c827a] hover:text-[#cbb279] active:text-white cursor-grab active:cursor-grabbing rounded-lg hover:bg-[#1c2a42]/60 transition-colors shrink-0 mr-2"
-                title="Hold and drag to reorder"
-                onMouseDown={() => handleDragStart(idx)}
+                key={player.id}
+                draggable
+                onDragStart={() => handleDragStart(idx)}
+                onDragOver={(e) => handleDragOver(e, idx)}
+                onDrop={() => handleDrop(idx)}
+                onDragEnd={handleDragEnd}
+                className={`flex items-center justify-between min-h-[56px] py-2.5 px-2 sm:px-3 transition-all select-none group ${
+                  draggedIndex === idx
+                    ? 'opacity-40 bg-[#b9bfff]/10'
+                    : dragOverIndex === idx
+                    ? 'border-t-2 border-[#b9bfff] bg-[#b9bfff]/10'
+                    : 'hover:bg-[#f4efe4]/[0.03]'
+                }`}
               >
-                <MedievalIcon name="drag" className="text-xs text-[#8c827a]" />
+                {/* Left: Drag Handle + 1-Bit Pixel Ring Index */}
+                <div
+                  className="flex items-center space-x-2.5 cursor-grab active:cursor-grabbing shrink-0 mr-3 py-1"
+                  title="Hold and drag to reorder"
+                  onMouseDown={() => handleDragStart(idx)}
+                >
+                  <MedievalIcon name="drag" className="text-xs text-[#f4efe4]/40 group-hover:text-[#b9bfff]" />
+                  <div className="pixel-ring text-xs font-semibold text-[#f4efe4] scale-90">
+                    {idx + 1}
+                  </div>
+                </div>
+
+                {/* Center: Editable Player Name */}
+                <div className="flex items-center flex-1 min-w-0">
+                  <input
+                    ref={(el) => {
+                      playerInputRefs.current[idx] = el;
+                    }}
+                    type="text"
+                    value={player.name}
+                    onChange={(e) => handleUpdatePlayerName(idx, e.target.value)}
+                    onKeyDown={(e) => handleExistingKeyDown(e, idx)}
+                    className="w-full bg-transparent font-serif-editorial text-xl sm:text-2xl text-[#f4efe4] focus:outline-none focus:text-[#b9bfff]"
+                    maxLength={24}
+                  />
+
+                  {player.score > 0 && (
+                    <span className="text-xs font-medium uppercase tracking-widest text-[#b9bfff] border border-[#b9bfff]/40 px-2.5 py-0.5 shrink-0 ml-2">
+                      {player.score} {player.score === 1 ? 'PT' : 'PTS'}
+                    </span>
+                  )}
+                </div>
+
+                {/* Right: Remove Button with generous tap target */}
+                <button
+                  id={`remove-player-${player.id}`}
+                  type="button"
+                  onClick={() => handleRemovePlayer(player.id)}
+                  className="p-2.5 text-[#f4efe4]/45 hover:text-[#e03a28] transition-colors cursor-pointer shrink-0 ml-2"
+                  title="Remove player"
+                  aria-label={`Remove ${player.name}`}
+                >
+                  <MedievalIcon name="close" className="text-xs" />
+                </button>
+              </div>
+            ))}
+
+            {/* Active Draft Input Row */}
+            <div className="flex items-center justify-between min-h-[56px] py-2.5 px-2 sm:px-3 transition-all">
+              <div className="flex items-center space-x-2.5 shrink-0 mr-3 opacity-45">
+                <MedievalIcon name="drag" className="text-xs text-[#f4efe4]/30" />
+                <div className="pixel-ring text-xs font-semibold text-[#f4efe4] scale-90">
+                  {players.length + 1}
+                </div>
               </div>
 
-              {/* CENTER: Editable Name Input */}
               <div className="flex items-center flex-1 min-w-0">
                 <input
-                  ref={(el) => {
-                    playerInputRefs.current[idx] = el;
-                  }}
+                  ref={draftInputRef}
+                  id="active-player-name-input"
                   type="text"
-                  value={player.name}
-                  onChange={(e) => handleUpdatePlayerName(idx, e.target.value)}
-                  onKeyDown={(e) => handleExistingKeyDown(e, idx)}
-                  className="w-full bg-transparent text-sm font-semibold text-[#f4f1ea] focus:outline-none focus:text-white"
+                  placeholder={
+                    players.length === 0
+                      ? 'Inscribe Player 1...'
+                      : players.length === 1
+                      ? 'Inscribe Player 2...'
+                      : 'Add another player...'
+                  }
+                  value={draftName}
+                  onChange={(e) => setDraftName(e.target.value)}
+                  onKeyDown={handleDraftKeyDown}
+                  className="w-full bg-transparent font-serif-editorial italic text-xl sm:text-2xl text-[#f4efe4] placeholder-[#f4efe4]/35 focus:outline-none"
                   maxLength={24}
+                  autoFocus={players.length === 0}
                 />
-
-                {player.score > 0 && (
-                  <span className="text-[10px] font-bold text-[#cbb279] bg-[#2d1c15] border border-[#cbb279]/40 px-2 py-0.5 rounded-sm shrink-0 font-mono">
-                    {player.score} {player.score === 1 ? 'pt' : 'pts'}
-                  </span>
-                )}
               </div>
 
-              {/* RIGHT: Delete Cross */}
-              <button
-                id={`remove-player-${player.id}`}
-                type="button"
-                onClick={() => handleRemovePlayer(player.id)}
-                className="p-1.5 text-[#8c827a] hover:text-[#c94134] transition-colors cursor-pointer rounded-lg hover:bg-[#1c2a42]/60 shrink-0 ml-2"
-                title="Remove player"
+              {draftName && (
+                <button
+                  type="button"
+                  onClick={() => setDraftName('')}
+                  className="p-2.5 text-[#f4efe4]/50 hover:text-[#f4efe4] transition-colors cursor-pointer shrink-0 ml-2"
+                  title="Clear"
+                >
+                  <MedievalIcon name="close" className="text-xs" />
+                </button>
+              )}
+            </div>
+
+            {/* Subsequent Empty Row */}
+            {draftName.length > 0 && (
+              <div
+                className="flex items-center justify-between min-h-[52px] py-2.5 px-2 sm:px-3 transition-all opacity-35 hover:opacity-70 cursor-text"
+                onClick={() => {
+                  if (draftName.trim()) {
+                    commitDraft(draftName);
+                    requestAnimationFrame(() => {
+                      draftInputRef.current?.focus();
+                    });
+                  }
+                }}
               >
-                <MedievalIcon name="close" className="text-xs" />
-              </button>
-            </div>
-          ))}
+                <div className="flex items-center space-x-2.5 shrink-0 mr-3">
+                  <MedievalIcon name="drag" className="text-xs text-[#f4efe4]/30" />
+                  <div className="pixel-ring text-xs font-semibold text-[#f4efe4] scale-90">
+                    {players.length + 2}
+                  </div>
+                </div>
 
-          {/* Active typing row: Always available */}
-          <div className="flex items-center justify-between py-3 px-2 transition-all">
-            {/* LEFT: Drag dots (subtle placeholder) */}
-            <div className="p-1.5 text-[#57534e] shrink-0 mr-2">
-              <MedievalIcon name="drag" className="text-xs text-[#57534e]" />
-            </div>
-
-            {/* CENTER: Player Name Input (Return key commits and focuses next) */}
-            <div className="flex items-center flex-1 min-w-0">
-              <input
-                ref={draftInputRef}
-                id="active-player-name-input"
-                type="text"
-                placeholder={players.length === 0 ? "Add Player 1..." : players.length === 1 ? "Add at least 2 players..." : "Add another player..."}
-                value={draftName}
-                onChange={(e) => setDraftName(e.target.value)}
-                onKeyDown={handleDraftKeyDown}
-                className="w-full bg-transparent text-sm font-semibold text-[#f4f1ea] placeholder-[#78716c] focus:outline-none"
-                maxLength={24}
-                autoFocus={players.length === 0}
-              />
-            </div>
-
-            {/* RIGHT: Cross to clear active draft if typed */}
-            {draftName && (
-              <button
-                type="button"
-                onClick={() => setDraftName('')}
-                className="p-1.5 text-[#8c827a] hover:text-[#f4f1ea] transition-colors cursor-pointer rounded-lg hover:bg-[#1c2a42]/60 shrink-0 ml-2"
-                title="Clear"
-              >
-                <MedievalIcon name="close" className="text-xs" />
-              </button>
+                <div className="flex items-center flex-1 min-w-0">
+                  <input
+                    ref={nextEmptyInputRef}
+                    type="text"
+                    placeholder="Add another player..."
+                    disabled
+                    className="w-full bg-transparent font-serif-editorial italic text-xl text-[#f4efe4]/40 placeholder-[#f4efe4]/40 cursor-text focus:outline-none pointer-events-none"
+                  />
+                </div>
+              </div>
             )}
           </div>
-
-          {/* Subsequent empty row: Appears whenever user starts typing so there's always an empty row below */}
-          {draftName.length > 0 && (
-            <div
-              className="flex items-center justify-between py-3 px-2 transition-all opacity-40 hover:opacity-80 cursor-text"
-              onClick={() => {
-                if (draftName.trim()) {
-                  commitDraft(draftName);
-                  requestAnimationFrame(() => {
-                    draftInputRef.current?.focus();
-                  });
-                }
-              }}
-            >
-              {/* LEFT: Drag dots placeholder */}
-              <div className="p-1.5 text-[#57534e] shrink-0 mr-2">
-                <MedievalIcon name="drag" className="text-xs text-[#57534e]" />
-              </div>
-
-              {/* CENTER: Next empty row placeholder */}
-              <div className="flex items-center flex-1 min-w-0">
-                <input
-                  ref={nextEmptyInputRef}
-                  type="text"
-                  placeholder={players.length === 0 ? "Add at least 2 players..." : "Add another player..."}
-                  disabled
-                  className="w-full bg-transparent text-sm text-[#78716c] placeholder-[#78716c] cursor-text focus:outline-none pointer-events-none"
-                />
-              </div>
-
-              <div className="w-7 shrink-0" />
-            </div>
-          )}
         </div>
       </div>
 
-      {/* Bottom CTA: Proceed to Commonalities Selection (Sticky to bottom on mobile) */}
-      <div className="pt-3 pb-safe pb-3 sticky bottom-0 z-20 bg-[#060910]/95 backdrop-blur-xs max-w-md md:max-w-lg mx-auto w-full">
-        <button
-          id="proceed-to-commonalities-btn"
-          type="button"
-          disabled={!canProceed}
-          onClick={handleProceed}
-          className="w-full py-4 bg-gradient-to-b from-[#e5cf96] via-[#d4b76a] to-[#ba9848] hover:from-[#edd8a4] hover:to-[#c6a454] active:scale-[0.99] disabled:opacity-30 disabled:cursor-not-allowed text-[#120e09] font-bold rounded-2xl text-base transition-all cursor-pointer flex items-center justify-center space-x-2 shadow-[0_4px_24px_rgba(212,183,106,0.25)] border border-[#fbf0cf]"
-        >
-          <span>Choose commonality</span>
-          <MedievalIcon name="arrow-right" className="text-sm text-[#120e09]" />
-        </button>
+      {/* Bottom Sticky Action Bar */}
+      <div className="w-full sticky bottom-0 z-30 pb-safe pb-4 pt-3 bg-gradient-to-t from-[#09120e] via-[#09120e]/95 to-transparent">
+        <div className="max-w-lg lg:max-w-6xl mx-auto flex items-center justify-between gap-4">
+          <button
+            type="button"
+            onClick={onBackToLanding}
+            className="min-h-[48px] py-3.5 px-5 border border-[#f4efe4]/45 hover:border-[#f4efe4] text-[#f4efe4]/80 hover:text-[#f4efe4] text-xs sm:text-[13px] font-medium uppercase tracking-[0.16em] transition-all cursor-pointer shrink-0"
+          >
+            ← BACK
+          </button>
+
+          <button
+            id="proceed-to-commonalities-btn"
+            type="button"
+            disabled={!canProceed}
+            onClick={handleProceed}
+            className="flex-1 sm:flex-initial sm:min-w-[260px] min-h-[48px] py-3.5 px-6 border border-[#f4efe4] bg-[#f4efe4] text-[#09120e] hover:bg-[#b9bfff] hover:border-[#b9bfff] active:scale-[0.99] disabled:opacity-30 disabled:cursor-not-allowed text-xs sm:text-[13px] font-semibold uppercase tracking-[0.16em] transition-all cursor-pointer text-center"
+          >
+            CHOOSE COMMONALITY →
+          </button>
+        </div>
       </div>
     </div>
   );

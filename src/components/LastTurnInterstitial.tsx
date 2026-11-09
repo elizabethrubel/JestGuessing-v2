@@ -1,7 +1,6 @@
 import React from 'react';
 import { Player, ThemePack } from '../types';
 import { TopNavBar } from './TopNavBar';
-import { MedievalIcon } from './MedievalIcon';
 
 interface LastTurnInterstitialProps {
   winnerPlayer: Player;
@@ -24,9 +23,8 @@ export const LastTurnInterstitial: React.FC<LastTurnInterstitialProps> = ({
   return (
     <div
       id="last-turn-interstitial-screen"
-      className="w-full max-w-lg mx-auto flex-1 flex flex-col justify-between py-4 px-4 text-center select-none bg-gradient-to-b from-[#47120f]/85 via-[#2b0a08]/90 to-[#140404] transition-colors duration-500 rounded-3xl"
+      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-2 sm:py-4 px-4 sm:px-8 text-center select-none min-h-[100dvh]"
     >
-      {/* Consistent Top Navigation */}
       <TopNavBar
         onGoHome={onGoHome}
         onOpenRules={onOpenRules}
@@ -34,34 +32,37 @@ export const LastTurnInterstitial: React.FC<LastTurnInterstitialProps> = ({
         isLastTurnRound={true}
       />
 
-      {/* Main Notification unconstrained by window arch */}
-      <div className="my-auto py-8 flex flex-col items-center justify-center w-full max-w-lg mx-auto text-center space-y-4">
-        <span className="text-xs sm:text-sm font-mono tracking-[0.3em] uppercase text-[#e5cf96]">
-          Last Turn Triggered
+      {/* Main Notification */}
+      <div className="my-auto py-8 flex flex-col items-center justify-center w-full max-w-2xl mx-auto text-center space-y-5">
+        <div className="pixel-ring-periwinkle text-xs font-bold text-[#b9bfff]">
+          !
+        </div>
+
+        <span className="text-xs sm:text-[13px] font-semibold tracking-[0.25em] uppercase text-[#e03a28]">
+          FINAL TURN TRIGGERED
         </span>
 
-        {/* Hero heading in Jacquard 24 */}
-        <h1 className="text-5xl sm:text-6xl md:text-7xl font-jacquard text-[#f4f1ea] tracking-normal leading-tight text-center drop-shadow-md break-words max-w-full px-2">
-          {winnerPlayer.name} got it right!
+        <h1 className="text-6xl sm:text-7xl lg:text-8xl font-jacquard text-[#f4efe4] leading-[0.9] text-center break-words max-w-full px-2">
+          {winnerPlayer.name} Solved It
         </h1>
 
-        {/* Clear instruction */}
-        <p className="text-sm sm:text-base text-[#f1d8d5]/90 leading-relaxed max-w-sm mx-auto pt-2 font-sans">
-          Everyone else receives <strong>one final turn</strong> to deduce their secret identity and score.
+        <p className="font-serif-editorial italic text-xl sm:text-2xl text-[#f4efe4]/85 leading-snug max-w-md mx-auto pt-1">
+          Every remaining player now receives one final turn to deduce their secret identity.
         </p>
       </div>
 
-      {/* Bottom CTA */}
-      <div className="pt-4 shrink-0 pb-2 max-w-sm mx-auto w-full">
-        <button
-          id="continue-last-turn-btn"
-          type="button"
-          onClick={onContinue}
-          className="w-full py-4 bg-gradient-to-b from-[#e5cf96] via-[#d4b76a] to-[#ba9848] hover:from-[#edd8a4] hover:to-[#c6a454] active:scale-[0.99] text-[#120e09] font-bold rounded-2xl text-base transition-all cursor-pointer flex items-center justify-center space-x-2 shadow-[0_4px_24px_rgba(212,183,106,0.25)] border border-[#fbf0cf]"
-        >
-          <span>Pass to {nextPlayerName}</span>
-          <MedievalIcon name="arrow-right" className="text-sm text-[#120e09]" />
-        </button>
+      {/* Bottom Sticky CTA */}
+      <div className="w-full sticky bottom-0 z-30 pb-safe pb-4 pt-3 bg-gradient-to-t from-[#16090b] via-[#16090b]/95 to-transparent">
+        <div className="max-w-md mx-auto w-full">
+          <button
+            id="continue-last-turn-btn"
+            type="button"
+            onClick={onContinue}
+            className="w-full min-h-[50px] py-4 px-6 border border-[#f4efe4] bg-[#f4efe4] hover:bg-[#b9bfff] hover:border-[#b9bfff] active:scale-[0.99] text-[#09120e] font-semibold text-xs sm:text-[13px] uppercase tracking-[0.2em] transition-all cursor-pointer text-center"
+          >
+            PASS TO {nextPlayerName.toUpperCase()} →
+          </button>
+        </div>
       </div>
     </div>
   );

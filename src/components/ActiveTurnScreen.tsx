@@ -3,7 +3,6 @@ import { Player, ThemePack } from '../types';
 import { Loader2 } from 'lucide-react';
 import { playSuccessTone, playPassTone, triggerHaptic } from '../utils/audio';
 import { TopNavBar } from './TopNavBar';
-import { MedievalIcon } from './MedievalIcon';
 
 interface ActiveTurnScreenProps {
   player: Player;
@@ -49,11 +48,8 @@ export const ActiveTurnScreen: React.FC<ActiveTurnScreenProps> = ({
   return (
     <div
       id="active-turn-screen"
-      className={`w-full max-w-lg md:max-w-2xl lg:max-w-3xl mx-auto flex-1 flex flex-col justify-between py-4 px-4 text-center select-none transition-colors duration-500 ${
-        isLastTurnRound ? 'bg-gradient-to-b from-[#3d1110]/80 via-[#260a09]/50 to-transparent' : ''
-      }`}
+      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-2 sm:py-4 px-4 sm:px-8 text-center select-none min-h-[100dvh]"
     >
-      {/* Consistent Top Navigation with progressive disclosure */}
       <TopNavBar
         onGoHome={onGoHome}
         onOpenRules={onOpenRules}
@@ -61,80 +57,79 @@ export const ActiveTurnScreen: React.FC<ActiveTurnScreenProps> = ({
         isLastTurnRound={isLastTurnRound}
       />
 
-      {/* Main Focus: Character Name unconstrained by arch boxes, enlarged for party viewing */}
-      <div className="my-auto py-6 flex flex-col items-center justify-center w-full max-w-lg md:max-w-xl mx-auto space-y-4">
-        {/* Active Player Identifier */}
-        <span className="text-xs sm:text-sm font-mono tracking-[0.3em] text-[#cbb279] uppercase">
-          {player.name}'s Identity
-        </span>
+      {/* Main Focus: Monumental Secret Identity Display */}
+      <div className="my-auto py-6 flex flex-col items-center justify-center w-full max-w-4xl mx-auto space-y-5">
+        <div className="flex items-center justify-center space-x-3">
+          <div className="pixel-ring-periwinkle text-xs font-bold text-[#b9bfff] scale-90">
+            1
+          </div>
+          <span className="text-xs sm:text-[13px] font-medium tracking-[0.25em] text-[#b9bfff] uppercase">
+            {player.name}’S SECRET IDENTITY
+          </span>
+        </div>
 
-        {/* Character Name in responsive medieval futurist Jacquard 24 that fits cleanly */}
+        {/* Character Name in Smooth Calligraphic Gothic Blackletter */}
         <h1
           className={`${
-            character.name.length > 20 || character.name.split(/\s+/).some(w => w.length >= 13)
-              ? 'text-4xl sm:text-5xl md:text-6xl'
-              : character.name.length > 13 || character.name.split(/\s+/).some(w => w.length >= 10)
-              ? 'text-5xl sm:text-6xl md:text-7xl'
-              : character.name.length > 8 || character.name.split(/\s+/).some(w => w.length >= 7)
-              ? 'text-6xl sm:text-7xl md:text-8xl'
-              : 'text-7xl sm:text-8xl md:text-9xl'
-          } font-jacquard text-[#f4f1ea] tracking-normal leading-[1.05] text-center drop-shadow-md max-w-full px-3 break-words`}
+            character.name.length > 20 || character.name.split(/\s+/).some((w) => w.length >= 13)
+              ? 'text-5xl sm:text-6xl md:text-7xl lg:text-8xl'
+              : character.name.length > 13 || character.name.split(/\s+/).some((w) => w.length >= 10)
+              ? 'text-6xl sm:text-7xl md:text-8xl lg:text-9xl'
+              : 'text-7xl sm:text-8xl md:text-9xl lg:text-[9.5rem]'
+          } font-jacquard text-[#f4efe4] leading-[0.9] text-center max-w-full px-2 break-words`}
         >
           {character.name}
         </h1>
 
-        {/* Origin / Universe */}
+        {/* Origin / Universe in Classical Editorial Italic Serif */}
         {character.origin && (
-          <p className="text-sm sm:text-base font-medium text-[#c5bcb1] tracking-wide pt-1">
+          <p className="font-serif-editorial italic text-xl sm:text-2xl lg:text-3xl text-[#f4efe4]/85 tracking-wide">
             {character.origin}
           </p>
         )}
 
-        {/* Shuffle character button: Only available in the very first round */}
+        {/* Shuffle character button (available on Round 1) */}
         {roundNumber === 1 && (
           <button
             id="reroll-character-btn"
             type="button"
             disabled={isRerolling}
             onClick={onRerollCharacter}
-            className="text-xs text-[#8c827a] hover:text-[#cbb279] inline-flex items-center space-x-1.5 transition-colors cursor-pointer py-2 px-3.5 rounded-xl hover:bg-[#16233a] border border-[#cbb279]/20 hover:border-[#cbb279]/50 mt-3 disabled:opacity-50"
+            className="min-h-[42px] py-2 px-4 border border-[#f4efe4]/35 hover:border-[#b9bfff] text-[#f4efe4]/70 hover:text-[#b9bfff] inline-flex items-center space-x-2 text-xs uppercase tracking-[0.18em] transition-colors cursor-pointer mt-2 disabled:opacity-50"
           >
             {isRerolling ? (
               <>
-                <Loader2 className="w-3.5 h-3.5 animate-spin text-[#cbb279]" />
-                <span>Divining fresh identity...</span>
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-[#b9bfff]" />
+                <span>DRAWING FRESH SPIRIT...</span>
               </>
             ) : (
-              <>
-                <MedievalIcon name="refresh" className="text-xs text-[#cbb279]" />
-                <span>Shuffle character</span>
-              </>
+              <span>↻ SHUFFLE CHARACTER</span>
             )}
           </button>
         )}
       </div>
 
-      {/* Two Action Buttons: Stuck to bottom for mobile, expanded width for desktop */}
-      <div className="sticky bottom-0 z-20 pb-safe pb-3 pt-2 bg-gradient-to-t from-[#060910] via-[#060910]/95 to-transparent w-full max-w-sm md:max-w-md mx-auto grid grid-cols-2 gap-3.5">
-        <button
-          id="missed-turn-btn"
-          type="button"
-          onClick={handleMissed}
-          className="py-4 rounded-2xl bg-gradient-to-b from-[#2a1310] to-[#1c0d0b] hover:from-[#351915] hover:to-[#24110e] text-[#f4dcd9] font-bold text-base border border-[#7d221c]/70 active:scale-[0.98] transition-all cursor-pointer flex items-center justify-center space-x-2 shadow-md"
-        >
-          <MedievalIcon name="close" className="text-sm text-[#e87063]" />
-          <span>Missed</span>
-        </button>
+      {/* Bottom Sticky Action Bar: Generous mobile tap zones + architectural desktop width */}
+      <div className="w-full sticky bottom-0 z-30 pb-safe pb-4 pt-3 bg-gradient-to-t from-[#09120e] via-[#09120e]/95 to-transparent">
+        <div className="max-w-md sm:max-w-xl lg:max-w-2xl mx-auto grid grid-cols-2 gap-3.5 sm:gap-6">
+          <button
+            id="missed-turn-btn"
+            type="button"
+            onClick={handleMissed}
+            className="min-h-[52px] py-4 px-5 border border-[#e03a28]/80 bg-[#09120e]/90 hover:bg-[#e03a28] text-[#f4efe4] font-medium text-xs sm:text-[13px] uppercase tracking-[0.2em] active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center"
+          >
+            ✕ MISSED
+          </button>
 
-        <button
-          id="got-it-turn-btn"
-          type="button"
-          onClick={handleCorrect}
-          className="py-4 rounded-2xl bg-gradient-to-b from-[#e5cf96] via-[#d4b76a] to-[#ba9848] hover:from-[#edd8a4] hover:to-[#c6a454] active:scale-[0.98] text-[#120e09] font-bold text-base transition-all cursor-pointer flex items-center justify-center space-x-2 shadow-[0_4px_24px_rgba(212,183,106,0.25)] border border-[#fbf0cf]"
-        >
-          <MedievalIcon name="shield" className="text-base text-[#120e09]" />
-          <span>Got it!</span>
-        </button>
+          <button
+            id="got-it-turn-btn"
+            type="button"
+            onClick={handleCorrect}
+            className="min-h-[52px] py-4 px-5 border border-[#f4efe4] bg-[#f4efe4] hover:bg-[#b9bfff] hover:border-[#b9bfff] text-[#09120e] font-semibold text-xs sm:text-[13px] uppercase tracking-[0.2em] active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center"
+          >
+            GOT IT! →
+          </button>
+        </div>
       </div>
     </div>
   );

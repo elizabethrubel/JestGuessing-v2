@@ -1,7 +1,6 @@
 import React from 'react';
 import { Player, ThemePack } from '../types';
 import { TopNavBar } from './TopNavBar';
-import { MedievalIcon } from './MedievalIcon';
 
 interface ScoreboardScreenProps {
   players: Player[];
@@ -22,111 +21,120 @@ export const ScoreboardScreen: React.FC<ScoreboardScreenProps> = ({
   onGoHome,
   onOpenRules,
 }) => {
-  // Sort players descending by score
   const rankedPlayers = [...players].sort((a, b) => b.score - a.score);
 
   return (
     <div
       id="scoreboard-screen"
-      className="w-full max-w-lg md:max-w-xl lg:max-w-2xl mx-auto flex-1 flex flex-col justify-between py-4 px-4 select-none"
+      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-2 sm:py-4 px-4 sm:px-8 select-none min-h-[100dvh]"
     >
-      {/* Consistent Top Navigation */}
       <TopNavBar
         onGoHome={onGoHome}
         onOpenRules={onOpenRules}
         theme={theme}
         centerContent={
-          <span className="text-xs font-mono text-zinc-400">
-            Round {roundNumber} complete
+          <span className="text-xs uppercase tracking-[0.2em] text-[#b9bfff]">
+            ROUND {roundNumber} COMPLETE
           </span>
         }
       />
 
-      {/* Screen Title */}
-      <div className="flex flex-col items-center justify-center pt-3 pb-1 shrink-0">
-        <h1 className="text-6xl sm:text-7xl font-jacquard text-[#f4f1ea] tracking-wider text-center">
-          Scores
-        </h1>
-        <p className="text-xs text-[#a8a29e] font-sans -mt-1 tracking-wide">
-          Manuscript standings
-        </p>
-      </div>
+      {/* Main Content: 2-Column Editorial Spread on Desktop, Clean Vertical Ledger on Mobile */}
+      <div className="my-auto py-4 sm:py-8 flex-1 flex flex-col lg:grid lg:grid-cols-12 lg:gap-12 lg:items-center w-full">
+        {/* Left Header */}
+        <div className="lg:col-span-5 text-center lg:text-left space-y-3 mb-6 lg:mb-0">
+          <span className="text-xs font-medium uppercase tracking-[0.22em] text-[#b9bfff] block">
+            THE COURT STANDINGS
+          </span>
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-jacquard text-[#f4efe4] leading-[0.88]">
+            Scores
+          </h1>
+          <p className="font-serif-editorial italic text-lg sm:text-xl text-[#f4efe4]/80 max-w-sm mx-auto lg:mx-0">
+            “{theme.name}.”
+          </p>
+        </div>
 
-      {/* Ranked Players List styled as a medieval illuminated tournament ledger */}
-      <div className="my-auto py-4 space-y-4 flex-1 overflow-y-auto no-scrollbar max-w-md mx-auto w-full">
-        <div className="border-t border-b border-[#cbb279]/25 divide-y divide-[#cbb279]/15 bg-[#0a101b]/50 rounded-lg">
-          {rankedPlayers.map((player, idx) => {
-            const isLeader = idx === 0 && player.score > 0;
-            const solvedThisRound = player.hasGuessedCorrectly;
+        {/* Right Ranked Ledger */}
+        <div className="lg:col-span-7 w-full max-w-xl lg:max-w-none mx-auto">
+          <div className="border-t border-b border-[#f4efe4]/35 divide-y divide-[#f4efe4]/20 bg-[#09120e]/60">
+            {rankedPlayers.map((player, idx) => {
+              const isLeader = idx === 0 && player.score > 0;
+              const solvedThisRound = player.hasGuessedCorrectly;
 
-            return (
-              <div
-                key={player.id}
-                className="flex items-center justify-between py-4 px-3 hover:bg-[#142033]/30 transition-colors"
-              >
-                <div className="flex items-center space-x-3 min-w-0">
-                  <div className="w-6 text-center shrink-0">
-                    {isLeader ? (
-                      <MedievalIcon name="crown" className="text-sm text-[#cbb279] mx-auto drop-shadow-[0_0_6px_rgba(203,178,121,0.5)]" />
-                    ) : (
-                      <span className="text-xs font-mono text-[#8c827a]">
-                        {idx + 1}
-                      </span>
-                    )}
-                  </div>
+              return (
+                <div
+                  key={player.id}
+                  className="flex items-center justify-between py-4 px-2 sm:px-4 hover:bg-[#f4efe4]/[0.03] transition-colors"
+                >
+                  <div className="flex items-center space-x-3.5 min-w-0">
+                    <div
+                      className={
+                        isLeader
+                          ? 'pixel-ring-periwinkle text-xs font-bold text-[#b9bfff] shrink-0'
+                          : 'pixel-ring text-xs font-semibold text-[#f4efe4]/75 shrink-0'
+                      }
+                    >
+                      {idx + 1}
+                    </div>
 
-                  <div className="min-w-0">
-                    <div className="flex items-center space-x-2">
-                      <span className="text-sm font-bold text-[#f4f1ea] truncate font-sans">
-                        {player.name}
-                      </span>
-                      {player.id === firstSolverId && (
-                        <span className="text-[10px] font-semibold text-[#cbb279] bg-[#2d1c15] border border-[#cbb279]/40 px-1.5 py-0.5 rounded-sm shrink-0 font-mono">
-                          Solved first
+                    <div className="min-w-0">
+                      <div className="flex items-center space-x-2.5">
+                        <span className="font-serif-editorial text-xl sm:text-2xl font-semibold text-[#f4efe4] truncate">
+                          {player.name}
                         </span>
+                        {player.id === firstSolverId && (
+                          <span className="text-[11px] font-medium uppercase tracking-widest text-[#f4efe4] bg-[#e03a28] px-2 py-0.5 shrink-0">
+                            FIRST SOLVER
+                          </span>
+                        )}
+                      </div>
+
+                      {player.assignedCharacter && (
+                        <p className="font-serif-editorial italic text-sm sm:text-base text-[#f4efe4]/70 truncate mt-0.5">
+                          {player.assignedCharacter.name}
+                          {player.assignedCharacter.origin ? ` — ${player.assignedCharacter.origin}` : ''}
+                          {solvedThisRound ? (
+                            <span className="not-italic text-xs uppercase tracking-widest text-[#b9bfff] ml-2">
+                              [SOLVED]
+                            </span>
+                          ) : (
+                            <span className="not-italic text-xs uppercase tracking-widest text-[#f4efe4]/40 ml-2">
+                              [UNSOLVED]
+                            </span>
+                          )}
+                        </p>
                       )}
                     </div>
-                    {/* Character revealed */}
-                    {player.assignedCharacter && (
-                      <p className="text-xs text-[#a8a29e] truncate mt-0.5 font-sans">
-                        {player.assignedCharacter.name}
-                        {player.assignedCharacter.origin ? ` (${player.assignedCharacter.origin})` : ''}
-                        {solvedThisRound ? (
-                          <span className="text-[#8cd69e] ml-1.5 font-medium">✓ Solved</span>
-                        ) : (
-                          <span className="text-[#78716c] ml-1.5">Unsolved</span>
-                        )}
-                      </p>
-                    )}
+                  </div>
+
+                  {/* Score */}
+                  <div className="text-right pl-4 shrink-0">
+                    <span className="text-3xl sm:text-4xl font-jacquard text-[#f4efe4] tabular-nums">
+                      {player.score}
+                    </span>
+                    <span className="text-[11px] text-[#b9bfff] uppercase tracking-[0.2em] block">
+                      {player.score === 1 ? 'PT' : 'PTS'}
+                    </span>
                   </div>
                 </div>
-
-                {/* Score */}
-                <div className="text-right pl-3 shrink-0">
-                  <span className="text-2xl font-bold text-[#f4f1ea] font-mono tabular-nums">
-                    {player.score}
-                  </span>
-                  <span className="text-[10px] text-[#8c827a] uppercase tracking-wider block font-sans">
-                    {player.score === 1 ? 'pt' : 'pts'}
-                  </span>
-                </div>
-              </div>
-            );
-          })}
+              );
+            })}
+          </div>
         </div>
       </div>
 
-      {/* Bottom Actions (Sticky to bottom on mobile) */}
-      <div className="pt-3 pb-safe pb-3 sticky bottom-0 z-20 bg-[#060910]/95 backdrop-blur-xs max-w-md md:max-w-lg mx-auto w-full">
-        <button
-          id="scoreboard-play-again-btn"
-          type="button"
-          onClick={onPlayAgain}
-          className="w-full py-4 bg-gradient-to-b from-[#e5cf96] via-[#d4b76a] to-[#ba9848] hover:from-[#edd8a4] hover:to-[#c6a454] active:scale-[0.99] text-[#120e09] font-bold rounded-2xl text-base transition-all cursor-pointer flex items-center justify-center space-x-2.5 shadow-[0_4px_24px_rgba(212,183,106,0.25)] border border-[#fbf0cf]"
-        >
-          <MedievalIcon name="sword" className="text-base text-[#120e09]" />
-          <span>Start Next Round</span>
-        </button>
+      {/* Bottom Sticky Action Bar */}
+      <div className="w-full sticky bottom-0 z-30 pb-safe pb-4 pt-3 bg-gradient-to-t from-[#09120e] via-[#09120e]/95 to-transparent">
+        <div className="max-w-md sm:max-w-xl lg:max-w-6xl mx-auto flex justify-end">
+          <button
+            id="scoreboard-play-again-btn"
+            type="button"
+            onClick={onPlayAgain}
+            className="w-full sm:w-auto sm:min-w-[280px] min-h-[50px] py-4 px-6 border border-[#f4efe4] bg-[#f4efe4] hover:bg-[#b9bfff] hover:border-[#b9bfff] active:scale-[0.99] text-[#09120e] font-semibold text-xs sm:text-[13px] uppercase tracking-[0.2em] transition-all cursor-pointer text-center"
+          >
+            START NEXT ROUND →
+          </button>
+        </div>
       </div>
     </div>
   );
