@@ -45,10 +45,21 @@ export const ActiveTurnScreen: React.FC<ActiveTurnScreenProps> = ({
 
   if (!character) return null;
 
+  // Maximize character text size for across-the-table legibility
+  const maxWordLength = Math.max(...character.name.split(/\s+/).map((w) => w.length));
+  const totalLength = character.name.length;
+
+  const characterSizeClass =
+    maxWordLength >= 13 || totalLength > 24
+      ? 'text-[3.75rem] xs:text-[4.5rem] sm:text-7xl md:text-8xl lg:text-9xl'
+      : maxWordLength >= 10 || totalLength > 15
+      ? 'text-[4.5rem] xs:text-[5.25rem] sm:text-8xl md:text-9xl lg:text-[9.5rem]'
+      : 'text-[5.5rem] xs:text-[6.5rem] sm:text-9xl md:text-[9.5rem] lg:text-[11.5rem]';
+
   return (
     <div
       id="active-turn-screen"
-      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-2 sm:py-4 px-4 sm:px-8 text-center select-none min-h-[100dvh]"
+      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-3 sm:py-6 px-4 sm:px-10 text-center select-none min-h-[100dvh]"
     >
       <TopNavBar
         onGoHome={onGoHome}
@@ -57,78 +68,70 @@ export const ActiveTurnScreen: React.FC<ActiveTurnScreenProps> = ({
         isLastTurnRound={isLastTurnRound}
       />
 
-      {/* Main Focus: Monumental Secret Identity Display */}
-      <div className="my-auto py-6 flex flex-col items-center justify-center w-full max-w-4xl mx-auto space-y-5">
-        <div className="flex items-center justify-center space-x-3">
-          <div className="pixel-ring-periwinkle text-xs font-bold text-[#b9bfff] scale-90">
-            1
-          </div>
-          <span className="text-xs sm:text-[13px] font-medium tracking-[0.25em] text-[#b9bfff] uppercase">
-            {player.name}’S SECRET IDENTITY
-          </span>
-        </div>
+      {/* Main Focus: Huge Across-the-Table Character Name with Generous Breathing Room */}
+      <div className="my-auto py-6 sm:py-10 flex flex-col items-center justify-center w-full max-w-5xl mx-auto space-y-5 sm:space-y-7">
+        <span className="text-xs sm:text-sm font-medium tracking-[0.26em] text-[#b9bfff] uppercase">
+          {player.name}’S SECRET IDENTITY
+        </span>
 
-        {/* Character Name in Smooth Calligraphic Gothic Blackletter */}
+        {/* Character Name in Jacquard 24 — Scaled as large as possible for party viewing */}
         <h1
-          className={`${
-            character.name.length > 20 || character.name.split(/\s+/).some((w) => w.length >= 13)
-              ? 'text-5xl sm:text-6xl md:text-7xl lg:text-8xl'
-              : character.name.length > 13 || character.name.split(/\s+/).some((w) => w.length >= 10)
-              ? 'text-6xl sm:text-7xl md:text-8xl lg:text-9xl'
-              : 'text-7xl sm:text-8xl md:text-9xl lg:text-[9.5rem]'
-          } font-jacquard text-[#f4efe4] leading-[0.9] text-center max-w-full px-2 break-words`}
+          className={`${characterSizeClass} font-jacquard text-[#f4efe4] leading-[0.94] text-center w-full px-1 sm:px-4 break-words`}
         >
           {character.name}
         </h1>
 
-        {/* Origin / Universe in Classical Editorial Italic Serif */}
+        {/* Origin / Universe — Enlarged for table legibility */}
         {character.origin && (
-          <p className="font-serif-editorial italic text-xl sm:text-2xl lg:text-3xl text-[#f4efe4]/85 tracking-wide">
+          <p className="font-serif-editorial italic text-2xl sm:text-3xl lg:text-4xl text-[#f4efe4]/85 tracking-wide pt-1">
             {character.origin}
           </p>
         )}
-
-        {/* Shuffle character button (available on Round 1) */}
-        {roundNumber === 1 && (
-          <button
-            id="reroll-character-btn"
-            type="button"
-            disabled={isRerolling}
-            onClick={onRerollCharacter}
-            className="min-h-[42px] py-2 px-4 border border-[#f4efe4]/35 hover:border-[#b9bfff] text-[#f4efe4]/70 hover:text-[#b9bfff] inline-flex items-center space-x-2 text-xs uppercase tracking-[0.18em] transition-colors cursor-pointer mt-2 disabled:opacity-50"
-          >
-            {isRerolling ? (
-              <>
-                <Loader2 className="w-3.5 h-3.5 animate-spin text-[#b9bfff]" />
-                <span>DRAWING FRESH SPIRIT...</span>
-              </>
-            ) : (
-              <span>↻ SHUFFLE CHARACTER</span>
-            )}
-          </button>
-        )}
       </div>
 
-      {/* Bottom Sticky Action Bar: Generous mobile tap zones + architectural desktop width */}
-      <div className="w-full sticky bottom-0 z-30 pb-safe pb-4 pt-3 bg-gradient-to-t from-[#09120e] via-[#09120e]/95 to-transparent">
-        <div className="max-w-md sm:max-w-xl lg:max-w-2xl mx-auto grid grid-cols-2 gap-3.5 sm:gap-6">
-          <button
-            id="missed-turn-btn"
-            type="button"
-            onClick={handleMissed}
-            className="min-h-[52px] py-4 px-5 border border-[#e03a28]/80 bg-[#09120e]/90 hover:bg-[#e03a28] text-[#f4efe4] font-medium text-xs sm:text-[13px] uppercase tracking-[0.2em] active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center"
-          >
-            ✕ MISSED
-          </button>
+      {/* Bottom Sticky Action Zone: All user actions (including Shuffle Character) in the mobile thumb zone */}
+      <div className="w-full sticky bottom-0 z-30 pb-safe pb-4 pt-3 bg-[#09120e]/90 sm:bg-transparent backdrop-blur-xs sm:backdrop-blur-none">
+        <div className="max-w-md sm:max-w-xl lg:max-w-2xl mx-auto space-y-3">
+          {roundNumber === 1 && (
+            <div className="flex justify-center">
+              <button
+                id="reroll-character-btn"
+                type="button"
+                disabled={isRerolling}
+                onClick={onRerollCharacter}
+                className="min-h-[42px] py-2 px-5 border border-[#f4efe4]/35 hover:border-[#b9bfff] text-[#f4efe4]/75 hover:text-[#b9bfff] inline-flex items-center space-x-2 text-xs uppercase tracking-[0.18em] transition-colors cursor-pointer disabled:opacity-50"
+              >
+                {isRerolling ? (
+                  <>
+                    <Loader2 className="w-3.5 h-3.5 animate-spin text-[#b9bfff]" />
+                    <span>SHUFFLING CHARACTER...</span>
+                  </>
+                ) : (
+                  <span>↻ SHUFFLE CHARACTER</span>
+                )}
+              </button>
+            </div>
+          )}
 
-          <button
-            id="got-it-turn-btn"
-            type="button"
-            onClick={handleCorrect}
-            className="min-h-[52px] py-4 px-5 border border-[#f4efe4] bg-[#f4efe4] hover:bg-[#b9bfff] hover:border-[#b9bfff] text-[#09120e] font-semibold text-xs sm:text-[13px] uppercase tracking-[0.2em] active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center"
-          >
-            GOT IT! →
-          </button>
+          <div className="grid grid-cols-2 gap-3.5 sm:gap-6">
+            <button
+              id="missed-turn-btn"
+              type="button"
+              onClick={handleMissed}
+              className="min-h-[54px] py-4 px-5 border border-[#e03a28]/85 bg-[#09120e]/95 hover:bg-[#e03a28] text-[#f4efe4] font-medium text-xs sm:text-[13px] uppercase tracking-[0.2em] active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center"
+            >
+              ✕ MISSED
+            </button>
+
+            <button
+              id="got-it-turn-btn"
+              type="button"
+              onClick={handleCorrect}
+              className="min-h-[54px] py-4 px-5 border border-[#f4efe4] bg-[#f4efe4] hover:bg-[#b9bfff] hover:border-[#b9bfff] text-[#09120e] font-semibold text-xs sm:text-[13px] uppercase tracking-[0.2em] active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center"
+            >
+              GOT IT! →
+            </button>
+          </div>
         </div>
       </div>
     </div>

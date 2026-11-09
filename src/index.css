@@ -5,10 +5,10 @@
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   }
 
-  /* Smooth Calligraphic Gothic Blackletter (Folk / High-Fashion Editorial) */
+  /* Original Jacquard 24 (Pixelated Medieval Blackletter) for clear legibility */
   h1, h2, .font-jacquard, .font-headline, .font-gothic {
-    font-family: 'UnifrakturMaguntia', 'Pirata One', Georgia, serif;
-    letter-spacing: -0.01em;
+    font-family: 'Jacquard 24', Georgia, serif;
+    letter-spacing: 0.02em;
     font-weight: 400;
   }
 

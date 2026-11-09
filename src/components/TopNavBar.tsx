@@ -22,9 +22,12 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
 
   return (
     <>
-      <header className="w-full max-w-6xl mx-auto flex items-center justify-between pt-3 pb-2 px-1 sm:px-2 shrink-0 z-30 select-none">
-        {/* Left: Corner-Pinned Brand / Home Link */}
-        <div className="flex items-center justify-start min-w-[110px]">
+      <header
+        className="w-full max-w-6xl mx-auto flex items-center justify-between py-3.5 sm:py-5 px-2 sm:px-4 shrink-0 z-30 select-none"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Left: Home / Brand Link with spacious mobile sizing */}
+        <div className="flex items-center justify-start flex-1 min-w-0">
           {onGoHome ? (
             <button
               id="top-nav-home-btn"
@@ -32,21 +35,22 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
               onClick={onGoHome}
               title="Return home"
               aria-label="Return home"
-              className="py-2 pr-3 text-xs sm:text-[13px] font-medium uppercase tracking-[0.14em] text-[#f4efe4] hover:text-[#b9bfff] active:opacity-70 transition-colors cursor-pointer text-left"
+              className="py-2 pr-3 text-xs sm:text-[13px] font-medium uppercase tracking-[0.16em] text-[#f4efe4]/85 hover:text-[#b9bfff] active:opacity-70 transition-colors cursor-pointer text-left"
             >
-              JEST.GUESSING
+              <span className="sm:hidden">HOME</span>
+              <span className="hidden sm:inline">JEST.GUESSING</span>
             </button>
           ) : (
-            <span className="py-2 pr-3 text-xs sm:text-[13px] font-medium uppercase tracking-[0.14em] text-[#f4efe4]">
+            <span className="py-2 pr-3 text-xs sm:text-[13px] font-medium uppercase tracking-[0.16em] text-[#f4efe4]/85">
               JEST.GUESSING
             </span>
           )}
         </div>
 
-        {/* Center: Symmetrical 4-Loop Heraldic Clover Knot (or active notice) */}
-        <div className="flex items-center justify-center px-2">
+        {/* Center: Symmetrical 4-Loop Heraldic Clover Knot */}
+        <div className="flex items-center justify-center px-3 shrink-0">
           {isLastTurnRound ? (
-            <span className="text-xs font-semibold uppercase tracking-[0.22em] text-[#e03a28] animate-pulse">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#e03a28] animate-pulse">
               FINAL TURN
             </span>
           ) : centerContent ? (
@@ -57,10 +61,11 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
               onClick={theme ? () => setShowThemeModal(true) : onGoHome}
               title={theme ? 'View round commonality' : 'Jest Guessing'}
               className={`p-1.5 text-[#f4efe4] transition-transform duration-300 ${
-                theme || onGoHome ? 'hover:text-[#b9bfff] hover:scale-105 cursor-pointer' : 'cursor-default'
+                theme || onGoHome
+                  ? 'hover:text-[#b9bfff] hover:scale-105 cursor-pointer'
+                  : 'cursor-default'
               }`}
             >
-              {/* Authentic 4-Loop Heraldic Clover Knot from the Folk design */}
               <svg
                 className="w-6 h-6 sm:w-7 sm:h-7"
                 viewBox="0 0 32 32"
@@ -84,7 +89,7 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
         </div>
 
         {/* Right: Corner-Pinned Theme & Rules Links */}
-        <div className="flex items-center justify-end space-x-4 min-w-[110px]">
+        <div className="flex items-center justify-end space-x-5 sm:space-x-6 flex-1 min-w-0">
           {theme && (
             <button
               id="top-nav-theme-btn"
@@ -92,23 +97,25 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
               onClick={() => setShowThemeModal(true)}
               title="View round theme"
               aria-label="View round theme"
-              className="py-2 px-2 text-xs sm:text-[13px] font-medium uppercase tracking-[0.14em] text-[#b9bfff] hover:text-[#f4efe4] transition-colors cursor-pointer"
+              className="py-2 px-1 text-xs sm:text-[13px] font-medium uppercase tracking-[0.16em] text-[#b9bfff] hover:text-[#f4efe4] transition-colors cursor-pointer"
             >
               DECREE
             </button>
           )}
 
-          {!hideHelp && (
+          {!hideHelp ? (
             <button
               id="top-nav-rules-btn"
               type="button"
               onClick={onOpenRules}
               title="How to play"
               aria-label="How to play"
-              className="py-2 pl-2 text-xs sm:text-[13px] font-medium uppercase tracking-[0.14em] text-[#f4efe4] hover:text-[#b9bfff] transition-colors cursor-pointer text-right"
+              className="py-2 pl-1 text-xs sm:text-[13px] font-medium uppercase tracking-[0.16em] text-[#f4efe4]/85 hover:text-[#b9bfff] transition-colors cursor-pointer text-right"
             >
               RULES
             </button>
+          ) : (
+            <div className="w-12" />
           )}
         </div>
       </header>
@@ -117,8 +124,11 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
       {showThemeModal && theme && (
         <div
           id="theme-disclosure-modal"
-          className="fixed inset-0 z-50 bg-[#09120e]/90 backdrop-blur-xs flex items-center justify-center p-4 animate-in fade-in duration-200"
-          onClick={() => setShowThemeModal(false)}
+          className="fixed inset-0 z-50 bg-[#09120e]/90 backdrop-blur-xs flex items-center justify-center p-5 animate-in fade-in duration-200"
+          onClick={(e) => {
+            e.stopPropagation();
+            setShowThemeModal(false);
+          }}
         >
           <div
             className="w-full max-w-md bg-[#09120e] border border-[#f4efe4]/50 p-7 sm:p-9 space-y-6 text-center shadow-2xl relative"
@@ -131,7 +141,7 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
               <button
                 type="button"
                 onClick={() => setShowThemeModal(false)}
-                className="p-1.5 text-[#f4efe4]/70 hover:text-[#f4efe4] transition-colors cursor-pointer text-xs uppercase tracking-widest"
+                className="p-2 text-[#f4efe4]/70 hover:text-[#f4efe4] transition-colors cursor-pointer text-xs uppercase tracking-widest"
                 aria-label="Close theme modal"
               >
                 ✕
@@ -139,10 +149,10 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
             </div>
 
             <div className="py-4 px-2 space-y-3">
-              <h2 className="text-3xl sm:text-4xl font-jacquard text-[#f4efe4] leading-snug">
+              <h2 className="text-4xl sm:text-5xl font-jacquard text-[#f4efe4] leading-snug">
                 {theme.name}
               </h2>
-              <p className="font-serif-editorial italic text-base text-[#f4efe4]/75">
+              <p className="font-serif-editorial italic text-lg text-[#f4efe4]/75">
                 Every player’s secret identity shares this bond.
               </p>
             </div>
@@ -150,7 +160,7 @@ export const TopNavBar: React.FC<TopNavBarProps> = ({
             <button
               type="button"
               onClick={() => setShowThemeModal(false)}
-              className="w-full py-3.5 border border-[#f4efe4]/70 hover:bg-[#f4efe4] hover:text-[#09120e] text-[#f4efe4] font-medium text-xs uppercase tracking-[0.2em] transition-colors cursor-pointer"
+              className="w-full min-h-[48px] py-3.5 border border-[#f4efe4] bg-[#f4efe4] text-[#09120e] hover:bg-[#b9bfff] hover:border-[#b9bfff] font-semibold text-xs uppercase tracking-[0.2em] transition-colors cursor-pointer"
             >
               RETURN TO COURT
             </button>

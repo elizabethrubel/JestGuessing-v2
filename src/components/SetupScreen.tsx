@@ -134,21 +134,21 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
   return (
     <div
       id="setup-screen"
-      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-2 sm:py-4 px-4 sm:px-8 min-h-[100dvh]"
+      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-3 sm:py-6 px-5 sm:px-10 min-h-[100dvh]"
     >
       <TopNavBar onGoHome={onBackToLanding} onOpenRules={onOpenRules} />
 
       {/* Main Content: Single column on mobile, wide 2-column lookbook spread on desktop */}
       <div className="my-auto py-4 sm:py-8 flex-1 flex flex-col lg:grid lg:grid-cols-12 lg:gap-12 lg:items-center w-full">
-        {/* Left Column: Title & Editorial Epigraph */}
-        <div className="lg:col-span-5 text-center lg:text-left space-y-3 mb-6 lg:mb-0 shrink-0">
+        {/* Left Column: Title & Editorial Epigraph with Generous Breathing Room */}
+        <div className="lg:col-span-5 text-center lg:text-left space-y-3 sm:space-y-4 mb-6 lg:mb-0 shrink-0">
           <span className="text-xs font-medium uppercase tracking-[0.22em] text-[#b9bfff] block">
             ACT I // THE ROSTER
           </span>
-          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-jacquard text-[#f4efe4] leading-[0.88]">
+          <h1 className="text-6xl sm:text-7xl lg:text-8xl font-jacquard text-[#f4efe4] leading-[0.92]">
             Players
           </h1>
-          <p className="font-serif-editorial italic text-base sm:text-xl text-[#f4efe4]/80 max-w-xs mx-auto lg:mx-0 leading-snug">
+          <p className="font-serif-editorial italic text-lg sm:text-xl text-[#f4efe4]/80 max-w-xs mx-auto lg:mx-0 leading-relaxed">
             Inscribe at least two souls to enter the circle of deduction.
           </p>
 
@@ -173,7 +173,7 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
                 onDragOver={(e) => handleDragOver(e, idx)}
                 onDrop={() => handleDrop(idx)}
                 onDragEnd={handleDragEnd}
-                className={`flex items-center justify-between min-h-[56px] py-2.5 px-2 sm:px-3 transition-all select-none group ${
+                className={`flex items-center justify-between min-h-[58px] py-3 px-2.5 sm:px-4 transition-all select-none group ${
                   draggedIndex === idx
                     ? 'opacity-40 bg-[#b9bfff]/10'
                     : dragOverIndex === idx
@@ -214,7 +214,7 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
                   )}
                 </div>
 
-                {/* Right: Remove Button with generous tap target */}
+                {/* Right: Remove Button */}
                 <button
                   id={`remove-player-${player.id}`}
                   type="button"
@@ -229,7 +229,7 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
             ))}
 
             {/* Active Draft Input Row */}
-            <div className="flex items-center justify-between min-h-[56px] py-2.5 px-2 sm:px-3 transition-all">
+            <div className="flex items-center justify-between min-h-[58px] py-3 px-2.5 sm:px-4 transition-all">
               <div className="flex items-center space-x-2.5 shrink-0 mr-3 opacity-45">
                 <MedievalIcon name="drag" className="text-xs text-[#f4efe4]/30" />
                 <div className="pixel-ring text-xs font-semibold text-[#f4efe4] scale-90">
@@ -273,7 +273,7 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
             {/* Subsequent Empty Row */}
             {draftName.length > 0 && (
               <div
-                className="flex items-center justify-between min-h-[52px] py-2.5 px-2 sm:px-3 transition-all opacity-35 hover:opacity-70 cursor-text"
+                className="flex items-center justify-between min-h-[54px] py-3 px-2.5 sm:px-4 transition-all opacity-35 hover:opacity-70 cursor-text"
                 onClick={() => {
                   if (draftName.trim()) {
                     commitDraft(draftName);
@@ -305,13 +305,13 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
         </div>
       </div>
 
-      {/* Bottom Sticky Action Bar */}
-      <div className="w-full sticky bottom-0 z-30 pb-safe pb-4 pt-3 bg-gradient-to-t from-[#09120e] via-[#09120e]/95 to-transparent">
-        <div className="max-w-lg lg:max-w-6xl mx-auto flex items-center justify-between gap-4">
+      {/* Bottom Sticky Action Zone (No desktop gradient cutoff) */}
+      <div className="w-full sticky bottom-0 z-30 pb-safe pb-4 pt-3 bg-[#09120e]/90 sm:bg-transparent backdrop-blur-xs sm:backdrop-blur-none">
+        <div className="max-w-lg lg:max-w-6xl mx-auto flex items-center justify-between gap-3.5 sm:gap-6">
           <button
             type="button"
             onClick={onBackToLanding}
-            className="min-h-[48px] py-3.5 px-5 border border-[#f4efe4]/45 hover:border-[#f4efe4] text-[#f4efe4]/80 hover:text-[#f4efe4] text-xs sm:text-[13px] font-medium uppercase tracking-[0.16em] transition-all cursor-pointer shrink-0"
+            className="min-h-[50px] py-3.5 px-5 border border-[#f4efe4]/45 hover:border-[#f4efe4] text-[#f4efe4]/80 hover:text-[#f4efe4] text-xs sm:text-[13px] font-medium uppercase tracking-[0.16em] transition-all cursor-pointer shrink-0"
           >
             ← BACK
           </button>
@@ -321,7 +321,7 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
             type="button"
             disabled={!canProceed}
             onClick={handleProceed}
-            className="flex-1 sm:flex-initial sm:min-w-[260px] min-h-[48px] py-3.5 px-6 border border-[#f4efe4] bg-[#f4efe4] text-[#09120e] hover:bg-[#b9bfff] hover:border-[#b9bfff] active:scale-[0.99] disabled:opacity-30 disabled:cursor-not-allowed text-xs sm:text-[13px] font-semibold uppercase tracking-[0.16em] transition-all cursor-pointer text-center"
+            className="flex-1 sm:flex-initial sm:min-w-[260px] min-h-[50px] py-3.5 px-6 border border-[#f4efe4] bg-[#f4efe4] text-[#09120e] hover:bg-[#b9bfff] hover:border-[#b9bfff] active:scale-[0.99] disabled:opacity-30 disabled:cursor-not-allowed text-xs sm:text-[13px] font-semibold uppercase tracking-[0.18em] transition-all cursor-pointer text-center"
           >
             CHOOSE COMMONALITY →
           </button>
