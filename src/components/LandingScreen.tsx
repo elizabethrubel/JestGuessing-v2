@@ -13,24 +13,24 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
   return (
     <div
       id="landing-screen"
-      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-3 sm:py-6 px-5 sm:px-10 text-center select-none min-h-[100dvh]"
+      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-2.5 sm:py-6 px-5 sm:px-10 text-center select-none h-[100dvh] overflow-hidden"
     >
       {/* Top Navigation with hideHelp=true so "How to play" isn't duplicated */}
       <TopNavBar onOpenRules={onOpenRules} hideHelp={true} />
 
       {/* Centerpiece with generous breathing room */}
-      <div className="my-auto py-4 sm:py-8 flex-1 flex flex-col items-center justify-center relative w-full max-w-2xl mx-auto space-y-4 sm:space-y-6">
+      <div className="my-auto py-2 sm:py-6 flex-1 flex flex-col items-center justify-center relative w-full max-w-2xl mx-auto space-y-3 sm:space-y-5 min-h-0">
         <div className="relative w-full flex flex-col items-center justify-center">
           {/* Top Monumental Word: "Jest" in Jacquard 24 */}
           <h1
             aria-label="Jest Guessing"
-            className="text-[6.2rem] xs:text-[7.2rem] sm:text-[9.5rem] lg:text-[11rem] font-jacquard text-[#f4efe4] leading-[0.84] tracking-normal select-none z-10 pointer-events-none"
+            className="text-[5.5rem] xs:text-[6.8rem] sm:text-[9.5rem] lg:text-[11rem] font-jacquard text-[#f4efe4] leading-[0.84] tracking-normal select-none z-10 pointer-events-none"
           >
             Jest
           </h1>
 
           {/* Central Woodcut Engraving: Periwinkle-Lilac & Vermilion Crowned Goose + Lute Jester */}
-          <div className="relative w-[245px] xs:w-[275px] sm:w-[340px] lg:w-[390px] -mt-4 sm:-mt-7 -mb-3 sm:-mb-5 z-20 flex items-center justify-center">
+          <div className="relative w-[220px] xs:w-[255px] sm:w-[340px] lg:w-[390px] -mt-4 sm:-mt-7 -mb-3 sm:-mb-5 z-20 flex items-center justify-center">
             <img
               src="/assets/jester-goose.png"
               alt="Renaissance woodcut of a Court Jester playing a lute beside a crowned goose in a ruffled collar"
@@ -57,28 +57,28 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
           {/* Bottom Monumental Word: "Guessing" in Jacquard 24 */}
           <span
             aria-hidden="true"
-            className="block text-[4.25rem] xs:text-[4.9rem] sm:text-[6.6rem] lg:text-[7.8rem] font-jacquard text-[#f4efe4] leading-[0.88] tracking-normal select-none z-10 pointer-events-none"
+            className="block text-[3.85rem] xs:text-[4.65rem] sm:text-[6.6rem] lg:text-[7.8rem] font-jacquard text-[#f4efe4] leading-[0.88] tracking-normal select-none z-10 pointer-events-none"
           >
             Guessing
           </span>
         </div>
 
-        {/* Classical Editorial Serif Epigraph with generous breathing room */}
-        <p className="font-serif-editorial italic text-lg sm:text-xl lg:text-2xl text-[#f4efe4]/85 max-w-xs sm:max-w-md mx-auto leading-relaxed pt-1">
+        {/* Classical Editorial Serif Epigraph */}
+        <p className="font-serif-editorial italic text-lg sm:text-xl lg:text-2xl text-[#f4efe4]/85 max-w-xs sm:max-w-md mx-auto leading-snug sm:leading-relaxed">
           Never shout your secret identity,
           <br />
           merely deduce the bond.
         </p>
       </div>
 
-      {/* Bottom Action Zone: Sticky on mobile, clean transparent background on desktop (no cut-off gradient), primary CTA + subtle How to Play */}
-      <div className="w-full sticky bottom-0 z-30 pb-safe pb-4 pt-3 bg-[#09120e]/90 sm:bg-transparent backdrop-blur-xs sm:backdrop-blur-none">
-        <div className="max-w-sm sm:max-w-md mx-auto flex flex-col items-center space-y-2.5">
+      {/* Bottom Action Zone: Transparent background */}
+      <div className="w-full shrink-0 z-30 pb-safe pb-3 sm:pb-4 pt-2">
+        <div className="max-w-sm sm:max-w-md mx-auto flex flex-col items-center space-y-2">
           <button
             id="landing-start-btn"
             type="button"
             onClick={onStartSetup}
-            className="w-full min-h-[52px] py-4 px-6 border border-[#f4efe4] bg-[#f4efe4] text-[#09120e] hover:bg-[#b9bfff] hover:border-[#b9bfff] active:scale-[0.99] text-xs sm:text-[13px] font-semibold uppercase tracking-[0.2em] transition-all cursor-pointer text-center shadow-[0_8px_30px_rgba(0,0,0,0.4)]"
+            className="w-full min-h-[52px] py-4 px-6 border border-[#f4efe4] bg-[#f4efe4] text-[#09120e] hover:bg-[#b9bfff] hover:border-[#b9bfff] active:scale-[0.99] text-xs sm:text-[13px] font-semibold uppercase tracking-[0.2em] transition-all cursor-pointer text-center"
           >
             COMMENCE THE JEST →
           </button>
@@ -87,7 +87,7 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
             id="landing-see-rules-btn"
             type="button"
             onClick={onOpenRules}
-            className="min-h-[40px] py-2 px-4 text-xs font-medium uppercase tracking-[0.18em] text-[#f4efe4]/60 hover:text-[#b9bfff] transition-colors cursor-pointer text-center"
+            className="min-h-[38px] py-1.5 px-4 text-xs font-medium uppercase tracking-[0.18em] text-[#f4efe4]/60 hover:text-[#b9bfff] transition-colors cursor-pointer text-center"
           >
             How to play
           </button>

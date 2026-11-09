@@ -30,7 +30,7 @@ export const ThemeRevealScreen: React.FC<ThemeRevealScreenProps> = ({
   return (
     <div
       id="theme-reveal-screen"
-      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-3 sm:py-6 px-5 sm:px-10 min-h-[100dvh]"
+      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-2.5 sm:py-6 px-5 sm:px-10 h-[100dvh] overflow-hidden"
     >
       <TopNavBar onGoHome={onGoHome} onOpenRules={onOpenRules} theme={theme} />
 
@@ -48,7 +48,7 @@ export const ThemeRevealScreen: React.FC<ThemeRevealScreenProps> = ({
         </p>
       </div>
 
-      <div className="w-full sticky bottom-0 z-30 pb-safe pb-4 pt-3 bg-[#09120e]/90 sm:bg-transparent backdrop-blur-xs sm:backdrop-blur-none">
+      <div className="w-full shrink-0 z-30 pb-safe pb-3 sm:pb-4 pt-2">
         <div className="max-w-md sm:max-w-xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-3">
           {onShuffleTheme && (
             <button

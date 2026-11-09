@@ -23,7 +23,7 @@ export const LastTurnInterstitial: React.FC<LastTurnInterstitialProps> = ({
   return (
     <div
       id="last-turn-interstitial-screen"
-      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-3 sm:py-6 px-5 sm:px-10 text-center select-none min-h-[100dvh]"
+      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-2.5 sm:py-6 px-5 sm:px-10 text-center select-none h-[100dvh] overflow-hidden"
     >
       <TopNavBar
         onGoHome={onGoHome}
@@ -33,7 +33,7 @@ export const LastTurnInterstitial: React.FC<LastTurnInterstitialProps> = ({
       />
 
       {/* Main Notification with clear "got it right!" wording */}
-      <div className="my-auto py-8 flex flex-col items-center justify-center w-full max-w-3xl mx-auto text-center space-y-6">
+      <div className="my-auto py-6 flex flex-col items-center justify-center w-full max-w-3xl mx-auto text-center space-y-5 sm:space-y-6">
         <div className="pixel-ring-periwinkle text-xs font-bold text-[#b9bfff]">
           !
         </div>
@@ -51,8 +51,8 @@ export const LastTurnInterstitial: React.FC<LastTurnInterstitialProps> = ({
         </p>
       </div>
 
-      {/* Bottom Sticky CTA (No desktop gradient cutoff) */}
-      <div className="w-full sticky bottom-0 z-30 pb-safe pb-4 pt-3 bg-[#16090b]/90 sm:bg-transparent backdrop-blur-xs sm:backdrop-blur-none">
+      {/* Bottom CTA: Transparent background */}
+      <div className="w-full shrink-0 z-30 pb-safe pb-3 sm:pb-4 pt-2">
         <div className="max-w-md mx-auto w-full">
           <button
             id="continue-last-turn-btn"

@@ -59,7 +59,7 @@ export const ActiveTurnScreen: React.FC<ActiveTurnScreenProps> = ({
   return (
     <div
       id="active-turn-screen"
-      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-3 sm:py-6 px-4 sm:px-10 text-center select-none min-h-[100dvh]"
+      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-2.5 sm:py-6 px-4 sm:px-10 text-center select-none h-[100dvh] overflow-hidden"
     >
       <TopNavBar
         onGoHome={onGoHome}
@@ -68,8 +68,8 @@ export const ActiveTurnScreen: React.FC<ActiveTurnScreenProps> = ({
         isLastTurnRound={isLastTurnRound}
       />
 
-      {/* Main Focus: Huge Across-the-Table Character Name with Generous Breathing Room */}
-      <div className="my-auto py-6 sm:py-10 flex flex-col items-center justify-center w-full max-w-5xl mx-auto space-y-5 sm:space-y-7">
+      {/* Main Focus: Huge Across-the-Table Character Name with Shuffle Character close beneath */}
+      <div className="my-auto py-4 sm:py-8 flex flex-col items-center justify-center w-full max-w-5xl mx-auto space-y-3 sm:space-y-4">
         <span className="text-xs sm:text-sm font-medium tracking-[0.26em] text-[#b9bfff] uppercase">
           {player.name}’S SECRET IDENTITY
         </span>
@@ -83,42 +83,41 @@ export const ActiveTurnScreen: React.FC<ActiveTurnScreenProps> = ({
 
         {/* Origin / Universe — Enlarged for table legibility */}
         {character.origin && (
-          <p className="font-serif-editorial italic text-2xl sm:text-3xl lg:text-4xl text-[#f4efe4]/85 tracking-wide pt-1">
+          <p className="font-serif-editorial italic text-2xl sm:text-3xl lg:text-4xl text-[#f4efe4]/85 tracking-wide">
             {character.origin}
           </p>
         )}
+
+        {/* Shuffle Character Button — Positioned directly beneath character name / origin */}
+        <div className="pt-1 flex justify-center">
+          <button
+            id="reroll-character-btn"
+            type="button"
+            disabled={isRerolling}
+            onClick={onRerollCharacter}
+            className="min-h-[38px] py-1.5 px-4 border border-[#f4efe4]/35 hover:border-[#b9bfff] text-[#f4efe4]/75 hover:text-[#b9bfff] inline-flex items-center space-x-2 text-xs uppercase tracking-[0.18em] transition-colors cursor-pointer disabled:opacity-50"
+          >
+            {isRerolling ? (
+              <>
+                <Loader2 className="w-3.5 h-3.5 animate-spin text-[#b9bfff]" />
+                <span>SHUFFLING CHARACTER...</span>
+              </>
+            ) : (
+              <span>↻ SHUFFLE CHARACTER</span>
+            )}
+          </button>
+        </div>
       </div>
 
-      {/* Bottom Sticky Action Zone: All user actions (including Shuffle Character) in the mobile thumb zone */}
-      <div className="w-full sticky bottom-0 z-30 pb-safe pb-4 pt-3 bg-[#09120e]/90 sm:bg-transparent backdrop-blur-xs sm:backdrop-blur-none">
-        <div className="max-w-md sm:max-w-xl lg:max-w-2xl mx-auto space-y-3">
-          {roundNumber === 1 && (
-            <div className="flex justify-center">
-              <button
-                id="reroll-character-btn"
-                type="button"
-                disabled={isRerolling}
-                onClick={onRerollCharacter}
-                className="min-h-[42px] py-2 px-5 border border-[#f4efe4]/35 hover:border-[#b9bfff] text-[#f4efe4]/75 hover:text-[#b9bfff] inline-flex items-center space-x-2 text-xs uppercase tracking-[0.18em] transition-colors cursor-pointer disabled:opacity-50"
-              >
-                {isRerolling ? (
-                  <>
-                    <Loader2 className="w-3.5 h-3.5 animate-spin text-[#b9bfff]" />
-                    <span>SHUFFLING CHARACTER...</span>
-                  </>
-                ) : (
-                  <span>↻ SHUFFLE CHARACTER</span>
-                )}
-              </button>
-            </div>
-          )}
-
+      {/* Bottom Action Zone: Transparent background */}
+      <div className="w-full shrink-0 z-30 pb-safe pb-3 sm:pb-4 pt-2">
+        <div className="max-w-md sm:max-w-xl lg:max-w-2xl mx-auto">
           <div className="grid grid-cols-2 gap-3.5 sm:gap-6">
             <button
               id="missed-turn-btn"
               type="button"
               onClick={handleMissed}
-              className="min-h-[54px] py-4 px-5 border border-[#e03a28]/85 bg-[#09120e]/95 hover:bg-[#e03a28] text-[#f4efe4] font-medium text-xs sm:text-[13px] uppercase tracking-[0.2em] active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center"
+              className="min-h-[54px] py-4 px-5 border border-[#e03a28]/85 bg-transparent hover:bg-[#e03a28] text-[#f4efe4] font-medium text-xs sm:text-[13px] uppercase tracking-[0.2em] active:scale-[0.99] transition-all cursor-pointer flex items-center justify-center"
             >
               ✕ MISSED
             </button>

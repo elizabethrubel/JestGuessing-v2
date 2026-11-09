@@ -43,7 +43,7 @@ export const PrivacyInterstitialScreen: React.FC<PrivacyInterstitialScreenProps>
           handleReveal();
         }
       }}
-      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-3 sm:py-6 px-5 sm:px-10 text-center select-none relative min-h-[100dvh] cursor-pointer"
+      className="w-full max-w-6xl mx-auto flex-1 flex flex-col justify-between py-2.5 sm:py-6 px-5 sm:px-10 text-center select-none relative h-[100dvh] overflow-hidden cursor-pointer"
     >
       <TopNavBar
         onGoHome={onGoHome}
@@ -53,7 +53,7 @@ export const PrivacyInterstitialScreen: React.FC<PrivacyInterstitialScreenProps>
       />
 
       {/* Main Focus: Tap Anywhere to Reveal */}
-      <div className="my-auto py-8 flex flex-col items-center justify-center w-full max-w-3xl mx-auto space-y-6 sm:space-y-8 relative z-20">
+      <div className="my-auto py-4 sm:py-8 flex flex-col items-center justify-center w-full max-w-3xl mx-auto space-y-5 sm:space-y-8 relative z-20">
         {/* 1-Bit Pixel Turn Ring */}
         <div className="pixel-ring-periwinkle text-xs sm:text-sm font-bold text-[#b9bfff] scale-110">
           {turnNumber}
@@ -81,9 +81,9 @@ export const PrivacyInterstitialScreen: React.FC<PrivacyInterstitialScreenProps>
         </div>
       </div>
 
-      {/* Bottom Sticky Action Zone (Mobile thumb zone, no desktop gradient cutoff) */}
-      <div className="w-full sticky bottom-0 z-30 pb-safe pb-4 pt-3 bg-[#09120e]/90 sm:bg-transparent backdrop-blur-xs sm:backdrop-blur-none">
-        <div className="max-w-md sm:max-w-xl mx-auto flex flex-col items-center space-y-3">
+      {/* Bottom Action Zone: Transparent background */}
+      <div className="w-full shrink-0 z-30 pb-safe pb-3 sm:pb-4 pt-2">
+        <div className="max-w-md sm:max-w-xl mx-auto flex flex-col items-center space-y-2.5">
           <button
             id="tap-to-unlock-btn"
             type="button"
@@ -103,7 +103,7 @@ export const PrivacyInterstitialScreen: React.FC<PrivacyInterstitialScreenProps>
               e.stopPropagation();
               onSkipPlayer();
             }}
-            className="min-h-[40px] py-2 px-4 text-xs uppercase tracking-[0.18em] text-[#f4efe4]/60 hover:text-[#b9bfff] transition-colors cursor-pointer"
+            className="min-h-[38px] py-1.5 px-4 text-xs uppercase tracking-[0.18em] text-[#f4efe4]/60 hover:text-[#b9bfff] transition-colors cursor-pointer"
           >
             Skip {activePlayer.name}’s turn
           </button>

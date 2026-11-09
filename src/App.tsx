@@ -543,6 +543,10 @@ export default function App() {
           <SetupScreen
             players={players}
             onUpdatePlayers={setPlayers}
+            onClearScores={() => {
+              setPlayers((prev) => prev.map((p) => ({ ...p, score: 0 })));
+              setRoundNumber(1);
+            }}
             onProceedToCommonalities={(finalPlayers) => {
               setPlayers(finalPlayers);
               setStage('commonality_selection');
@@ -646,6 +650,10 @@ export default function App() {
               setSelectedCommonality(null);
               fetchCandidateCommonalities();
               setStage('commonality_selection');
+            }}
+            onClearScores={() => {
+              setPlayers((prev) => prev.map((p) => ({ ...p, score: 0 })));
+              setRoundNumber(1);
             }}
             onGoHome={() => setStage('landing')}
             onOpenRules={() => setShowRules(true)}
