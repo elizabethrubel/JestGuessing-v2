@@ -1,10 +1,11 @@
 import express from "express";
 import path from "path";
 import fs from "fs";
-import { createServer as createViteServer } from "vite";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 import { VERIFIED_CATEGORIES, VerifiedCharacter } from "./src/data/verifiedCharacterSets";
+import commonalitiesJson from "./public/assets/aistudio/Commonalities_6c05b138.json";
+import topCharactersJson from "./public/assets/aistudio/TopCharacters_b19eb45c.json";
 
 dotenv.config();
 
@@ -45,25 +46,29 @@ interface KnownCharacter {
   origin: string;
 }
 
-let commonalitiesList: CommTrait[] = [];
-let topCharactersList: KnownCharacter[] = [];
+let commonalitiesList: CommTrait[] = Array.isArray(commonalitiesJson) ? (commonalitiesJson as CommTrait[]) : [];
+let topCharactersList: KnownCharacter[] = Array.isArray(topCharactersJson) ? (topCharactersJson as KnownCharacter[]) : [];
 
-try {
-  const commPath = path.resolve(process.cwd(), "public/assets/aistudio/Commonalities_6c05b138.json");
-  if (fs.existsSync(commPath)) {
-    commonalitiesList = JSON.parse(fs.readFileSync(commPath, "utf-8"));
+if (commonalitiesList.length === 0) {
+  try {
+    const commPath = path.resolve(process.cwd(), "public/assets/aistudio/Commonalities_6c05b138.json");
+    if (fs.existsSync(commPath)) {
+      commonalitiesList = JSON.parse(fs.readFileSync(commPath, "utf-8"));
+    }
+  } catch (err) {
+    console.error("Failed to load Commonalities JSON:", err);
   }
-} catch (err) {
-  console.error("Failed to load Commonalities JSON:", err);
 }
 
-try {
-  const topCharsPath = path.resolve(process.cwd(), "public/assets/aistudio/TopCharacters_b19eb45c.json");
-  if (fs.existsSync(topCharsPath)) {
-    topCharactersList = JSON.parse(fs.readFileSync(topCharsPath, "utf-8"));
+if (topCharactersList.length === 0) {
+  try {
+    const topCharsPath = path.resolve(process.cwd(), "public/assets/aistudio/TopCharacters_b19eb45c.json");
+    if (fs.existsSync(topCharsPath)) {
+      topCharactersList = JSON.parse(fs.readFileSync(topCharsPath, "utf-8"));
+    }
+  } catch (err) {
+    console.error("Failed to load TopCharacters JSON:", err);
   }
-} catch (err) {
-  console.error("Failed to load TopCharacters JSON:", err);
 }
 
 // Fallback in case file read fails
@@ -504,6 +509,7 @@ app.get("/api/health", (_req, res) => {
 
 async function startServer() {
   if (process.env.NODE_ENV !== "production") {
+    const { createServer: createViteServer } = await import("vite");
     const vite = await createViteServer({
       server: { middlewareMode: true },
       appType: "spa",
@@ -522,4 +528,9 @@ async function startServer() {
   });
 }
 
-startServer();
+if (!process.env.VERCEL) {
+  startServer();
+}
+
+export default app;
+
