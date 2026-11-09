@@ -30,11 +30,32 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
   const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
   const [dragOverIndex, setDragOverIndex] = useState<number | null>(null);
   const [viewportHeight, setViewportHeight] = useState<number | null>(null);
+  const [isInputFocused, setIsInputFocused] = useState<boolean>(false);
 
   const playerInputRefs = useRef<(HTMLInputElement | null)[]>([]);
   const draftInputRef = useRef<HTMLInputElement | null>(null);
   const nextEmptyInputRef = useRef<HTMLInputElement | null>(null);
   const ledgerScrollRef = useRef<HTMLDivElement | null>(null);
+  const blurTimeoutRef = useRef<number | null>(null);
+
+  const handleInputFocus = () => {
+    if (blurTimeoutRef.current) {
+      window.clearTimeout(blurTimeoutRef.current);
+      blurTimeoutRef.current = null;
+    }
+    setIsInputFocused(true);
+    requestAnimationFrame(() => {
+      if (ledgerScrollRef.current) {
+        ledgerScrollRef.current.scrollTop = ledgerScrollRef.current.scrollHeight;
+      }
+    });
+  };
+
+  const handleInputBlur = () => {
+    blurTimeoutRef.current = window.setTimeout(() => {
+      setIsInputFocused(false);
+    }, 120);
+  };
 
   // Track visualViewport height so when the mobile keyboard pops up, the layout shrinks cleanly above the keyboard
   useEffect(() => {
@@ -67,7 +88,7 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
     if (ledgerScrollRef.current) {
       ledgerScrollRef.current.scrollTop = ledgerScrollRef.current.scrollHeight;
     }
-  }, [players.length, draftName.length > 0]);
+  }, [players.length, draftName.length > 0, isInputFocused]);
 
   const commitDraft = (text: string) => {
     const trimmed = text.trim();
@@ -169,6 +190,7 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
   const canProceed = effectiveCount >= 2;
   const hasAnyScore = players.some((p) => p.score > 0);
   const isCompactViewport = viewportHeight !== null && viewportHeight < 560;
+  const hideMobileHeader = isInputFocused || isCompactViewport;
 
   return (
     <div
@@ -180,32 +202,22 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
 
       {/* Main Content: Single column on mobile with players anchored to bottom, wide 2-column spread on desktop */}
       <div className="py-1 sm:py-6 flex-1 flex flex-col min-h-0 lg:grid lg:grid-cols-12 lg:gap-12 lg:items-center w-full">
-        {/* Left Column: Title & Editorial Epigraph (Compacts gracefully when mobile keyboard is open) */}
-        <div
-          className={`lg:col-span-5 text-center lg:text-left shrink-0 transition-all ${
-            isCompactViewport ? 'space-y-0.5 mb-1.5' : 'space-y-1.5 sm:space-y-4 mb-3 lg:mb-0'
-          }`}
-        >
-          <span className="text-[11px] sm:text-xs font-medium uppercase tracking-[0.22em] text-[#b9bfff] block">
+        {/* Left Column on Desktop: Title & Editorial Epigraph */}
+        <div className="hidden lg:block lg:col-span-5 text-left space-y-4 shrink-0">
+          <span className="text-xs font-medium uppercase tracking-[0.22em] text-[#b9bfff] block">
             ACT I // THE ROSTER
           </span>
-          <h1
-            className={`${
-              isCompactViewport ? 'text-4xl sm:text-7xl' : 'text-5xl xs:text-6xl sm:text-7xl lg:text-8xl'
-            } font-jacquard text-[#f4efe4] leading-[0.92]`}
-          >
+          <h1 className="text-7xl lg:text-8xl font-jacquard text-[#f4efe4] leading-[0.92]">
             Players
           </h1>
-          {!isCompactViewport && (
-            <p className="font-serif-editorial italic text-base sm:text-xl text-[#f4efe4]/80 max-w-xs mx-auto lg:mx-0 leading-snug sm:leading-relaxed">
-              Inscribe at least two souls to enter the circle of deduction.
-            </p>
-          )}
+          <p className="font-serif-editorial italic text-xl text-[#f4efe4]/80 max-w-xs leading-relaxed">
+            Inscribe at least two souls to enter the circle of deduction.
+          </p>
 
           {hasAnyScore && onClearScores && (
             <div className="pt-1">
               <button
-                id="setup-clear-scores-btn"
+                id="setup-clear-scores-btn-desktop"
                 type="button"
                 onClick={onClearScores}
                 className="text-[11px] uppercase tracking-[0.18em] text-[#f4efe4]/60 hover:text-[#e03a28] border border-[#f4efe4]/25 hover:border-[#e03a28] px-3 py-1 transition-colors cursor-pointer"
@@ -216,7 +228,7 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
           )}
 
           {/* Subtle Goose & Jester Emblem on Desktop */}
-          <div className="hidden lg:block pt-4">
+          <div className="pt-4">
             <img
               src="/assets/jester-goose.png"
               alt=""
@@ -231,6 +243,34 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
             ref={ledgerScrollRef}
             className="flex-1 overflow-y-auto flex flex-col min-h-0 no-scrollbar"
           >
+            {/* Mobile Header: Hidden while entering names, and scrolls up naturally as players are added */}
+            {!hideMobileHeader && (
+              <div className="lg:hidden text-center space-y-1.5 mb-4 pt-2 shrink-0">
+                <span className="text-[11px] font-medium uppercase tracking-[0.22em] text-[#b9bfff] block">
+                  ACT I // THE ROSTER
+                </span>
+                <h1 className="text-5xl xs:text-6xl font-jacquard text-[#f4efe4] leading-[0.92]">
+                  Players
+                </h1>
+                <p className="font-serif-editorial italic text-base text-[#f4efe4]/80 max-w-xs mx-auto leading-snug">
+                  Inscribe at least two souls to enter the circle of deduction.
+                </p>
+
+                {hasAnyScore && onClearScores && (
+                  <div className="pt-1">
+                    <button
+                      id="setup-clear-scores-btn"
+                      type="button"
+                      onClick={onClearScores}
+                      className="text-[11px] uppercase tracking-[0.18em] text-[#f4efe4]/60 hover:text-[#e03a28] border border-[#f4efe4]/25 hover:border-[#e03a28] px-3 py-1 transition-colors cursor-pointer"
+                    >
+                      Clear scores
+                    </button>
+                  </div>
+                )}
+              </div>
+            )}
+
             <div className="mt-auto lg:my-auto border-t border-b border-[#f4efe4]/35 divide-y divide-[#f4efe4]/20 bg-[#09120e]/60">
               {players.map((player, idx) => (
                 <div
@@ -270,6 +310,8 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
                       value={player.name}
                       onChange={(e) => handleUpdatePlayerName(idx, e.target.value)}
                       onKeyDown={(e) => handleExistingKeyDown(e, idx)}
+                      onFocus={handleInputFocus}
+                      onBlur={handleInputBlur}
                       className="w-full bg-transparent font-serif-editorial text-xl sm:text-2xl text-[#f4efe4] focus:outline-none focus:text-[#b9bfff]"
                       maxLength={24}
                     />
@@ -319,13 +361,8 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
                     value={draftName}
                     onChange={(e) => setDraftName(e.target.value)}
                     onKeyDown={handleDraftKeyDown}
-                    onFocus={() => {
-                      requestAnimationFrame(() => {
-                        if (ledgerScrollRef.current) {
-                          ledgerScrollRef.current.scrollTop = ledgerScrollRef.current.scrollHeight;
-                        }
-                      });
-                    }}
+                    onFocus={handleInputFocus}
+                    onBlur={handleInputBlur}
                     className="w-full bg-transparent font-serif-editorial italic text-xl sm:text-2xl text-[#f4efe4] placeholder-[#f4efe4]/35 focus:outline-none"
                     maxLength={24}
                     autoFocus={players.length === 0}

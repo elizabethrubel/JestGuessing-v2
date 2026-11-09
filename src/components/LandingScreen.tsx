@@ -19,18 +19,18 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
       <TopNavBar onOpenRules={onOpenRules} hideHelp={true} />
 
       {/* Centerpiece with generous breathing room */}
-      <div className="my-auto py-2 sm:py-6 flex-1 flex flex-col items-center justify-center relative w-full max-w-2xl mx-auto space-y-3 sm:space-y-5 min-h-0">
+      <div className="my-auto py-1 sm:py-6 flex-1 flex flex-col items-center justify-center relative w-full max-w-2xl mx-auto space-y-3 sm:space-y-5 min-h-0">
         <div className="relative w-full flex flex-col items-center justify-center">
           {/* Top Monumental Word: "Jest" in Jacquard 24 */}
           <h1
             aria-label="Jest Guessing"
-            className="text-[5.5rem] xs:text-[6.8rem] sm:text-[9.5rem] lg:text-[11rem] font-jacquard text-[#f4efe4] leading-[0.84] tracking-normal select-none z-10 pointer-events-none"
+            className="text-[6.8rem] xs:text-[7.8rem] sm:text-[9.5rem] lg:text-[11rem] font-jacquard text-[#f4efe4] leading-[0.84] tracking-normal select-none z-10 pointer-events-none"
           >
             Jest
           </h1>
 
           {/* Central Woodcut Engraving: Periwinkle-Lilac & Vermilion Crowned Goose + Lute Jester */}
-          <div className="relative w-[220px] xs:w-[255px] sm:w-[340px] lg:w-[390px] -mt-4 sm:-mt-7 -mb-3 sm:-mb-5 z-20 flex items-center justify-center">
+          <div className="relative w-[270px] xs:w-[305px] sm:w-[350px] lg:w-[390px] -mt-5 sm:-mt-7 -mb-4 sm:-mb-5 z-20 flex items-center justify-center">
             <img
               src="/assets/jester-goose.png"
               alt="Renaissance woodcut of a Court Jester playing a lute beside a crowned goose in a ruffled collar"
@@ -57,17 +57,15 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
           {/* Bottom Monumental Word: "Guessing" in Jacquard 24 */}
           <span
             aria-hidden="true"
-            className="block text-[3.85rem] xs:text-[4.65rem] sm:text-[6.6rem] lg:text-[7.8rem] font-jacquard text-[#f4efe4] leading-[0.88] tracking-normal select-none z-10 pointer-events-none"
+            className="block text-[4.75rem] xs:text-[5.4rem] sm:text-[6.6rem] lg:text-[7.8rem] font-jacquard text-[#f4efe4] leading-[0.88] tracking-normal select-none z-10 pointer-events-none"
           >
             Guessing
           </span>
         </div>
 
         {/* Classical Editorial Serif Epigraph */}
-        <p className="font-serif-editorial italic text-lg sm:text-xl lg:text-2xl text-[#f4efe4]/85 max-w-xs sm:max-w-md mx-auto leading-snug sm:leading-relaxed">
-          Never shout your secret identity,
-          <br />
-          merely deduce the bond.
+        <p className="font-serif-editorial italic text-xl sm:text-2xl lg:text-3xl text-[#f4efe4]/85 max-w-xs sm:max-w-md mx-auto leading-snug sm:leading-relaxed pt-1">
+          Who is the best in jest?
         </p>
       </div>
 
