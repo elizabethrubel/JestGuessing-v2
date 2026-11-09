@@ -47,10 +47,10 @@ export const RulesOverlay: React.FC<RulesOverlayProps> = ({ isOpen, onClose }) =
             </div>
             <div className="space-y-1">
               <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-[#b9bfff]">
-                FOREHEAD OR TABLETOP STAND
+                KEEP AWAY FROM THE GUESSER
               </h3>
               <p className="font-serif-editorial text-lg leading-snug text-[#f4efe4]/85">
-                Hold the device facing your companions or rest it on a stand. You must remain blind to your own secret character.
+                When it is a player’s turn to guess, another player holds the device and shows the secret character to the rest of the table—keeping the screen hidden from the guesser.
               </p>
             </div>
           </div>

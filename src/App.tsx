@@ -601,6 +601,7 @@ export default function App() {
         {stage === 'privacy_interstitial' && activeTheme && (
           <PrivacyInterstitialScreen
             activePlayer={activePlayer}
+            players={players}
             theme={activeTheme}
             turnNumber={turnCounter}
             totalPlayers={players.length}

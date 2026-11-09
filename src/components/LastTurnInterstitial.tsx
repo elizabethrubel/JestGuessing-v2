@@ -60,7 +60,7 @@ export const LastTurnInterstitial: React.FC<LastTurnInterstitialProps> = ({
             onClick={onContinue}
             className="w-full min-h-[54px] py-4 px-6 border border-[#f4efe4] bg-[#f4efe4] hover:bg-[#b9bfff] hover:border-[#b9bfff] active:scale-[0.99] text-[#09120e] font-semibold text-xs sm:text-[13px] uppercase tracking-[0.2em] transition-all cursor-pointer text-center"
           >
-            PASS TO {nextPlayerName.toUpperCase()} →
+            NEXT UP: {nextPlayerName.toUpperCase()}’S FINAL TURN →
           </button>
         </div>
       </div>
