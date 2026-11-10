@@ -4,6 +4,7 @@ import fs from "fs";
 import { GoogleGenAI } from "@google/genai";
 import dotenv from "dotenv";
 import { VERIFIED_CATEGORIES, VerifiedCharacter } from "./src/data/verifiedCharacterSets";
+import { evaluateSoloQuestion, checkCharacterGuess } from "./src/data/soloOracleEngine";
 import commonalitiesJson from "./public/assets/aistudio/Commonalities_6c05b138.json";
 import topCharactersJson from "./public/assets/aistudio/TopCharacters_b19eb45c.json";
 
@@ -212,6 +213,7 @@ async function generateRoundTheme(
       origin: c.origin,
       wikiSlug: c.wikiSlug,
       hint: c.hint,
+      traitVerification: c.traitVerification,
       imageUrl: `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(c.wikiSlug)}?width=400`,
     }));
 
@@ -279,6 +281,7 @@ Return ONLY a JSON object:
                 origin: c.origin,
                 wikiSlug: c.wikiSlug,
                 hint: c.hint,
+                traitVerification: c.traitVerification,
                 imageUrl: `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(c.wikiSlug)}?width=400`,
               });
             }
@@ -293,6 +296,7 @@ Return ONLY a JSON object:
                 origin: c.origin || "Pop Culture",
                 wikiSlug: c.wikiSlug || c.name.replace(/\s+/g, "_"),
                 hint: c.hint || `Matches ${themeName}`,
+                traitVerification: c.traitVerification,
                 imageUrl: `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(c.wikiSlug || c.name)}?width=400`,
               });
             }
@@ -325,6 +329,7 @@ Return ONLY a JSON object:
     origin: c.origin,
     wikiSlug: c.wikiSlug,
     hint: c.hint,
+    traitVerification: c.traitVerification,
     imageUrl: `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(c.wikiSlug)}?width=400`,
   }));
 
@@ -449,6 +454,7 @@ Return ONLY a JSON object:
                 origin: parsed.origin || "Pop Culture",
                 wikiSlug: parsed.wikiSlug || parsed.name.replace(/\s+/g, "_"),
                 hint: parsed.hint || `Matches ${trait}`,
+                traitVerification: parsed.traitVerification,
                 imageUrl: `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(parsed.wikiSlug || parsed.name)}?width=400`,
               },
             });
@@ -479,6 +485,71 @@ Return ONLY a JSON object:
   } catch (err) {
     console.error("Error in /api/reroll-character:", err);
     res.status(500).json({ error: "Failed to reroll character" });
+  }
+});
+
+// API: Single-player Oracle question evaluation (Gemini AI + Deterministic Knowledge Engine fallback)
+app.post("/api/solo-ask", async (req, res) => {
+  try {
+    const { question = "", character, themeName = "" } = req.body || {};
+    if (!question || !character || !character.name) {
+      return res.status(400).json({ error: "Missing question or character" });
+    }
+
+    // Check if the user typed a direct character name guess inside the question box
+    const guessCheck = checkCharacterGuess(question, character);
+    if (guessCheck.isCorrect) {
+      return res.json({
+        verdict: "YES",
+        answerText: "By the Royal Crown—YES! You have unmasked your secret identity!",
+        isDirectGuess: true,
+        guessedCharacterMatch: true,
+      });
+    }
+
+    const ai = getAI();
+    if (ai) {
+      const prompt = `You are the Court Oracle in the medieval parlor game "Jest Guessing".
+The player is trying to deduce their secret identity by asking Yes/No questions.
+Secret Character: "${character.name}"
+Origin / Franchise: "${character.origin || "Pop Culture"}"
+Known Fact: "${character.hint || ""} ${character.traitVerification || ""}"
+Player's Question: "${question}"
+
+INSTRUCTIONS:
+1. Answer the player's question truthfully about "${character.name}".
+2. NEVER reveal "${character.name}" or their specific franchise title in your answerText!
+3. Choose "verdict" from: "YES", "NO", or "PARTIAL".
+4. Write "answerText" as a concise, atmospheric 1-sentence response (max 15 words) starting with "Aye!", "Nay!", or "Partly so—".
+
+Return ONLY a JSON object:
+{
+  "verdict": "YES",
+  "answerText": "Aye! Your secret identity is indeed human."
+}`;
+
+      const text = await callGeminiSafe(ai, prompt);
+      if (text) {
+        try {
+          const cleaned = text.replace(/^\`\`\`json\s*/i, "").replace(/\`\`\`$/i, "").trim();
+          const parsed = JSON.parse(cleaned);
+          if (parsed.verdict && parsed.answerText) {
+            return res.json({
+              verdict: ["YES", "NO", "PARTIAL"].includes(parsed.verdict) ? parsed.verdict : "NO",
+              answerText: parsed.answerText,
+            });
+          }
+        } catch {
+          // Fall through to local deterministic oracle
+        }
+      }
+    }
+
+    const fallbackEval = evaluateSoloQuestion(question, character, themeName);
+    return res.json(fallbackEval);
+  } catch (err) {
+    console.error("Error in /api/solo-ask:", err);
+    res.status(500).json({ error: "Failed to evaluate question" });
   }
 });
 

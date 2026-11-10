@@ -421,6 +421,924 @@ var VERIFIED_CATEGORIES = [
   }
 ];
 
+// src/data/themes.ts
+var CURATED_THEMES = [
+  {
+    id: "glasses-spectacles",
+    name: "All characters wear prominent glasses, spectacles, or goggles.",
+    characters: [
+      { name: "Harry Potter", origin: "Harry Potter", wikiSlug: "Harry_Potter_(character)", hint: "The Boy Who Lived with round spectacles" },
+      { name: "Velma Dinkley", origin: "Scooby-Doo", wikiSlug: "Velma_Dinkley", hint: 'Mystery Inc. brain: "My glasses!"' },
+      { name: "Clark Kent", origin: "DC Comics", wikiSlug: "Clark_Kent", hint: "Daily Planet reporter with horn-rimmed glasses" },
+      { name: "Edna Mode", origin: "The Incredibles", wikiSlug: "Edna_Mode", hint: "Super-suit fashion designer with giant round specs" },
+      { name: "Doc Brown", origin: "Back to the Future", wikiSlug: "Doc_Brown", hint: "Eccentric inventor wearing temporal goggles" },
+      { name: "Walter White", origin: "Breaking Bad", wikiSlug: "Walter_White_(Breaking_Bad)", hint: "Chemistry teacher with wire-rimmed glasses" },
+      { name: "Cyclops (Scott Summers)", origin: "Marvel / X-Men", wikiSlug: "Cyclops_(Marvel_Comics)", hint: "X-Men leader with ruby-quartz eyewear" },
+      { name: "Arthur Read", origin: "Arthur / PBS", wikiSlug: "Arthur_Read", hint: "Beloved aardvark kid with round glasses" },
+      { name: "Where's Waldo", origin: "Where's Waldo?", wikiSlug: "Where's_Wally%3F", hint: "Globetrotting wanderer in striped sweater and glasses" },
+      { name: "Albus Dumbledore", origin: "Harry Potter", wikiSlug: "Albus_Dumbledore", hint: "Hogwarts Headmaster with half-moon spectacles" },
+      { name: "Milhouse Van Houten", origin: "The Simpsons", wikiSlug: "Milhouse_Van_Houten", hint: "Springfield kid with thick red-framed glasses" },
+      { name: "Simon Seville", origin: "Alvin and the Chipmunks", wikiSlug: "Alvin_and_the_Chipmunks", hint: "Intellectual chipmunk in blue with black glasses" },
+      { name: "Steve Urkel", origin: "Family Matters", wikiSlug: "Steve_Urkel", hint: "Nerdy neighbor with oversized glasses" },
+      { name: "Morpheus", origin: "The Matrix", wikiSlug: "Morpheus_(The_Matrix)", hint: "Nebuchadnezzar captain with frameless sunglasses" },
+      { name: "Carl Wheezer", origin: "Jimmy Neutron", wikiSlug: "Jimmy_Neutron", hint: "Llama-loving boy with round spectacles" },
+      { name: "Austin Powers", origin: "Austin Powers", wikiSlug: "Austin_Powers", hint: "Swinging 60s spy with thick black frames" },
+      { name: "Professor Farnsworth", origin: "Futurama", wikiSlug: "Professor_Farnsworth", hint: "Planet Express owner with thick circular glasses" },
+      { name: "Tina Belcher", origin: "Bob's Burgers", wikiSlug: "Tina_Belcher", hint: "Eldest Belcher daughter with rectangular glasses" },
+      { name: "Dwight Schrute", origin: "The Office", wikiSlug: "Dwight_Schrute", hint: "Dunder Mifflin salesman with metal aviator glasses" },
+      { name: "John Lennon", origin: "Pop Culture / Beatles", wikiSlug: "John_Lennon", hint: "Music legend famous for round wire glasses" }
+    ]
+  },
+  {
+    id: "caped-masked",
+    name: "All characters wear a cape, cowl, or disguise mask.",
+    characters: [
+      { name: "Batman", origin: "DC Comics", wikiSlug: "Batman", hint: "The Dark Knight of Gotham" },
+      { name: "Zorro", origin: "Zorro", wikiSlug: "Zorro", hint: "Swashbuckling vigilante with a black mask" },
+      { name: "The Phantom of the Opera", origin: "Literature / Musical", wikiSlug: "The_Phantom_of_the_Opera_(character)", hint: "Haunts the Paris Opera House" },
+      { name: "Edna Mode", origin: "The Incredibles", wikiSlug: "Edna_Mode", hint: 'Super-suit fashion designer: "No capes!"' },
+      { name: "Count Dracula", origin: "Bram Stoker / Gothic Horror", wikiSlug: "Count_Dracula", hint: "Transylvanian vampire lord" },
+      { name: "Darth Vader", origin: "Star Wars", wikiSlug: "Darth_Vader", hint: "Sith Lord in black armor and flowing cape" },
+      { name: "Robin Hood", origin: "English Folklore", wikiSlug: "Robin_Hood", hint: "Hero of Sherwood Forest who steals from the rich" },
+      { name: "Spider-Man", origin: "Marvel", wikiSlug: "Spider-Man", hint: "Friendly neighborhood web-slinger in full mask" },
+      { name: "Superman", origin: "DC Comics", wikiSlug: "Superman", hint: "Man of Steel with red cape from Krypton" },
+      { name: "V (V for Vendetta)", origin: "DC / Vertigo", wikiSlug: "V_(character)", hint: "Anarchist wearing a Guy Fawkes mask" },
+      { name: "Deadpool", origin: "Marvel", wikiSlug: "Deadpool", hint: "Merc with a mouth in red-and-black mask" },
+      { name: "Frodo Baggins", origin: "The Lord of the Rings", wikiSlug: "Frodo_Baggins", hint: "Hobbit bearing an elven cloak and brooch" }
+    ]
+  },
+  {
+    id: "master-sleuths",
+    name: "All characters are famous for solving mysteries, crimes, or intricate puzzles.",
+    characters: [
+      { name: "Sherlock Holmes", origin: "Arthur Conan Doyle", wikiSlug: "Sherlock_Holmes", hint: "Consulting detective of 221B Baker Street" },
+      { name: "Hercule Poirot", origin: "Agatha Christie", wikiSlug: "Hercule_Poirot", hint: "Belgian detective with tidy moustaches" },
+      { name: "Scooby-Doo", origin: "Scooby-Doo / Hanna-Barbera", wikiSlug: "Scooby-Doo_(character)", hint: "Great Dane in the Mystery Machine" },
+      { name: "Columbo", origin: "Columbo", wikiSlug: "Columbo_(character)", hint: 'Crumpled raincoat: "Just one more thing..."' },
+      { name: "Nancy Drew", origin: "Nancy Drew Mystery Stories", wikiSlug: "Nancy_Drew", hint: "Teenage sleuth of River Heights" },
+      { name: "Benoit Blanc", origin: "Knives Out", wikiSlug: "Benoit_Blanc", hint: "Southern gentleman detective with drawl" },
+      { name: "Miss Marple", origin: "Agatha Christie", wikiSlug: "Miss_Marple", hint: "Elderly spinster amateur detective" },
+      { name: "Batman", origin: "DC Comics", wikiSlug: "Batman", hint: "The World\u2019s Greatest Detective" },
+      { name: "Veronica Mars", origin: "Veronica Mars", wikiSlug: "Veronica_Mars_(character)", hint: "High-school private investigator" },
+      { name: "Inspector Clouseau", origin: "The Pink Panther", wikiSlug: "Inspector_Clouseau", hint: "Bumbling French police detective" },
+      { name: "Ace Ventura", origin: "Ace Ventura", wikiSlug: "Ace_Ventura", hint: "Pet detective specializing in animal retrieval" },
+      { name: "Velma Dinkley", origin: "Scooby-Doo", wikiSlug: "Velma_Dinkley", hint: 'Brain of Mystery Inc.: "Jinkies!"' }
+    ]
+  },
+  {
+    id: "iconic-healers",
+    name: "All characters practice medicine, healing, surgery, or therapy.",
+    characters: [
+      { name: "Florence Nightingale", origin: "Historical Pioneer", wikiSlug: "Florence_Nightingale", hint: "The Lady with the Lamp / modern nursing pioneer" },
+      { name: "Gregory House", origin: "House, M.D.", wikiSlug: "Gregory_House", hint: 'Misanthropic diagnostic genius: "Everybody lies"' },
+      { name: "Doctor Strange", origin: "Marvel", wikiSlug: "Doctor_Strange", hint: "Master of the Mystic Arts and neurosurgeon" },
+      { name: "Sigmund Freud", origin: "Historical Psychoanalyst", wikiSlug: "Sigmund_Freud", hint: "Founder of psychoanalysis" },
+      { name: "Doc Brown", origin: "Back to the Future", wikiSlug: "Doc_Brown", hint: "Inventor of the DeLorean time machine" },
+      { name: "Meredith Grey", origin: "Grey's Anatomy", wikiSlug: "Meredith_Grey", hint: "Chief of Surgery at Grey Sloan Memorial" },
+      { name: "Leonard McCoy", origin: "Star Trek", wikiSlug: "Leonard_McCoy", hint: 'Starfleet chief medical officer: "Bones"' },
+      { name: "Hippocrates", origin: "Ancient Greece", wikiSlug: "Hippocrates", hint: "Ancient Greek physician and oath namesake" },
+      { name: "Doc Holliday", origin: "American Old West", wikiSlug: "Doc_Holliday", hint: "Dentist, gunfighter, and gambler of the Wild West" },
+      { name: "Patch Adams", origin: "Real Life / Film", wikiSlug: "Patch_Adams", hint: "Physician known for treating patients with humor" },
+      { name: "Alexander Fleming", origin: "Historical Scientist", wikiSlug: "Alexander_Fleming", hint: "Biologist who discovered penicillin" },
+      { name: "Clara Barton", origin: "American Red Cross", wikiSlug: "Clara_Barton", hint: "Civil War battlefield nurse and Red Cross founder" }
+    ]
+  },
+  {
+    id: "cosmic-explorers",
+    name: "All characters travel through the stars, outer space, or distant galaxies.",
+    characters: [
+      { name: "Buzz Lightyear", origin: "Toy Story / Pixar", wikiSlug: "Buzz_Lightyear", hint: 'Space Ranger: "To infinity and beyond!"' },
+      { name: "Neil Armstrong", origin: "NASA / Space History", wikiSlug: "Neil_Armstrong", hint: "First human to walk on the Moon" },
+      { name: "Princess Leia", origin: "Star Wars", wikiSlug: "Princess_Leia", hint: "Rebel Alliance leader and Alderaan princess" },
+      { name: "James T. Kirk", origin: "Star Trek", wikiSlug: "James_T._Kirk", hint: "Captain of the USS Enterprise" },
+      { name: "The Doctor", origin: "Doctor Who", wikiSlug: "The_Doctor_(Doctor_Who)", hint: "Time Lord traveling in the TARDIS" },
+      { name: "Ellen Ripley", origin: "Alien", wikiSlug: "Ellen_Ripley", hint: "Sole survivor of the Nostromo" },
+      { name: "Luke Skywalker", origin: "Star Wars", wikiSlug: "Luke_Skywalker", hint: "Jedi Knight from Tatooine" },
+      { name: "Spock", origin: "Star Trek", wikiSlug: "Spock", hint: "Half-Vulcan first science officer" },
+      { name: "Yuri Gagarin", origin: "Soviet Space Program", wikiSlug: "Yuri_Gagarin", hint: "First human in outer space" },
+      { name: "Han Solo", origin: "Star Wars", wikiSlug: "Han_Solo", hint: "Smuggler and pilot of the Millennium Falcon" },
+      { name: "E.T. the Extra-Terrestrial", origin: "E.T. the Extra-Terrestrial", wikiSlug: "E.T._the_Extra-Terrestrial_(character)", hint: "Gentle alien seeking to phone home" },
+      { name: "Sally Ride", origin: "NASA / Space History", wikiSlug: "Sally_Ride", hint: "First American woman in space" }
+    ]
+  },
+  {
+    id: "legendary-rulers",
+    name: "All characters held royal court, wore crowns, or commanded empires.",
+    characters: [
+      { name: "Cleopatra", origin: "Ancient Egypt", wikiSlug: "Cleopatra", hint: "Last active ruler of the Ptolemaic Kingdom of Egypt" },
+      { name: "King Arthur", origin: "Arthurian Legend", wikiSlug: "King_Arthur", hint: "Legendary British monarch of the Round Table" },
+      { name: "Queen Elizabeth II", origin: "British Monarchy", wikiSlug: "Elizabeth_II", hint: "Longest-reigning British monarch" },
+      { name: "Julius Caesar", origin: "Ancient Rome", wikiSlug: "Julius_Caesar", hint: "Roman general and perpetual dictator" },
+      { name: "Mufasa", origin: "The Lion King / Disney", wikiSlug: "Mufasa", hint: "King of the Pride Lands in The Lion King" },
+      { name: "Napoleon Bonaparte", origin: "French Empire", wikiSlug: "Napoleon", hint: "Emperor of the French and military commander" },
+      { name: "Alexander the Great", origin: "Ancient Macedonia", wikiSlug: "Alexander_the_Great", hint: "King of Macedonia who conquered the Persian Empire" },
+      { name: "Queen Victoria", origin: "British Monarchy", wikiSlug: "Queen_Victoria", hint: "Empress of India who reigned during Victorian era" },
+      { name: "Genghis Khan", origin: "Mongol Empire", wikiSlug: "Genghis_Khan", hint: "Founder and Great Khan of the Mongol Empire" },
+      { name: "Henry VIII", origin: "Tudor England", wikiSlug: "Henry_VIII", hint: "Tudor King known for his six wives" },
+      { name: "King Tutankhamun", origin: "Ancient Egypt", wikiSlug: "Tutankhamun", hint: "Boy pharaoh of the 18th Dynasty" },
+      { name: "Aragorn", origin: "The Lord of the Rings", wikiSlug: "Aragorn", hint: "High King of Gondor and Arnor" }
+    ]
+  },
+  {
+    id: "famous-cooks",
+    name: "All characters are known for making, serving, judging, or obsessing over food.",
+    characters: [
+      { name: "Gordon Ramsay", origin: "Celebrity Chef / TV", wikiSlug: "Gordon_Ramsay", hint: "Fiery Michelin-starred chef and TV host" },
+      { name: "Julia Child", origin: "Culinary Icon", wikiSlug: "Julia_Child", hint: "Brought French cuisine to American homes" },
+      { name: "Remy (Ratatouille)", origin: "Ratatouille / Pixar", wikiSlug: "Remy_(Ratatouille)", hint: "Ambitious Parisian rat with extraordinary palate" },
+      { name: "Colonel Sanders", origin: "KFC / Pop Culture", wikiSlug: "Colonel_Sanders", hint: "Founder of Kentucky Fried Chicken" },
+      { name: "Cookie Monster", origin: "Sesame Street", wikiSlug: "Cookie_Monster", hint: "Sesame Street resident craving round baked treats" },
+      { name: "Guy Fieri", origin: "Food Network", wikiSlug: "Guy_Fieri", hint: "Mayor of Flavortown and host of Triple D" },
+      { name: "Paul Hollywood", origin: "Great British Baking Show", wikiSlug: "Paul_Hollywood", hint: "Master baker giving famous handshakes" },
+      { name: "SpongeBob SquarePants", origin: "Nickelodeon", wikiSlug: "SpongeBob_SquarePants_(character)", hint: "Krabby Patty fry cook at the Krusty Krab" },
+      { name: "Wolfgang Puck", origin: "Celebrity Chef", wikiSlug: "Wolfgang_Puck", hint: "Celebrity chef behind Spago and Oscars catering" },
+      { name: "Anthony Bourdain", origin: "Author & Travel Host", wikiSlug: "Anthony_Bourdain", hint: "Chef, author, and intrepid culinary traveler" },
+      { name: "Willy Wonka", origin: "Roald Dahl", wikiSlug: "Willy_Wonka", hint: "Eccentric candy maker and chocolate factory owner" },
+      { name: "Swedish Chef", origin: "The Muppets", wikiSlug: "Swedish_Chef", hint: 'Muppet kitchen artist singing "Bork Bork Bork!"' }
+    ]
+  },
+  {
+    id: "mythical-legends",
+    name: "All characters are figures, monsters, or deities of mythology and folklore.",
+    characters: [
+      { name: "Zeus", origin: "Greek Mythology", wikiSlug: "Zeus", hint: "King of Mount Olympus wielding thunderbolts" },
+      { name: "Medusa", origin: "Greek Mythology", wikiSlug: "Medusa", hint: "Gorgon with serpent hair whose gaze turns to stone" },
+      { name: "Thor", origin: "Norse Mythology", wikiSlug: "Thor", hint: "Norse hammer-wielding god of thunder" },
+      { name: "Hercules", origin: "Greek & Roman Mythology", wikiSlug: "Heracles", hint: "Hero known for twelve superhuman labors" },
+      { name: "Loch Ness Monster", origin: "Scottish Folklore", wikiSlug: "Loch_Ness_Monster", hint: "Cryptid creature residing in Scottish highlands" },
+      { name: "Anubis", origin: "Egyptian Mythology", wikiSlug: "Anubis", hint: "Jackal-headed ancient Egyptian god of mummification" },
+      { name: "Robin Hood", origin: "English Folklore", wikiSlug: "Robin_Hood", hint: "Outlaw of Sherwood Forest folk tradition" },
+      { name: "King Midas", origin: "Greek Mythology", wikiSlug: "Midas", hint: "Ruler whose touch turned everything into gold" },
+      { name: "Poseidon", origin: "Greek Mythology", wikiSlug: "Poseidon", hint: "God of the sea and storms carrying a trident" },
+      { name: "Pandora", origin: "Greek Mythology", wikiSlug: "Pandora", hint: "First mortal woman who opened a fateful jar/box" }
+    ]
+  }
+];
+
+// src/data/soloOracleEngine.ts
+var FEMALE_CHARACTERS = /* @__PURE__ */ new Set([
+  "velma dinkley",
+  "edna mode",
+  "roz",
+  "tina belcher",
+  "daria morgendorffer",
+  "carmen sandiego",
+  "imperator furiosa",
+  "furiosa",
+  "nancy drew",
+  "miss marple",
+  "veronica mars",
+  "hermione granger",
+  "scarlet witch (wanda maximoff)",
+  "scarlet witch",
+  "wanda maximoff",
+  "maleficent",
+  "zatanna",
+  "julia child",
+  "monica geller",
+  "gamora",
+  "poison ivy",
+  "dory",
+  "sadness",
+  "mystique",
+  "wonder woman (diana prince)",
+  "wonder woman",
+  "dorothy gale",
+  "fleabag",
+  "she-hulk (jennifer walters)",
+  "she-hulk",
+  "daenerys targaryen",
+  "princess leia organa",
+  "princess leia",
+  "demona",
+  "florence nightingale",
+  "meredith grey",
+  "clara barton",
+  "ellen ripley",
+  "sally ride",
+  "cleopatra",
+  "queen elizabeth ii",
+  "queen victoria",
+  "medusa",
+  "pandora"
+]);
+var NON_HUMAN_CHARACTERS = /* @__PURE__ */ new Set([
+  "arthur read",
+  "simon seville",
+  "professor farnsworth",
+  // human, wait - remove from non-human
+  "roz",
+  "the cat in the hat",
+  "paddington bear",
+  "saitama",
+  // human
+  "lord voldemort",
+  // human/dark wizard
+  "thanos",
+  "drax the destroyer",
+  "kratos",
+  // demigod/god
+  "master chief",
+  // human cyborg
+  "general grievous",
+  "scooby-doo",
+  "mufasa",
+  "marlin",
+  "goofy",
+  "the doctor",
+  "the terminator (t-800)",
+  "trunks",
+  // half-saiyan
+  "remy (ratatouille)",
+  "spongebob squarepants",
+  "garfield",
+  "cookie monster",
+  "hulk (bruce banner)",
+  // human/mutate
+  "yoda",
+  "shrek",
+  "kermit the frog",
+  "the grinch",
+  "piccolo",
+  "mike wazowski",
+  "gamora",
+  "sonic the hedgehog",
+  "mega man",
+  "genie",
+  "dory",
+  "sadness",
+  "stitch (experiment 626)",
+  "papa smurf",
+  "megamind",
+  "sulley",
+  "thor",
+  "frodo baggins",
+  "link",
+  "wonder woman (diana prince)",
+  "inuyasha",
+  "bilbo baggins",
+  "scar",
+  "majin buu",
+  "godzilla",
+  "bugs bunny",
+  "simba",
+  "demona",
+  "philoctetes",
+  "e.t. the extra-terrestrial",
+  "spock",
+  "count dracula",
+  "zeus",
+  "medusa",
+  "loch ness monster",
+  "anubis",
+  "poseidon"
+]);
+NON_HUMAN_CHARACTERS.delete("professor farnsworth");
+NON_HUMAN_CHARACTERS.delete("saitama");
+NON_HUMAN_CHARACTERS.delete("lord voldemort");
+NON_HUMAN_CHARACTERS.delete("master chief");
+NON_HUMAN_CHARACTERS.delete("hulk (bruce banner)");
+var ANIMAL_CHARACTERS = /* @__PURE__ */ new Set([
+  "arthur read",
+  "simon seville",
+  "the cat in the hat",
+  "paddington bear",
+  "scooby-doo",
+  "mufasa",
+  "marlin",
+  "goofy",
+  "remy (ratatouille)",
+  "spongebob squarepants",
+  "garfield",
+  "kermit the frog",
+  "sonic the hedgehog",
+  "dory",
+  "stitch (experiment 626)",
+  "scar",
+  "godzilla",
+  "bugs bunny",
+  "simba",
+  "loch ness monster"
+]);
+var REAL_HISTORICAL_PEOPLE = /* @__PURE__ */ new Set([
+  "john lennon",
+  "abraham lincoln",
+  "slash",
+  "gordon ramsay",
+  "julia child",
+  "guy fieri",
+  "rey mysterio",
+  "florence nightingale",
+  "sigmund freud",
+  "hippocrates",
+  "doc holliday",
+  "patch adams",
+  "alexander fleming",
+  "clara barton",
+  "neil armstrong",
+  "yuri gagarin",
+  "sally ride",
+  "cleopatra",
+  "queen elizabeth ii",
+  "julius caesar",
+  "napoleon bonaparte",
+  "alexander the great",
+  "queen victoria",
+  "genghis khan",
+  "henry viii",
+  "king tutankhamun",
+  "colonel sanders",
+  "paul hollywood",
+  "wolfgang puck",
+  "anthony bourdain"
+]);
+var VILLAIN_CHARACTERS = /* @__PURE__ */ new Set([
+  "walter white",
+  "walter white (heisenberg)",
+  "freddy krueger",
+  "carmen sandiego",
+  "lord voldemort",
+  "gru",
+  "lex luthor",
+  "thanos",
+  "dr. evil",
+  "ernst stavro blofeld",
+  "darth vader",
+  "boba fett",
+  "ghostface",
+  "the phantom of the opera",
+  "jason voorhees",
+  "kylo ren",
+  "bane",
+  "shredder",
+  "general grievous",
+  "captain hook",
+  "maleficent",
+  "the terminator (t-800)",
+  "the grinch",
+  "poison ivy",
+  "megamind",
+  "mystique",
+  "scar",
+  "tony montana",
+  "majin buu",
+  "godzilla",
+  "demona",
+  "count dracula",
+  "medusa"
+]);
+var ANIMATED_CHARACTERS = /* @__PURE__ */ new Set([
+  "velma dinkley",
+  "edna mode",
+  "arthur read",
+  "milhouse van houten",
+  "simon seville",
+  "carl wheezer",
+  "professor farnsworth",
+  "roz",
+  "tina belcher",
+  "daria morgendorffer",
+  "dexter",
+  "woody",
+  "monkey d. luffy",
+  "carmen sandiego",
+  "paddington bear",
+  "ash ketchum",
+  "inspector gadget",
+  "saitama",
+  "homer simpson",
+  "gru",
+  "aang",
+  "krillin",
+  "mr. clean",
+  "popeye the sailor",
+  "charlie brown",
+  "shredder",
+  "edward elric",
+  "captain hook",
+  "finn the human",
+  "scooby-doo",
+  "maleficent",
+  "mufasa",
+  "bob parr (mr. incredible)",
+  "peter griffin",
+  "marlin",
+  "geppetto",
+  "goofy",
+  "trunks",
+  "remy (ratatouille)",
+  "spongebob squarepants",
+  "sanji",
+  "garfield",
+  "shrek",
+  "the grinch",
+  "piccolo",
+  "mike wazowski",
+  "peter pan",
+  "sonic the hedgehog",
+  "genie",
+  "dory",
+  "sadness",
+  "stitch (experiment 626)",
+  "papa smurf",
+  "megamind",
+  "sulley",
+  "inuyasha",
+  "scar",
+  "prince zuko",
+  "kakashi hatake",
+  "majin buu",
+  "shaggy rogers",
+  "tintin",
+  "wallace",
+  "hiccup horrendous haddock iii",
+  "aladdin",
+  "emperor kuzco",
+  "bugs bunny",
+  "simba",
+  "philip j. fry",
+  "demona",
+  "philoctetes",
+  "buzz lightyear"
+]);
+var ANIME_MANGA_CHARACTERS = /* @__PURE__ */ new Set([
+  "monkey d. luffy",
+  "ash ketchum",
+  "saitama",
+  "krillin",
+  "edward elric",
+  "trunks",
+  "sanji",
+  "piccolo",
+  "inuyasha",
+  "kakashi hatake",
+  "majin buu"
+]);
+var VIDEO_GAME_CHARACTERS = /* @__PURE__ */ new Set([
+  "mario",
+  "master chief",
+  "raiden",
+  "barret wallace",
+  "jax briggs",
+  "joel miller",
+  "luigi",
+  "sonic the hedgehog",
+  "mega man",
+  "link",
+  "cloud strife",
+  "geralt of rivia",
+  "big boss (naked snake)",
+  "kratos",
+  "ash ketchum",
+  "carmen sandiego"
+]);
+var COMIC_SUPERHERO_CHARACTERS = /* @__PURE__ */ new Set([
+  "clark kent",
+  "cyclops (scott summers)",
+  "professor x (charles xavier)",
+  "lex luthor",
+  "thanos",
+  "drax the destroyer",
+  "batman (bruce wayne)",
+  "batman",
+  "spider-man (peter parker)",
+  "spider-man",
+  "deadpool (wade wilson)",
+  "deadpool",
+  "rorschach",
+  "v (v for vendetta)",
+  "iron man (tony stark)",
+  "bane",
+  "winter soldier (bucky barnes)",
+  "cyborg (victor stone)",
+  "cable (nathan summers)",
+  "cable",
+  "doctor strange",
+  "scarlet witch (wanda maximoff)",
+  "zatanna",
+  "john constantine",
+  "the flash (barry allen)",
+  "hulk (bruce banner)",
+  "gamora",
+  "poison ivy",
+  "mystique",
+  "thor",
+  "wonder woman (diana prince)",
+  "nick fury",
+  "wolverine (logan)",
+  "superman (clark kent)",
+  "superman",
+  "luke cage",
+  "she-hulk (jennifer walters)",
+  "aquaman (arthur curry)",
+  "captain america (steve rogers)",
+  "edna mode",
+  "bob parr (mr. incredible)",
+  "saitama",
+  "the mask (stanley ipkiss)"
+]);
+var YOUNG_CHARACTERS = /* @__PURE__ */ new Set([
+  "harry potter",
+  "velma dinkley",
+  "arthur read",
+  "milhouse van houten",
+  "simon seville",
+  "steve urkel",
+  "carl wheezer",
+  "tina belcher",
+  "daria morgendorffer",
+  "dexter",
+  "monkey d. luffy",
+  "ash ketchum",
+  "aang",
+  "charlie brown",
+  "spider-man (peter parker)",
+  "spider-man",
+  "edward elric",
+  "finn the human",
+  "nancy drew",
+  "veronica mars",
+  "hermione granger",
+  "marty mcfly",
+  "trunks",
+  "bill s. preston",
+  "peter pan",
+  "link",
+  "percy jackson",
+  "prince zuko",
+  "shaggy rogers",
+  "dorothy gale",
+  "tintin",
+  "hiccup horrendous haddock iii",
+  "aladdin",
+  "ferris bueller",
+  "zack morris",
+  "malcolm",
+  "emperor kuzco",
+  "simba",
+  "king tutankhamun"
+]);
+function getCharacterCategories(charName) {
+  const lower = charName.toLowerCase();
+  const baseName = lower.replace(/\s*\(.*?\)\s*/g, "").trim();
+  const traits = [];
+  for (const cat of VERIFIED_CATEGORIES) {
+    const found = cat.characters.some((c) => {
+      const cLow = c.name.toLowerCase();
+      const cBase = cLow.replace(/\s*\(.*?\)\s*/g, "").trim();
+      return cLow === lower || cBase === baseName;
+    });
+    if (found) {
+      traits.push(cat.id, cat.trait.toLowerCase(), cat.name.toLowerCase());
+    }
+  }
+  for (const theme of CURATED_THEMES) {
+    const found = theme.characters.some((c) => {
+      const cLow = c.name.toLowerCase();
+      const cBase = cLow.replace(/\s*\(.*?\)\s*/g, "").trim();
+      return cLow === lower || cBase === baseName;
+    });
+    if (found) {
+      traits.push(theme.id, theme.name.toLowerCase());
+    }
+  }
+  return traits;
+}
+function normalizeForMatch(str) {
+  return str.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/['’`".-]/g, " ").replace(/\b(the|mr|mrs|ms|dr|sir|lord|lady|captain|capt|professor|prof|prince|princess|king|queen|emperor|master|general|inspector)\b/g, " ").replace(/\s+/g, " ").trim();
+}
+function editDistance(a, b) {
+  if (Math.abs(a.length - b.length) > 3) return 99;
+  const dp = Array.from(
+    { length: a.length + 1 },
+    () => Array(b.length + 1).fill(0)
+  );
+  for (let i = 0; i <= a.length; i++) dp[i][0] = i;
+  for (let j = 0; j <= b.length; j++) dp[0][j] = j;
+  for (let i = 1; i <= a.length; i++) {
+    for (let j = 1; j <= b.length; j++) {
+      dp[i][j] = Math.min(
+        dp[i - 1][j] + 1,
+        dp[i][j - 1] + 1,
+        dp[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1)
+      );
+    }
+  }
+  return dp[a.length][b.length];
+}
+function checkCharacterGuess(rawGuess, secretChar) {
+  const cleanedGuess = rawGuess.replace(/^(am i|is it|is my character|are they|could it be|i guess|my guess is)\s+/i, "").replace(/[?!.]+$/g, "").trim();
+  if (!cleanedGuess || cleanedGuess.length < 2) {
+    return { isCorrect: false, isSameOrigin: false };
+  }
+  const guessNorm = normalizeForMatch(cleanedGuess);
+  const fullSecretNorm = normalizeForMatch(secretChar.name);
+  const aliasMatches = [...secretChar.name.matchAll(/\(([^)]+)\)/g)].map(
+    (m) => normalizeForMatch(m[1])
+  );
+  const outsideParens = normalizeForMatch(secretChar.name.replace(/\([^)]*\)/g, ""));
+  const candidateTargets = /* @__PURE__ */ new Set([
+    fullSecretNorm,
+    outsideParens,
+    ...aliasMatches
+  ]);
+  for (const part of [outsideParens, ...aliasMatches]) {
+    const tokens = part.split(" ").filter((t) => t.length >= 4);
+    if (tokens.length === 1) {
+      candidateTargets.add(tokens[0]);
+    } else if (tokens.length >= 2) {
+      const genericFirstNames = /* @__PURE__ */ new Set([
+        "john",
+        "james",
+        "peter",
+        "walter",
+        "charles",
+        "arthur",
+        "robert",
+        "william",
+        "michael",
+        "david",
+        "richard",
+        "thomas",
+        "martin",
+        "scott",
+        "bruce",
+        "clark",
+        "barry",
+        "steve",
+        "tony",
+        "luke",
+        "simon",
+        "victor",
+        "nathan"
+      ]);
+      const first = tokens[0];
+      const last = tokens[tokens.length - 1];
+      if (last.length >= 4) candidateTargets.add(last);
+      if (first.length >= 5 && !genericFirstNames.has(first)) {
+        candidateTargets.add(first);
+      }
+    }
+  }
+  for (const target of candidateTargets) {
+    if (!target) continue;
+    if (guessNorm === target) {
+      return { isCorrect: true, isSameOrigin: true };
+    }
+    if (target.length >= 6 && guessNorm.length >= 5 && editDistance(guessNorm, target) <= 1) {
+      return { isCorrect: true, isSameOrigin: true };
+    }
+    if (target.length >= 9 && guessNorm.length >= 7 && editDistance(guessNorm, target) <= 2) {
+      return { isCorrect: true, isSameOrigin: true };
+    }
+  }
+  let isSameOrigin = false;
+  if (secretChar.origin) {
+    const secretOriginNorm = secretChar.origin.toLowerCase();
+    for (const cat of VERIFIED_CATEGORIES) {
+      for (const c of cat.characters) {
+        const cNorm = normalizeForMatch(c.name.replace(/\([^)]*\)/g, ""));
+        if (cNorm === guessNorm && c.origin.toLowerCase() === secretOriginNorm) {
+          isSameOrigin = true;
+          break;
+        }
+      }
+    }
+  }
+  return { isCorrect: false, isSameOrigin };
+}
+function evaluateSoloQuestion(rawQuestion, secretChar, themeName = "") {
+  const q = rawQuestion.trim().toLowerCase();
+  const charLower = secretChar.name.toLowerCase();
+  const charBase = charLower.replace(/\s*\(.*?\)\s*/g, "").trim();
+  const originLower = (secretChar.origin || "").toLowerCase();
+  const hintLower = (secretChar.hint || "").toLowerCase();
+  const verifyLower = (secretChar.traitVerification || "").toLowerCase();
+  const combinedCorpus = `${charLower} ${originLower} ${hintLower} ${verifyLower} ${themeName.toLowerCase()}`;
+  const charCategories = getCharacterCategories(secretChar.name);
+  const fullCorpus = `${combinedCorpus} ${charCategories.join(" ")}`;
+  const { isCorrect } = checkCharacterGuess(rawQuestion, secretChar);
+  if (isCorrect) {
+    return {
+      verdict: "YES",
+      answerText: `By the Royal Crown\u2014YES! You have unmasked your secret identity!`,
+      isDirectGuess: true,
+      guessedCharacterMatch: true
+    };
+  }
+  const isFemale = FEMALE_CHARACTERS.has(charLower) || FEMALE_CHARACTERS.has(charBase);
+  const isReal = REAL_HISTORICAL_PEOPLE.has(charLower) || REAL_HISTORICAL_PEOPLE.has(charBase);
+  const isNonHuman = NON_HUMAN_CHARACTERS.has(charLower) || NON_HUMAN_CHARACTERS.has(charBase);
+  const isAnimal = ANIMAL_CHARACTERS.has(charLower) || ANIMAL_CHARACTERS.has(charBase);
+  const isVillain = VILLAIN_CHARACTERS.has(charLower) || VILLAIN_CHARACTERS.has(charBase);
+  const isAnimated = ANIMATED_CHARACTERS.has(charLower) || ANIMATED_CHARACTERS.has(charBase);
+  const isAnime = ANIME_MANGA_CHARACTERS.has(charLower) || ANIME_MANGA_CHARACTERS.has(charBase);
+  const isVideoGame = VIDEO_GAME_CHARACTERS.has(charLower) || VIDEO_GAME_CHARACTERS.has(charBase);
+  const isComic = COMIC_SUPERHERO_CHARACTERS.has(charLower) || COMIC_SUPERHERO_CHARACTERS.has(charBase);
+  const isYoung = YOUNG_CHARACTERS.has(charLower) || YOUNG_CHARACTERS.has(charBase);
+  if (/\b(female|woman|women|girl|lady|she|her|actress|queen|princess|mother|mom|sister|daughter)\b/.test(q) && !/\b(male|man|boy)\b/.test(q)) {
+    return isFemale ? { verdict: "YES", answerText: "Aye! Your secret identity is female." } : { verdict: "NO", answerText: "Nay! Your character is not female." };
+  }
+  if (/\b(male|man|men|boy|guy|he|him|his|gentleman|king|prince)\b/.test(q)) {
+    if (/\b(father|dad|paternal)\b/.test(q)) {
+      const isFather = charCategories.includes("fathers") || /\b(father|dad|son|daughter)\b/.test(fullCorpus);
+      return isFather ? { verdict: "YES", answerText: "Aye! Your character is indeed a father." } : { verdict: "NO", answerText: "Nay, they are not known for being a father." };
+    }
+    return !isFemale ? { verdict: "YES", answerText: "Aye! Your secret identity is male." } : { verdict: "NO", answerText: "Nay! Your character is not male." };
+  }
+  if (/\b(real|historical|real life|actual person|non-fiction|existed|living|celebrity|biographical)\b/.test(q)) {
+    return isReal ? { verdict: "YES", answerText: "Aye! They walked the real world as a historical or living figure." } : { verdict: "NO", answerText: "Nay! Your character hails from the realms of fiction." };
+  }
+  if (/\b(fictional|fiction|made up|imaginary)\b/.test(q)) {
+    return !isReal ? { verdict: "YES", answerText: "Aye! Your character is a fictional creation." } : { verdict: "NO", answerText: "Nay! They are a real figure from history or our world." };
+  }
+  if (/\b(human|mortal|person)\b/.test(q) && !/\b(superhuman|non-human)\b/.test(q)) {
+    return !isNonHuman ? { verdict: "YES", answerText: "Aye! Your character is human." } : { verdict: "NO", answerText: "Nay! They are not an ordinary human." };
+  }
+  if (/\b(animal|beast|creature|dog|cat|bear|frog|fish|rat|lion|monkey|hedgehog|bird|monster)\b/.test(q)) {
+    if (/\b(pet|companion|familiar|sidekick)\b/.test(q)) {
+      const hasPet = charCategories.includes("animal-companions") || /\b(pet|dog|companion|pikachu|scooby|toto|snowy|gromit|toothless|abu|snoopy|fang)\b/.test(fullCorpus);
+      return hasPet ? { verdict: "YES", answerText: "Aye! They are accompanied by a loyal animal companion." } : { verdict: "NO", answerText: "Nay, they are not known for a signature pet or animal familiar." };
+    }
+    const isCreature = isAnimal || isNonHuman;
+    return isCreature ? { verdict: "YES", answerText: "Aye! They are a non-human creature, animal, or extraordinary being." } : { verdict: "NO", answerText: "Nay! Your character is human, not an animal or monster." };
+  }
+  if (/\b(alien|extraterrestrial|outer space|another planet|martian|kryptonian)\b/.test(q)) {
+    const isAlien = /\b(alien|extraterrestrial|krypton|titan|namekian|gallifrey|time lord|vulcan|dagobah|experiment 626|zehoberei|apokolip)\b/.test(fullCorpus) || ["yoda", "thanos", "drax the destroyer", "gamora", "superman (clark kent)", "clark kent", "superman", "stitch (experiment 626)", "megamind", "the doctor", "piccolo", "trunks", "majin buu", "spock", "e.t. the extra-terrestrial"].includes(charLower);
+    return isAlien ? { verdict: "YES", answerText: "Aye! They hail from beyond Earth or an extraterrestrial lineage." } : { verdict: "NO", answerText: "Nay! They are not an alien from another planet." };
+  }
+  if (/\b(robot|cyborg|android|machine|bionic|prosthetic|cybernetic|artificial|automail)\b/.test(q)) {
+    const isCyber = charCategories.includes("cybernetic-robotic-limbs") || /\b(robot|cyborg|android|cybernetic|prosthetic|bionic|automail|hyperalloy|mechanical)\b/.test(fullCorpus) || ["mega man", "the terminator (t-800)", "darth vader", "cyborg (victor stone)", "general grievous", "inspector gadget", "raiden"].includes(charLower);
+    return isCyber ? { verdict: "YES", answerText: "Aye! They possess cybernetic, robotic, or prosthetic enhancements." } : { verdict: "NO", answerText: "Nay! They are neither robot nor cyborg." };
+  }
+  if (/\b(anime|manga|japanese)\b/.test(q)) {
+    const isJp = isAnime || /\b(nintendo|sega|capcom|final fantasy|pokemon|zelda|mario|luigi|sonic|naruto|one piece|dragon ball|fullmetal|one punch|toho|godzilla|metal gear)\b/.test(fullCorpus);
+    return isJp ? { verdict: "YES", answerText: "Aye! They hail from anime, manga, or Japanese pop culture." } : { verdict: "NO", answerText: "Nay! They are not from anime or Japanese media." };
+  }
+  if (/\b(animated|animation|cartoon|pixar|dreamworks|disney|2d|3d|drawn)\b/.test(q)) {
+    const matchesAnim = isAnimated || /\b(disney|pixar|dreamworks|nickelodeon|cartoon|simpsons|futurama|scooby|looney tunes|muppet|pbs|peanuts|hanna-barbera)\b/.test(fullCorpus);
+    return matchesAnim ? { verdict: "YES", answerText: "Aye! Your character is famously depicted in animation or cartoons." } : { verdict: "NO", answerText: "Nay! They are primarily known from live-action, history, or non-animated works." };
+  }
+  if (/\b(video game|videogame|game|gaming|gamer|nintendo|playstation|xbox|arcade)\b/.test(q)) {
+    return isVideoGame ? { verdict: "YES", answerText: "Aye! They are iconic in the world of video games." } : { verdict: "NO", answerText: "Nay! They did not originate as a video game character." };
+  }
+  if (/\b(comic|comics|superhero|marvel|dc|avengers|justice league|x-men|mutant)\b/.test(q)) {
+    if (/\b(marvel|avengers|x-men)\b/.test(q) && !/\bdc\b/.test(q)) {
+      const isMarvel = /\b(marvel|x-men)\b/.test(fullCorpus);
+      return isMarvel ? { verdict: "YES", answerText: "Aye! They belong to the Marvel universe." } : { verdict: "NO", answerText: "Nay! They are not from Marvel." };
+    }
+    if (/\b(dc|gotham|krypton|justice league)\b/.test(q) && !/\bmarvel\b/.test(q)) {
+      const isDC = /\b(dc comics|dc \/ vertigo|gotham|watchmen)\b/.test(fullCorpus);
+      return isDC ? { verdict: "YES", answerText: "Aye! They belong to the DC Comics pantheon." } : { verdict: "NO", answerText: "Nay! They are not from DC Comics." };
+    }
+    return isComic ? { verdict: "YES", answerText: "Aye! They are a comic book or superhero figure." } : { verdict: "NO", answerText: "Nay! They are not from comic books or superhero lore." };
+  }
+  if (/\b(tv|television|series|show|sitcom)\b/.test(q)) {
+    const isTV = /\b(tv|simpsons|office|breaking bad|scooby|stranger things|game of thrones|friends|family guy|futurama|doctor who|star trek|avatar|bob's burgers|daria|dexter|family matters|jimmy neutron|arthur|monk|columbo|veronica mars|heroes|saved by the bell|malcolm|fleabag|gargoyles|muppets|sesame street|food network|nickelodeon|bbc|mtv|pbs)\b/.test(fullCorpus);
+    return isTV ? { verdict: "YES", answerText: "Aye! They are famous from television." } : { verdict: "NO", answerText: "Nay! They are not primarily a television character." };
+  }
+  if (/\b(movie|movies|film|cinema)\b/.test(q)) {
+    const isMovie = !isReal && /\b(star wars|harry potter|lord of the rings|hobbit|matrix|indiana jones|back to the future|toy story|incredibles|monsters, inc|finding nemo|ratatouille|inside out|lion king|aladdin|sleeping beauty|emperor's new groove|lilo|shrek|megamind|despicable me|how to train|ghostbusters|austin powers|nightmare on elm street|scream|friday the 13th|pirates of the caribbean|fast & furious|mad max|terminator|bill & ted|knives out|pink panther|ace ventura|scarface|princess bride|wizard of oz|ferris bueller|the mask|hunger games|karate kid|alien|james bond|007|marvel|dc comics)\b/.test(fullCorpus);
+    return isMovie ? { verdict: "YES", answerText: "Aye! They have starred on the silver screen in film." } : { verdict: "NO", answerText: "Nay! They are not primarily known as a movie character." };
+  }
+  if (/\b(book|novel|literature|myth|mythology|folklore|legend|fairy tale)\b/.test(q)) {
+    const isLit = /\b(harry potter|lord of the rings|hobbit|doyle|sherlock|agatha christie|roald dahl|seuss|michael bond|mcculley|alice in wonderland|folklore|robin hood|gaston leroux|barrie|peter pan|carolyn keene|arthurian|merlin|king arthur|pinocchio|riordan|witcher|herge|wizard of oz|washington irving|hunger games|bram stoker|mythology|greek|norse|egyptian)\b/.test(fullCorpus);
+    return isLit ? { verdict: "YES", answerText: "Aye! Their tale is rooted in literature, books, or mythic folklore." } : { verdict: "NO", answerText: "Nay! They did not originate primarily from classic books or mythology." };
+  }
+  if (/\b(villain|antagonist|bad guy|evil|dark lord|criminal|enemy|terrorist|slasher)\b/.test(q)) {
+    return isVillain ? { verdict: "YES", answerText: "Aye! They are known as a villain, antagonist, or outlaw." } : { verdict: "NO", answerText: "Nay! They are not a villain." };
+  }
+  if (/\b(hero|protagonist|good guy|main character|savior|champion)\b/.test(q)) {
+    return !isVillain ? { verdict: "YES", answerText: "Aye! They stand as a protagonist, hero, or leading figure." } : { verdict: "NO", answerText: "Nay! They walk the darker path of a villain or antagonist." };
+  }
+  if (/\b(royal|royalty|king|queen|prince|princess|monarch|emperor|throne|crown|ruler|lord)\b/.test(q)) {
+    const isRoyal = charCategories.includes("exiled-royalty") || charCategories.includes("legendary-rulers") || /\b(king|queen|prince|princess|emperor|pharaoh|royal|throne|monarch|lord of winterfell|ruler)\b/.test(fullCorpus);
+    return isRoyal ? { verdict: "YES", answerText: "Aye! Royal blood, a crown, or high rule belongs to their story." } : { verdict: "NO", answerText: "Nay! They are not royalty or a crowned monarch." };
+  }
+  if (/\b(detective|sleuth|investigator|mystery|mysteries|crime|police|cop|sheriff|agent)\b/.test(q)) {
+    const isSleuth = charCategories.includes("sleuths-and-detectives") || charCategories.includes("master-sleuths") || /\b(detective|sleuth|investigator|mystery|police|homicide|sheriff|agent|fbi|shield)\b/.test(fullCorpus);
+    return isSleuth ? { verdict: "YES", answerText: "Aye! They are known for investigating mysteries, crimes, or enforcing the law." } : { verdict: "NO", answerText: "Nay! They are not a detective or investigator." };
+  }
+  if (/\b(father|dad|parent|children|kids|son|daughter|family)\b/.test(q)) {
+    const isParent = charCategories.includes("fathers") || /\b(father|dad|son|daughter|children|patriarch)\b/.test(fullCorpus);
+    return isParent ? { verdict: "YES", answerText: "Aye! They are a parent or father figure." } : { verdict: "NO", answerText: "Nay! Being a parent is not a defining trait of their story." };
+  }
+  if (/\b(kid|child|teen|teenager|young|student|school|boy|girl)\b/.test(q)) {
+    return isYoung ? { verdict: "YES", answerText: "Aye! They are depicted as a child, teenager, or young student." } : { verdict: "NO", answerText: "Nay! Your character is a grown adult (or ancient being)." };
+  }
+  if (/\b(mentor|teacher|professor|master|old|elderly|wise)\b/.test(q)) {
+    const isMentor = charCategories.includes("legendary-mentors") || /\b(mentor|teacher|professor|headmaster|master|grand master|elderly|ancient|sensei)\b/.test(fullCorpus);
+    return isMentor ? { verdict: "YES", answerText: "Aye! They are known as a mentor, teacher, or wise elder." } : { verdict: "NO", answerText: "Nay! They are not primarily a wise elder or mentor." };
+  }
+  if (/\b(chef|cook|food|baker|kitchen|culinary|restaurant|eat)\b/.test(q)) {
+    const isFood = charCategories.includes("food-culinary") || charCategories.includes("famous-cooks") || /\b(chef|cook|baker|culinary|food|kitchen|krabby|lasagna|cookie|donut|spinach|marmalade)\b/.test(fullCorpus);
+    return isFood ? { verdict: "YES", answerText: "Aye! Cooking, cuisine, or a famous appetite defines them." } : { verdict: "NO", answerText: "Nay! They are not a chef or culinary figure." };
+  }
+  if (/\b(doctor|physician|nurse|surgeon|scientist|inventor|genius|chemist)\b/.test(q)) {
+    const isSciDoc = charCategories.includes("iconic-healers") || /\b(doctor|dr\.|surgeon|nurse|physician|scientist|inventor|genius|chemist|professor|science)\b/.test(fullCorpus);
+    return isSciDoc ? { verdict: "YES", answerText: "Aye! They are a doctor, healer, scientist, or brilliant inventor." } : { verdict: "NO", answerText: "Nay! They are neither a doctor nor a scientist." };
+  }
+  if (/\b(magic|magical|wizard|witch|sorcerer|spell|powers|superpower|superhuman|force|telepath|mutant)\b/.test(q)) {
+    const hasMagicOrPower = charCategories.includes("magic-wizards-witches") || charCategories.includes("superhuman-durability") || /\b(magic|wizard|witch|sorcerer|spell|superpower|superhuman|mutant|telepath|force|jedi|sith|avatar|airbender|saiyan|god|demigod|goddess|enchanted|curse|speedster|time lord|chronokinesis|gamma|krypton|spider|lasso)\b/.test(fullCorpus);
+    return hasMagicOrPower ? { verdict: "YES", answerText: "Aye! They wield magic, the Force, or superhuman powers." } : { verdict: "NO", answerText: "Nay! They rely on mortal skill, wit, or technology rather than magic or superpowers." };
+  }
+  if (/\b(glasses|spectacles|goggles|visor|eyewear|sunglasses)\b/.test(q)) {
+    const wearsGlasses = charCategories.includes("glasses-spectacles-goggles") || /\b(glasses|spectacles|goggles|visor|sunglasses|eyewear)\b/.test(fullCorpus);
+    return wearsGlasses ? { verdict: "YES", answerText: "Aye! They wear signature glasses, spectacles, goggles, or a visor." } : { verdict: "NO", answerText: "Nay! They do not wear signature glasses." };
+  }
+  if (/\b(hat|fedora|cap|top hat|cowboy hat|headwear|helmet|crown)\b/.test(q) && !/\bmask\b/.test(q)) {
+    const wearsHat = charCategories.includes("iconic-hats") || charCategories.includes("masks-helmets-disguises") || /\b(hat|fedora|cap|top hat|deerstalker|helmet|tricorn|bycocket|phrygian|crown)\b/.test(fullCorpus);
+    return wearsHat ? { verdict: "YES", answerText: "Aye! They wear an iconic hat, cap, helmet, or crown." } : { verdict: "NO", answerText: "Nay! They are not known for wearing a signature hat." };
+  }
+  if (/\b(mask|helmet|disguise|cowl|hide their face|conceal)\b/.test(q)) {
+    const wearsMask = charCategories.includes("masks-helmets-disguises") || charCategories.includes("caped-masked") || /\b(mask|helmet|cowl|disguise)\b/.test(fullCorpus);
+    return wearsMask ? { verdict: "YES", answerText: "Aye! They conceal their face behind a mask, cowl, or helmet." } : { verdict: "NO", answerText: "Nay! Their face is not hidden behind a mask or helmet." };
+  }
+  if (/\b(bald|hairless|no hair|shaved head)\b/.test(q)) {
+    const isBald = charCategories.includes("bald-hairless") || /\b(bald|hairless|shaves his head|shaven)\b/.test(fullCorpus);
+    return isBald ? { verdict: "YES", answerText: "Aye! They are bald or lack head hair." } : { verdict: "NO", answerText: "Nay! They have hair (or fur/headgear)." };
+  }
+  if (/\b(scar|eyepatch|eye patch|facial mark|burn|tattoo)\b/.test(q)) {
+    const hasScar = charCategories.includes("scars-eyepatches") || /\b(scar|eyepatch|eye patch|burn mark|tattoo)\b/.test(fullCorpus);
+    return hasScar ? { verdict: "YES", answerText: "Aye! They bear an iconic scar, eyepatch, or facial marking." } : { verdict: "NO", answerText: "Nay! They are not defined by a facial scar or eyepatch." };
+  }
+  if (/\b(weapon|sword|blade|hammer|lightsaber|gun|shield|lasso|wand|bow|machete)\b/.test(q)) {
+    const hasWeapon = charCategories.includes("legendary-weapons") || /\b(weapon|sword|blade|hammer|mjolnir|excalibur|lightsaber|dagger|sting|buster sword|wand|machete|gun|gatling|shield|lasso|trident|saber)\b/.test(fullCorpus);
+    return hasWeapon ? { verdict: "YES", answerText: "Aye! They wield a signature weapon, blade, wand, or armament." } : { verdict: "NO", answerText: "Nay! They do not carry a signature weapon." };
+  }
+  if (/\b(space|galaxy|star wars|star trek|sci-fi|science fiction|future|time travel|time)\b/.test(q)) {
+    if (/\bstar wars\b/.test(q)) {
+      return originLower.includes("star wars") ? { verdict: "YES", answerText: "Aye! They hail from a galaxy far, far away (Star Wars)." } : { verdict: "NO", answerText: "Nay! They are not from Star Wars." };
+    }
+    if (/\b(time travel|travel through time|time machine)\b/.test(q)) {
+      const isTime = charCategories.includes("time-travelers") || /\b(time travel|time machine|tardis|delorean|time-turner|flux capacitor)\b/.test(fullCorpus);
+      return isTime ? { verdict: "YES", answerText: "Aye! They travel through or manipulate time." } : { verdict: "NO", answerText: "Nay! Time travel is not their domain." };
+    }
+    const isSciFi = charCategories.includes("cosmic-explorers") || charCategories.includes("time-travelers") || charCategories.includes("cybernetic-robotic-limbs") || /\b(star wars|star trek|futurama|matrix|back to the future|doctor who|terminator|halo|alien|space|galaxy|sci-fi|cybernetic|lilo|megamind|rick|guardians)\b/.test(fullCorpus);
+    return isSciFi ? { verdict: "YES", answerText: "Aye! Their story involves sci-fi, outer space, or futuristic technology." } : { verdict: "NO", answerText: "Nay! They are not from a sci-fi or outer-space setting." };
+  }
+  if (/\b(fantasy|medieval|dragon|elf|hobbit|magic|hogwarts|middle-earth|westeros)\b/.test(q)) {
+    const isFantasy = charCategories.includes("magic-wizards-witches") || /\b(harry potter|lord of the rings|hobbit|game of thrones|witcher|zelda|arthurian|sleeping beauty|aladdin|lion king|shrek|peter pan|wizard of oz|avatar|how to train|inuyasha|fullmetal|norse|greek|mythology|fantasy)\b/.test(fullCorpus);
+    return isFantasy ? { verdict: "YES", answerText: "Aye! They belong to a fantasy, magical, or mythic realm." } : { verdict: "NO", answerText: "Nay! They are not from a medieval or fantasy realm." };
+  }
+  if (/\b(green)\b/.test(q)) {
+    const isGreen = charCategories.includes("green-design") || /\bgreen\b/.test(fullCorpus);
+    return isGreen ? { verdict: "YES", answerText: "Aye! Green is their signature color." } : { verdict: "NO", answerText: "Nay! They are not predominantly green." };
+  }
+  if (/\b(blue)\b/.test(q)) {
+    const isBlue = charCategories.includes("blue-design") || /\bblue\b/.test(fullCorpus);
+    return isBlue ? { verdict: "YES", answerText: "Aye! Blue is strongly tied to their look." } : { verdict: "NO", answerText: "Nay! They are not predominantly blue." };
+  }
+  const stopWords = /* @__PURE__ */ new Set([
+    "does",
+    "have",
+    "they",
+    "their",
+    "character",
+    "from",
+    "with",
+    "that",
+    "this",
+    "were",
+    "what",
+    "when",
+    "where",
+    "which",
+    "about",
+    "known",
+    "famous",
+    "wear",
+    "wears",
+    "into",
+    "like",
+    "some",
+    "more",
+    "very",
+    "only",
+    "ever",
+    "been",
+    "make",
+    "made",
+    "good",
+    "main",
+    "part"
+  ]);
+  const queryWords = q.replace(/[^a-z0-9\s]/g, " ").split(/\s+/).filter((w) => w.length >= 4 && !stopWords.has(w));
+  if (queryWords.length > 0) {
+    const matchedKeyword = queryWords.find((w) => fullCorpus.includes(w));
+    if (matchedKeyword) {
+      return {
+        verdict: "YES",
+        answerText: "Aye! The royal chronicles confirm that connection to your character."
+      };
+    }
+  }
+  return {
+    verdict: "NO",
+    answerText: "Nay! That does not describe your secret identity according to the royal archives."
+  };
+}
+
 // public/assets/aistudio/Commonalities_6c05b138.json
 var Commonalities_6c05b138_default = [
   { id: 1, trait: "Both characters have artificial, robotic, or cybernetic limbs." },
@@ -1295,6 +2213,7 @@ async function generateRoundTheme(playerCount = 4, excludeIds = [], specificComm
       origin: c.origin,
       wikiSlug: c.wikiSlug,
       hint: c.hint,
+      traitVerification: c.traitVerification,
       imageUrl: `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(c.wikiSlug)}?width=400`
     }));
     const resultTheme = {
@@ -1353,6 +2272,7 @@ Return ONLY a JSON object:
                 origin: c.origin,
                 wikiSlug: c.wikiSlug,
                 hint: c.hint,
+                traitVerification: c.traitVerification,
                 imageUrl: `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(c.wikiSlug)}?width=400`
               });
             }
@@ -1366,6 +2286,7 @@ Return ONLY a JSON object:
                 origin: c.origin || "Pop Culture",
                 wikiSlug: c.wikiSlug || c.name.replace(/\s+/g, "_"),
                 hint: c.hint || `Matches ${themeName}`,
+                traitVerification: c.traitVerification,
                 imageUrl: `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(c.wikiSlug || c.name)}?width=400`
               });
             }
@@ -1392,6 +2313,7 @@ Return ONLY a JSON object:
     origin: c.origin,
     wikiSlug: c.wikiSlug,
     hint: c.hint,
+    traitVerification: c.traitVerification,
     imageUrl: `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(c.wikiSlug)}?width=400`
   }));
   const fallbackResult = {
@@ -1496,6 +2418,7 @@ Return ONLY a JSON object:
                 origin: parsed.origin || "Pop Culture",
                 wikiSlug: parsed.wikiSlug || parsed.name.replace(/\s+/g, "_"),
                 hint: parsed.hint || `Matches ${trait}`,
+                traitVerification: parsed.traitVerification,
                 imageUrl: `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(parsed.wikiSlug || parsed.name)}?width=400`
               }
             });
@@ -1522,6 +2445,63 @@ Return ONLY a JSON object:
   } catch (err) {
     console.error("Error in /api/reroll-character:", err);
     res.status(500).json({ error: "Failed to reroll character" });
+  }
+});
+app.post("/api/solo-ask", async (req, res) => {
+  try {
+    const { question = "", character, themeName = "" } = req.body || {};
+    if (!question || !character || !character.name) {
+      return res.status(400).json({ error: "Missing question or character" });
+    }
+    const guessCheck = checkCharacterGuess(question, character);
+    if (guessCheck.isCorrect) {
+      return res.json({
+        verdict: "YES",
+        answerText: "By the Royal Crown\u2014YES! You have unmasked your secret identity!",
+        isDirectGuess: true,
+        guessedCharacterMatch: true
+      });
+    }
+    const ai = getAI();
+    if (ai) {
+      const prompt = `You are the Court Oracle in the medieval parlor game "Jest Guessing".
+The player is trying to deduce their secret identity by asking Yes/No questions.
+Secret Character: "${character.name}"
+Origin / Franchise: "${character.origin || "Pop Culture"}"
+Known Fact: "${character.hint || ""} ${character.traitVerification || ""}"
+Player's Question: "${question}"
+
+INSTRUCTIONS:
+1. Answer the player's question truthfully about "${character.name}".
+2. NEVER reveal "${character.name}" or their specific franchise title in your answerText!
+3. Choose "verdict" from: "YES", "NO", or "PARTIAL".
+4. Write "answerText" as a concise, atmospheric 1-sentence response (max 15 words) starting with "Aye!", "Nay!", or "Partly so\u2014".
+
+Return ONLY a JSON object:
+{
+  "verdict": "YES",
+  "answerText": "Aye! Your secret identity is indeed human."
+}`;
+      const text = await callGeminiSafe(ai, prompt);
+      if (text) {
+        try {
+          const cleaned = text.replace(/^\`\`\`json\s*/i, "").replace(/\`\`\`$/i, "").trim();
+          const parsed = JSON.parse(cleaned);
+          if (parsed.verdict && parsed.answerText) {
+            return res.json({
+              verdict: ["YES", "NO", "PARTIAL"].includes(parsed.verdict) ? parsed.verdict : "NO",
+              answerText: parsed.answerText
+            });
+          }
+        } catch {
+        }
+      }
+    }
+    const fallbackEval = evaluateSoloQuestion(question, character, themeName);
+    return res.json(fallbackEval);
+  } catch (err) {
+    console.error("Error in /api/solo-ask:", err);
+    res.status(500).json({ error: "Failed to evaluate question" });
   }
 });
 app.get("/api/fresh-themes", async (_req, res) => {

@@ -4,11 +4,13 @@ import { ShepherdStar } from './ShepherdStar';
 
 interface LandingScreenProps {
   onStartSetup: () => void;
+  onStartSolo: () => void;
   onOpenRules: () => void;
 }
 
 export const LandingScreen: React.FC<LandingScreenProps> = ({
   onStartSetup,
+  onStartSolo,
   onOpenRules,
 }) => {
   return (
@@ -76,21 +78,33 @@ export const LandingScreen: React.FC<LandingScreenProps> = ({
 
       {/* Bottom Action Zone: Transparent background */}
       <div className="w-full shrink-0 z-30 pb-safe pb-3 sm:pb-4 pt-2">
-        <div className="max-w-sm sm:max-w-md mx-auto flex flex-col items-center space-y-2">
-          <button
-            id="landing-start-btn"
-            type="button"
-            onClick={onStartSetup}
-            className="w-full min-h-[52px] py-4 px-6 border border-[#f4efe4] bg-[#f4efe4] text-[#09120e] hover:bg-[#b9bfff] hover:border-[#b9bfff] active:scale-[0.99] text-xs sm:text-[13px] font-semibold uppercase tracking-[0.2em] transition-all cursor-pointer text-center"
-          >
-            COMMENCE THE JEST →
-          </button>
+        <div className="max-w-sm sm:max-w-md mx-auto flex flex-col items-center space-y-2.5">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+            <button
+              id="landing-start-btn"
+              type="button"
+              onClick={onStartSetup}
+              className="w-full min-h-[50px] py-3.5 px-5 border border-[#f4efe4] bg-[#f4efe4] text-[#09120e] hover:bg-[#b9bfff] hover:border-[#b9bfff] active:scale-[0.99] text-xs sm:text-[12px] font-semibold uppercase tracking-[0.18em] transition-all cursor-pointer text-center"
+            >
+              PARTY JEST (2+ PLAYERS) →
+            </button>
+
+            <button
+              id="landing-solo-btn"
+              type="button"
+              onClick={onStartSolo}
+              className="w-full min-h-[50px] py-3.5 px-5 border border-[#b9bfff] bg-[#b9bfff]/10 text-[#f4efe4] hover:bg-[#b9bfff] hover:text-[#09120e] active:scale-[0.99] text-xs sm:text-[12px] font-semibold uppercase tracking-[0.18em] transition-all cursor-pointer text-center flex items-center justify-center gap-1.5"
+            >
+              <ShepherdStar size={13} className="text-current" />
+              <span>SOLO JEST (1 PLAYER) →</span>
+            </button>
+          </div>
 
           <button
             id="landing-see-rules-btn"
             type="button"
             onClick={onOpenRules}
-            className="min-h-[38px] py-1.5 px-4 text-xs font-medium uppercase tracking-[0.18em] text-[#f4efe4]/60 hover:text-[#b9bfff] transition-colors cursor-pointer text-center"
+            className="min-h-[36px] py-1 px-4 text-xs font-medium uppercase tracking-[0.18em] text-[#f4efe4]/60 hover:text-[#b9bfff] transition-colors cursor-pointer text-center"
           >
             How to play
           </button>

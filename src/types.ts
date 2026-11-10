@@ -5,6 +5,7 @@ export interface Character {
   imageUrl?: string;
   origin?: string;
   assignedPlayerId?: string;
+  traitVerification?: string;
 }
 
 export interface CandidateCommonality {
@@ -37,7 +38,8 @@ export type GameStage =
   | 'privacy_interstitial'
   | 'active_turn'
   | 'last_turn_interstitial'
-  | 'scoreboard';
+  | 'scoreboard'
+  | 'solo_game';
 
 
 export interface GameState {

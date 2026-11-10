@@ -8,6 +8,7 @@ interface SetupScreenProps {
   onUpdatePlayers: (players: Player[]) => void;
   onClearScores?: () => void;
   onProceedToCommonalities: (finalPlayers: Player[]) => void;
+  onStartSolo?: () => void;
   onBackToLanding: () => void;
   onOpenRules: () => void;
 }
@@ -23,6 +24,7 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
   onUpdatePlayers,
   onClearScores,
   onProceedToCommonalities,
+  onStartSolo,
   onBackToLanding,
   onOpenRules,
 }) => {
@@ -426,7 +428,7 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
 
       {/* Bottom Action Zone: Transparent background, always visible right below the input */}
       <div className="w-full shrink-0 z-30 pb-safe pb-3 sm:pb-4 pt-2">
-        <div className="max-w-lg lg:max-w-6xl mx-auto flex items-center justify-between gap-3.5 sm:gap-6">
+        <div className="max-w-lg lg:max-w-6xl mx-auto flex items-center justify-between gap-3 sm:gap-5">
           <button
             type="button"
             onClick={onBackToLanding}
@@ -435,15 +437,26 @@ export const SetupScreen: React.FC<SetupScreenProps> = ({
             ← BACK
           </button>
 
-          <button
-            id="proceed-to-commonalities-btn"
-            type="button"
-            disabled={!canProceed}
-            onClick={handleProceed}
-            className="flex-1 sm:flex-initial sm:min-w-[260px] min-h-[48px] sm:min-h-[50px] py-3 sm:py-3.5 px-6 border border-[#f4efe4] bg-[#f4efe4] text-[#09120e] hover:bg-[#b9bfff] hover:border-[#b9bfff] active:scale-[0.99] disabled:opacity-30 disabled:cursor-not-allowed text-xs sm:text-[13px] font-semibold uppercase tracking-[0.18em] transition-all cursor-pointer text-center"
-          >
-            CHOOSE COMMONALITY →
-          </button>
+          {!canProceed && onStartSolo ? (
+            <button
+              id="setup-start-solo-btn"
+              type="button"
+              onClick={onStartSolo}
+              className="flex-1 sm:flex-initial sm:min-w-[260px] min-h-[48px] sm:min-h-[50px] py-3 sm:py-3.5 px-6 border border-[#b9bfff] bg-[#b9bfff]/15 text-[#f4efe4] hover:bg-[#b9bfff] hover:text-[#09120e] active:scale-[0.99] text-xs sm:text-[13px] font-semibold uppercase tracking-[0.18em] transition-all cursor-pointer text-center"
+            >
+              PLAY SOLO (1 PLAYER) →
+            </button>
+          ) : (
+            <button
+              id="proceed-to-commonalities-btn"
+              type="button"
+              disabled={!canProceed}
+              onClick={handleProceed}
+              className="flex-1 sm:flex-initial sm:min-w-[260px] min-h-[48px] sm:min-h-[50px] py-3 sm:py-3.5 px-6 border border-[#f4efe4] bg-[#f4efe4] text-[#09120e] hover:bg-[#b9bfff] hover:border-[#b9bfff] active:scale-[0.99] disabled:opacity-30 disabled:cursor-not-allowed text-xs sm:text-[13px] font-semibold uppercase tracking-[0.18em] transition-all cursor-pointer text-center"
+            >
+              CHOOSE COMMONALITY →
+            </button>
+          )}
         </div>
       </div>
     </div>

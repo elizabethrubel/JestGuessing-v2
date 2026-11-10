@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { Player, ThemePack, GameStage, CandidateCommonality } from './types';
+import { Player, ThemePack, GameStage, CandidateCommonality, Character } from './types';
 import { LandingScreen } from './components/LandingScreen';
 import { SetupScreen } from './components/SetupScreen';
 import { PrivacyInterstitialScreen } from './components/PrivacyInterstitialScreen';
@@ -13,9 +13,11 @@ import { LastTurnInterstitial } from './components/LastTurnInterstitial';
 import { ScoreboardScreen } from './components/ScoreboardScreen';
 import { ThemeRevealScreen } from './components/ThemeRevealScreen';
 import { CommonalitySelectionScreen } from './components/CommonalitySelectionScreen';
+import { SoloGameScreen } from './components/SoloGameScreen';
 import { RulesOverlay } from './components/RulesOverlay';
 import { LatencyTipsOverlay } from './components/LatencyTipsOverlay';
 import { VERIFIED_CATEGORIES } from './data/verifiedCharacterSets';
+import { isHouseholdIcon } from './data/soloOracleEngine';
 
 function getLocalCandidateCommonalities(excludeIds: number[] = []): CandidateCommonality[] {
   const indexed = VERIFIED_CATEGORIES.map((cat, idx) => ({
@@ -522,6 +524,57 @@ export default function App() {
     }
   };
 
+  // Solo Jest (1-Player) state
+  const [soloTheme, setSoloTheme] = useState<ThemePack | null>(null);
+  const [soloCharacter, setSoloCharacter] = useState<Character | null>(null);
+  const [soloRoundNumber, setSoloRoundNumber] = useState<number>(1);
+  const soloSeenCharactersRef = useRef<Set<string>>(new Set());
+  const soloSeenCategoryIdsRef = useRef<Set<string>>(new Set());
+
+  const handleStartSoloRound = (incrementRound = false) => {
+    // Pick a random verified category not recently used
+    const availableCats = VERIFIED_CATEGORIES.filter(
+      (cat) => !soloSeenCategoryIdsRef.current.has(cat.id)
+    );
+    const catPool = availableCats.length > 0 ? availableCats : VERIFIED_CATEGORIES;
+    if (availableCats.length === 0) {
+      soloSeenCategoryIdsRef.current.clear();
+    }
+
+    const chosenCat = catPool[Math.floor(Math.random() * catPool.length)];
+    soloSeenCategoryIdsRef.current.add(chosenCat.id);
+
+    // Filter to universally recognizable household icons so players don't get obscure or anime deep-cuts
+    const householdChars = chosenCat.characters.filter(isHouseholdIcon);
+    const basePool = householdChars.length > 0 ? householdChars : chosenCat.characters;
+
+    // Pick a character not yet seen in this Solo session
+    const unseenChars = basePool.filter(
+      (c) => !soloSeenCharactersRef.current.has(c.name.toLowerCase())
+    );
+    const charPool = unseenChars.length > 0 ? unseenChars : basePool;
+    const chosenChar = charPool[Math.floor(Math.random() * charPool.length)];
+    soloSeenCharactersRef.current.add(chosenChar.name.toLowerCase());
+
+    setSoloTheme({
+      id: `solo-${chosenCat.id}-${Date.now()}`,
+      name: chosenCat.name,
+      characters: basePool,
+    });
+    setSoloCharacter({
+      ...chosenChar,
+      imageUrl: `https://en.wikipedia.org/wiki/Special:FilePath/${encodeURIComponent(chosenChar.wikiSlug)}?width=400`,
+    });
+
+    if (incrementRound) {
+      setSoloRoundNumber((r) => r + 1);
+    } else {
+      setSoloRoundNumber(1);
+    }
+
+    setStage('solo_game');
+  };
+
   const activePlayer = players[activePlayerIndex] || players[0];
 
   return (
@@ -535,6 +588,7 @@ export default function App() {
         {stage === 'landing' && (
           <LandingScreen
             onStartSetup={() => setStage('setup')}
+            onStartSolo={() => handleStartSoloRound(false)}
             onOpenRules={() => setShowRules(true)}
           />
         )}
@@ -554,7 +608,19 @@ export default function App() {
                 prefetchRoundTheme(finalPlayers, selectedCommonality?.id, selectedCommonality?.trait);
               }
             }}
+            onStartSolo={() => handleStartSoloRound(false)}
             onBackToLanding={() => setStage('landing')}
+            onOpenRules={() => setShowRules(true)}
+          />
+        )}
+
+        {stage === 'solo_game' && soloTheme && soloCharacter && (
+          <SoloGameScreen
+            theme={soloTheme}
+            secretCharacter={soloCharacter}
+            roundNumber={soloRoundNumber}
+            onNewMystery={() => handleStartSoloRound(true)}
+            onGoHome={() => setStage('landing')}
             onOpenRules={() => setShowRules(true)}
           />
         )}
@@ -666,6 +732,7 @@ export default function App() {
       <RulesOverlay
         isOpen={showRules}
         onClose={() => setShowRules(false)}
+        defaultTab={stage === 'solo_game' ? 'solo' : 'party'}
       />
 
       {/* Dynamic Latency Tips & Sample Questions Overlay */}
